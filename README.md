@@ -30,10 +30,11 @@
 - [**2.26. Acessando propriedades com @ConfigurationProperties**](https://app.algaworks.com/aulas/1812/acessando-propriedades-com-configurationproperties)
 
 
-- [****]()
+- [**3.12. Excluindo um objeto do banco de dados**](https://app.algaworks.com/aulas/1826/excluindo-um-objeto-do-banco-de-dados)
+  - [Tutorial definitivo: Tudo o que você precisa para começar bem com JPA](https://blog.algaworks.com/tutorial-jpa/)
 
 
-- [****]()
+- [**3.13. Conhecendo o padrão Aggregate do DDD**](https://app.algaworks.com/aulas/1827/conhecendo-o-padrao-aggregate-do-ddd)
 
 
 - [****]()
