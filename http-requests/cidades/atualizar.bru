@@ -1,0 +1,33 @@
+meta {
+  name: atualizar
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{BASE_URL}}/cidades/{{id}}
+  body: json
+  auth: none
+}
+
+headers {
+  ~Accept: application/xml
+}
+
+body:json {
+  {
+    "nome": "Guarulhos",
+    "estado": {
+      "id": 3
+    }
+  }
+}
+
+vars:pre-request {
+  id: 6
+}
+
+assert {
+  res.body['nome']: eq Tailandesa
+  res.status: eq 200
+}

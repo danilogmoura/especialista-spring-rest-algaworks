@@ -2,7 +2,6 @@ package com.github.danilogmoura.algafood.jpa;
 
 
 import com.github.danilogmoura.algafood.AlgafoodApiApplication;
-import com.github.danilogmoura.algafood.domain.repository.CidadeRepository;
 import com.github.danilogmoura.algafood.domain.repository.RestauranteRepository;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -15,7 +14,7 @@ public class BuscaRestauranteMain {
             .web(WebApplicationType.NONE)
             .run(args);
 
-        var restauranteRepository = applicationContext.getBean(CidadeRepository.class);
+        var restauranteRepository = applicationContext.getBean(RestauranteRepository.class);
         restauranteRepository.listar().forEach(System.out::println);
     }
 }

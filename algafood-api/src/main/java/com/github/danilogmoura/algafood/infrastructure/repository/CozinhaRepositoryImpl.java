@@ -5,7 +5,9 @@ import com.github.danilogmoura.algafood.domain.repository.CozinhaRepository;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class CozinhaRepositoryImpl implements CozinhaRepository {
@@ -25,13 +27,20 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
     }
 
     @Override
+    @Transactional
     public Cozinha salvar(Cozinha cozinha) {
         return manager.merge(cozinha);
     }
 
     @Override
-    public void remover(Cozinha cozinha) {
-        cozinha = buscar(1L);
+    @Transactional
+    public void remover(Long id) {
+        var cozinha = buscar(id);
+
+        if (cozinha == null) {
+            throw new EmptyResultDataAccessException(1);
+        }
+
         manager.remove(cozinha);
     }
 }

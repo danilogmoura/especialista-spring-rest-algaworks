@@ -2,7 +2,7 @@
 
 ### ATUAL
 
-- [**2.20. Mudando o comportamento da aplicação com Spring Profiles**](https://app.algaworks.com/aulas/1806/mudando-o-comportamento-da-aplicacao-com-spring-profiles)
+- [**4.2. Conhecendo as constraints do REST**](https://app.algaworks.com/aulas/1836/conhecendo-as-constraints-do-rest)
 
 ### REVISÃO
 
@@ -31,16 +31,16 @@
 
 
 - [**3.12. Excluindo um objeto do banco de dados**](https://app.algaworks.com/aulas/1826/excluindo-um-objeto-do-banco-de-dados)
-  - [Tutorial definitivo: Tudo o que você precisa para começar bem com JPA](https://blog.algaworks.com/tutorial-jpa/)
+    - [Tutorial definitivo: Tudo o que você precisa para começar bem com JPA](https://blog.algaworks.com/tutorial-jpa/)
 
 
 - [**3.13. Conhecendo o padrão Aggregate do DDD**](https://app.algaworks.com/aulas/1827/conhecendo-o-padrao-aggregate-do-ddd)
 
 
-- [****]()
+- [**4.13. Implementando content negotiation para retornar JSON ou XML**](https://app.algaworks.com/aulas/1847/implementando-content-negotiation-para-retornar-json-ou-xml)
 
 
-- [****]()
+- [**4.22. Status HTTP para collection resource vazia: qual usar?**](https://app.algaworks.com/aulas/1856/status-http-para-collection-resource-vazia-qual-usar)
 
 
 - [****]()

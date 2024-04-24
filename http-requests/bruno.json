@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Especialista Spring REST",
+  "type": "collection",
+  "presets": {
+    "requestType": "http",
+    "requestUrl": ""
+  }
+}

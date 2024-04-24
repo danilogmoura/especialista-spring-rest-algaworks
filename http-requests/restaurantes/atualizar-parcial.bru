@@ -1,0 +1,26 @@
+meta {
+  name: atualizar-parcial
+  type: http
+  seq: 5
+}
+
+patch {
+  url: {{BASE_URL}}/restaurantes/1
+  body: json
+  auth: none
+}
+
+headers {
+  ~Accept: application/xml
+}
+
+body:json {
+  {
+    "taxaFrete": 100
+  }
+}
+
+assert {
+  res.body['nome']: eq Tailandesa
+  res.status: eq 200
+}
