@@ -50,7 +50,10 @@
 - [**5.20. Estendendo o JpaRepository para customizar o repositório base**](https://app.algaworks.com/aulas/1893/estendendo-o-jparepository-para-customizar-o-repositorio-base)
 
 
-- [****]()
+- [**6.10. Entendendo o Eager Loading**](https://app.algaworks.com/aulas/1903/entendendo-o-eager-loading)
+
+
+- [**6.11. Entendendo o Lazy Loading**](https://app.algaworks.com/aulas/1904/entendendo-o-lazy-loading)
 
 
 - [****]()
@@ -60,10 +63,6 @@
 
 
 - [****]()
-
-
-- [****]()
-
 
 ### DOCUMENTAÇÕES
 
@@ -73,7 +72,7 @@
 - [**Documentação do Spring Data JPA: Keywords de query methods**](https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html)
 
 
-- [****]()
+- [**Qual é a diferença entre INNER JOIN e OUTER JOIN?**](https://pt.stackoverflow.com/questions/6441/qual-%C3%A9-a-diferen%C3%A7a-entre-inner-join-e-outer-join)
 
 
 - [****]()
