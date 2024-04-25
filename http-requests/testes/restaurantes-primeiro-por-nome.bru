@@ -1,0 +1,15 @@
+meta {
+  name: restaurantes-primeiro-por-nome
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{BASE_URL}}/testes/restaurantes/primeiro-por-nome?nome=a
+  body: none
+  auth: none
+}
+
+query {
+  nome: a
+}

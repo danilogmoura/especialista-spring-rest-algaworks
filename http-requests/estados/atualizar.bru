@@ -5,7 +5,7 @@ meta {
 }
 
 put {
-  url: {{BASE_URL}}/estados/{{id}}
+  url: {{BASE_URL}}/estados/4
   body: json
   auth: none
 }
@@ -18,13 +18,4 @@ body:json {
   {
     "nome": "Rio Grande do Sul"
   }
-}
-
-vars:pre-request {
-  id: 4
-}
-
-assert {
-  res.body['nome']: eq Tailandesa
-  res.status: eq 200
 }

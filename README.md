@@ -2,7 +2,7 @@
 
 ### ATUAL
 
-- [**4.2. Conhecendo as constraints do REST**](https://app.algaworks.com/aulas/1836/conhecendo-as-constraints-do-rest)
+- [**5.1. Implementando consultas JPQL em repositórios**](https://app.algaworks.com/aulas/1874/implementando-consultas-jpql-em-repositorios)
 
 ### REVISÃO
 
@@ -31,8 +31,6 @@
 
 
 - [**3.12. Excluindo um objeto do banco de dados**](https://app.algaworks.com/aulas/1826/excluindo-um-objeto-do-banco-de-dados)
-    - [Tutorial definitivo: Tudo o que você precisa para começar bem com JPA](https://blog.algaworks.com/tutorial-jpa/)
-
 
 - [**3.13. Conhecendo o padrão Aggregate do DDD**](https://app.algaworks.com/aulas/1827/conhecendo-o-padrao-aggregate-do-ddd)
 
@@ -43,7 +41,13 @@
 - [**4.22. Status HTTP para collection resource vazia: qual usar?**](https://app.algaworks.com/aulas/1856/status-http-para-collection-resource-vazia-qual-usar)
 
 
-- [****]()
+- [**5.18. Criando uma fábrica de Specifications**](https://app.algaworks.com/aulas/1891/criando-uma-fabrica-de-specifications)
+
+
+- [**5.19. Injetando o próprio repositório na implementação customizada e a anotação @Lazy**](https://app.algaworks.com/aulas/1892/injetando-o-proprio-repositorio-na-implementacao-customizada-e-a-anotacao-lazy)
+
+
+- [**5.20. Estendendo o JpaRepository para customizar o repositório base**](https://app.algaworks.com/aulas/1893/estendendo-o-jparepository-para-customizar-o-repositorio-base)
 
 
 - [****]()
@@ -61,13 +65,12 @@
 - [****]()
 
 
-- [****]()
+### DOCUMENTAÇÕES
+
+- [Tutorial definitivo: Tudo o que você precisa para começar bem com JPA](https://blog.algaworks.com/tutorial-jpa/)
 
 
-- [****]()
-
-
-- [****]()
+- [**Documentação do Spring Data JPA: Keywords de query methods**](https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html)
 
 
 - [****]()

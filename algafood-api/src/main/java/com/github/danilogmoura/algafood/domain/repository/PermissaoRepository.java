@@ -1,15 +1,10 @@
 package com.github.danilogmoura.algafood.domain.repository;
 
 import com.github.danilogmoura.algafood.domain.model.Permissao;
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface PermissaoRepository {
+@Repository
+public interface PermissaoRepository extends JpaRepository<Permissao, Long> {
 
-    List<Permissao> listar();
-
-    Permissao buscar(Long id);
-
-    Permissao salvar(Permissao permissao);
-
-    void remover(Permissao permissao);
 }

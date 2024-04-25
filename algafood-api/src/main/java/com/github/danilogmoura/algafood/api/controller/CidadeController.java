@@ -31,18 +31,14 @@ public class CidadeController {
 
     @GetMapping
     public List<Cidade> listar() {
-        return cidadeRepository.listar();
+        return cidadeRepository.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Cidade> buscar(@PathVariable Long id) {
-        var cidade = cidadeRepository.buscar(id);
-
-        if (cidade != null) {
-            return ResponseEntity.ok(cidade);
-        }
-
-        return ResponseEntity.notFound().build();
+        return cidadeRepository.findById(id)
+            .map(ResponseEntity::ok)
+            .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -58,12 +54,16 @@ public class CidadeController {
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody Cidade cidade) {
         try {
-            var cidadeAtual = cidadeRepository.buscar(id);
-            if (cidadeAtual == null) {
+            var cidadeAtualOptional = cidadeRepository.findById(id);
+
+            if (cidadeAtualOptional.isEmpty()) {
                 return ResponseEntity.notFound().build();
             }
+
+            var cidadeAtual = cidadeAtualOptional.get();
             BeanUtils.copyProperties(cidade, cidadeAtual, "id");
             cidade = cadastroCidade.salvar(cidadeAtual);
+
             return ResponseEntity.ok(cidade);
         } catch (EntidadeEmUsoException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());

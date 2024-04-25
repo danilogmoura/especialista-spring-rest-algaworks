@@ -1,0 +1,16 @@
+meta {
+  name: restaurantes-por-taxa-frete
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{BASE_URL}}/testes/restaurantes/por-taxa-frete?taxaInicial=9.4&taxaFinal=9.6
+  body: none
+  auth: none
+}
+
+query {
+  taxaInicial: 9.4
+  taxaFinal: 9.6
+}

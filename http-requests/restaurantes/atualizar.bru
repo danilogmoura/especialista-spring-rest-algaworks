@@ -5,7 +5,7 @@ meta {
 }
 
 put {
-  url: {{BASE_URL}}/restaurantes/{{id}}
+  url: {{BASE_URL}}/restaurantes/4
   body: json
   auth: none
 }
@@ -16,19 +16,10 @@ headers {
 
 body:json {
   {
-    "nome": "Comida Mineira",
+    "nome": "Comida Paulista",
     "taxaFrete": 13,
     "cozinha": {
       "id": 2
     }
   }
-}
-
-vars:pre-request {
-  id: 1
-}
-
-assert {
-  res.body['nome']: eq Tailandesa
-  res.status: eq 200
 }

@@ -5,7 +5,7 @@ meta {
 }
 
 patch {
-  url: {{BASE_URL}}/restaurantes/1
+  url: {{BASE_URL}}/restaurantes/4
   body: json
   auth: none
 }
@@ -18,9 +18,4 @@ body:json {
   {
     "taxaFrete": 100
   }
-}
-
-assert {
-  res.body['nome']: eq Tailandesa
-  res.status: eq 200
 }

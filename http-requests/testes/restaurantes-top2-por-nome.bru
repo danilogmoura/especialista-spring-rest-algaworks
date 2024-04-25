@@ -1,0 +1,15 @@
+meta {
+  name: restaurantes-top2-por-nome
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{BASE_URL}}/testes/restaurantes/top2-por-nome?nome=a
+  body: none
+  auth: none
+}
+
+query {
+  nome: a
+}
