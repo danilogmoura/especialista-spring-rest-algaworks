@@ -56,7 +56,7 @@
 - [**6.11. Entendendo o Lazy Loading**](https://app.algaworks.com/aulas/1904/entendendo-o-lazy-loading)
 
 
-- [****]()
+- [**7.9. Criando migração a partir de DDL gerado por schema generation**](https://app.algaworks.com/aulas/1916/criando-migracao-a-partir-de-ddl-gerado-por-schema-generation)
 
 
 - [****]()
