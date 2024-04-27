@@ -1,22 +1,27 @@
 package com.github.danilogmoura.algafood.api.controller;
 
-import com.github.danilogmoura.algafood.domain.exception.EntidadeEmUsoException;
+import com.github.danilogmoura.algafood.api.exceptionhandler.Problema;
 import com.github.danilogmoura.algafood.domain.exception.EntidadeNaoEcontradaException;
+import com.github.danilogmoura.algafood.domain.exception.EstadoNaoEcontradoException;
+import com.github.danilogmoura.algafood.domain.exception.NegocioException;
 import com.github.danilogmoura.algafood.domain.model.Cidade;
 import com.github.danilogmoura.algafood.domain.repository.CidadeRepository;
-import com.github.danilogmoura.algafood.domain.service.CadastroCidadeService;
+import com.github.danilogmoura.algafood.domain.service.CidadeService;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,7 +32,7 @@ public class CidadeController {
     private CidadeRepository cidadeRepository;
 
     @Autowired
-    private CadastroCidadeService cadastroCidade;
+    private CidadeService cidadeService;
 
     @GetMapping
     public List<Cidade> listar() {
@@ -35,50 +40,54 @@ public class CidadeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cidade> buscar(@PathVariable Long id) {
-        return cidadeRepository.findById(id)
-            .map(ResponseEntity::ok)
-            .orElseGet(() -> ResponseEntity.notFound().build());
+    public Cidade buscar(@PathVariable Long id) {
+        return cidadeService.buscarOuFalhar(id);
     }
 
     @PostMapping
-    public ResponseEntity<?> adicionar(@RequestBody Cidade cidade) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public Cidade adicionar(@RequestBody Cidade cidade) {
         try {
-            cidade = cadastroCidade.salvar(cidade);
-            return ResponseEntity.ok(cidade);
-        } catch (EntidadeNaoEcontradaException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+            return cidadeService.salvar(cidade);
+        } catch (EstadoNaoEcontradoException e) {
+            throw new NegocioException(e.getMessage(), e);
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody Cidade cidade) {
+    public Cidade atualizar(@PathVariable Long id, @RequestBody Cidade cidade) {
         try {
-            var cidadeAtualOptional = cidadeRepository.findById(id);
-
-            if (cidadeAtualOptional.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
-
-            var cidadeAtual = cidadeAtualOptional.get();
+            var cidadeAtual = cidadeService.buscarOuFalhar(id);
             BeanUtils.copyProperties(cidade, cidadeAtual, "id");
-            cidade = cadastroCidade.salvar(cidadeAtual);
-
-            return ResponseEntity.ok(cidade);
-        } catch (EntidadeEmUsoException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        } catch (EntidadeNaoEcontradaException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return cidadeService.salvar(cidadeAtual);
+        } catch (EstadoNaoEcontradoException e) {
+            throw new NegocioException(e.getMessage(), e);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> remover(@PathVariable Long id) {
-        try {
-            cadastroCidade.remover(id);
-            return ResponseEntity.noContent().build();
-        } catch (EntidadeNaoEcontradaException e) {
-            return ResponseEntity.notFound().build();
-        }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable Long id) {
+        cidadeService.remover(id);
+    }
+
+    @ExceptionHandler(EntidadeNaoEcontradaException.class)
+    public ResponseEntity<?> tratarEntidadeNaoEcontradaException(EntidadeNaoEcontradaException e) {
+        var problema = Problema.builder()
+            .dataHora(LocalDateTime.now())
+            .mensagem(e.getMessage()).build();
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(problema);
+    }
+
+    @ExceptionHandler(NegocioException.class)
+    public ResponseEntity<?> tratarNegocioException(NegocioException e) {
+        var problema = Problema.builder()
+            .dataHora(LocalDateTime.now())
+            .mensagem(e.getMessage()).build();
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(problema);
     }
 }

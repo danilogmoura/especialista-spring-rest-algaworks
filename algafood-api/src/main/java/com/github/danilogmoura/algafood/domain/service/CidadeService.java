@@ -1,28 +1,24 @@
 package com.github.danilogmoura.algafood.domain.service;
 
-import com.github.danilogmoura.algafood.domain.exception.EntidadeNaoEcontradaException;
+import com.github.danilogmoura.algafood.domain.exception.CidadeNaoEcontradaException;
 import com.github.danilogmoura.algafood.domain.model.Cidade;
 import com.github.danilogmoura.algafood.domain.repository.CidadeRepository;
-import com.github.danilogmoura.algafood.domain.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CadastroCidadeService {
+public class CidadeService {
 
     @Autowired
     private CidadeRepository cidadeRepository;
 
     @Autowired
-    private EstadoRepository estadoRepository;
+    private EstadoService estadoService;
 
     public Cidade salvar(Cidade cidade) {
         var estadoId = cidade.getEstado().getId();
-        var estado = estadoRepository.findById(estadoId)
-            .orElseThrow(() -> new EntidadeNaoEcontradaException(String.format("Não existe cadastro de estado com "
-                + "código %d", estadoId)));
-
+        var estado = estadoService.buscarOuFalhar(estadoId);
         cidade.setEstado(estado);
         return cidadeRepository.save(cidade);
     }
@@ -31,7 +27,12 @@ public class CadastroCidadeService {
         try {
             cidadeRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-            throw new EntidadeNaoEcontradaException(String.format("Cidade com código %d não foi cadastrado", id));
+            throw new CidadeNaoEcontradaException(id);
         }
+    }
+
+    public Cidade buscarOuFalhar(Long id) {
+        return cidadeRepository.findById(id)
+            .orElseThrow(() -> new CidadeNaoEcontradaException(id));
     }
 }

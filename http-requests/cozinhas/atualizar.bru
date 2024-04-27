@@ -5,7 +5,7 @@ meta {
 }
 
 put {
-  url: {{BASE_URL}}/cozinhas/{{id}}
+  url: {{BASE_URL}}/cozinhas/1
   body: json
   auth: none
 }
@@ -18,13 +18,4 @@ body:json {
   {
     "nome": "Argentina"
   }
-}
-
-vars:pre-request {
-  id: 1
-}
-
-assert {
-  res.body['nome']: eq Tailandesa
-  res.status: eq 200
 }
