@@ -5,11 +5,12 @@ meta {
 }
 
 get {
-  url: {{BASE_URL}}/cidades/10
+  url: {{BASE_URL}}/cidades/1
   body: none
   auth: none
 }
 
 headers {
+  ~Content-Type: application/xml
   ~Accept: application/xml
 }

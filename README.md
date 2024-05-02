@@ -59,6 +59,21 @@
 - [**7.9. Criando migração a partir de DDL gerado por schema generation**](https://app.algaworks.com/aulas/1916/criando-migracao-a-partir-de-ddl-gerado-por-schema-generation)
 
 
+- [**8.17. Conhecendo a RFC 7807 (Problem Details for HTTP APIs)**](https://app.algaworks.com/aulas/1936/conhecendo-a-rfc-7807-problem-details-for-http-apis)
+
+
+- [****]()
+
+
+- [****]()
+
+
+- [****]()
+
+
+- [****]()
+
+
 - [****]()
 
 
