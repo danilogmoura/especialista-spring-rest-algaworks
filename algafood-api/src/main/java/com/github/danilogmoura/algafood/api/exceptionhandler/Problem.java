@@ -3,6 +3,7 @@ package com.github.danilogmoura.algafood.api.exceptionhandler;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -18,4 +19,14 @@ public class Problem {
 
     private String userMessage;
     private LocalDateTime timestamp;
+
+    private List<Object> objects;
+
+    @Getter
+    @Builder
+    public static class Object {
+
+        private String name;
+        private String userMessage;
+    }
 }

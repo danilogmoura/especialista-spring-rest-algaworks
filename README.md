@@ -90,4 +90,22 @@
 - [**Qual é a diferença entre INNER JOIN e OUTER JOIN?**](https://pt.stackoverflow.com/questions/6441/qual-%C3%A9-a-diferen%C3%A7a-entre-inner-join-e-outer-join)
 
 
+- [**Constraints do Bean Validation**](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-builtin-constraints)
+
+
+- [**Como setar no spring para utilizar o "ValidationMessages_pt_BR.properties" como resource padrão**](https://app.algaworks.com/forum/topicos/81267/como-setar-no-spring-para-utilizar-o-validationmessages_pt_br-properties-como-resource-padrao)
+
+
+- [****]()
+
+
+- [****]()
+
+
+- [****]()
+
+
+- [****]()
+
+
 - [****]()
