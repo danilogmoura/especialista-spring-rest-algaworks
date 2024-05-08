@@ -62,7 +62,7 @@
 - [**8.17. Conhecendo a RFC 7807 (Problem Details for HTTP APIs)**](https://app.algaworks.com/aulas/1936/conhecendo-a-rfc-7807-problem-details-for-http-apis)
 
 
-- [****]()
+- [**11.21. Corrigindo bug de tratamento de exception de integridade de dados com flush do JPA**](https://app.algaworks.com/aulas/2006/corrigindo-bug-de-tratamento-de-exception-de-integridade-de-dados-com-flush-do-jpa)
 
 
 - [****]()

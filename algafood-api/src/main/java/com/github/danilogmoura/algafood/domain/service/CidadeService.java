@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CidadeService {
@@ -20,6 +21,7 @@ public class CidadeService {
     @Autowired
     private EstadoService estadoService;
 
+    @Transactional
     public Cidade salvar(Cidade cidade) {
         var estadoId = cidade.getEstado().getId();
         var estado = estadoService.buscarOuFalhar(estadoId);
@@ -27,9 +29,11 @@ public class CidadeService {
         return cidadeRepository.save(cidade);
     }
 
+    @Transactional
     public void remover(Long id) {
         try {
             cidadeRepository.deleteById(id);
+            cidadeRepository.flush();
         } catch (EmptyResultDataAccessException e) {
             throw new CidadeNaoEcontradaException(id);
         } catch (DataIntegrityViolationException e) {
@@ -38,6 +42,7 @@ public class CidadeService {
     }
 
     public Cidade buscarOuFalhar(Long id) {
-        return cidadeRepository.findById(id).orElseThrow(() -> new CidadeNaoEcontradaException(id));
+        return cidadeRepository.findById(id)
+            .orElseThrow(() -> new CidadeNaoEcontradaException(id));
     }
 }

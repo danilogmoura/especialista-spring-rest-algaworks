@@ -8,8 +8,10 @@ create table forma_pagamento
 
 create table grupo
 (
-    id   bigint      not null auto_increment,
-    nome varchar(60) not null,
+    id               bigint      not null auto_increment,
+    nome             varchar(60) not null,
+    data_cadastro    datetime    not null,
+    data_atualizacao datetime    not null,
 
     primary key (id)
 ) engine = InnoDB
@@ -26,9 +28,11 @@ create table grupo_permissao
 
 create table permissao
 (
-    id        bigint       not null auto_increment,
-    descricao varchar(60)  not null,
-    nome      varchar(100) not null,
+    id               bigint       not null auto_increment,
+    descricao        varchar(60)  not null,
+    nome             varchar(100) not null,
+    data_cadastro    datetime     not null,
+    data_atualizacao datetime     not null,
 
     primary key (id)
 ) engine = InnoDB
@@ -36,12 +40,14 @@ create table permissao
 
 create table produto
 (
-    id             bigint         not null auto_increment,
-    restaurante_id bigint         not null,
-    nome           varchar(80)    not null,
-    descricao      text           not null,
-    preco          decimal(10, 2) not null,
-    ativo          tinyint(1)     not null,
+    id               bigint         not null auto_increment,
+    restaurante_id   bigint         not null,
+    nome             varchar(80)    not null,
+    descricao        text           not null,
+    preco            decimal(10, 2) not null,
+    ativo            tinyint(1)     not null,
+    data_cadastro    datetime       not null,
+    data_atualizacao datetime       not null,
 
     primary key (id)
 ) engine = InnoDB
@@ -53,8 +59,8 @@ create table restaurante
     cozinha_id           bigint         not null,
     nome                 varchar(80)    not null,
     taxa_frete           decimal(10, 2) not null,
-    data_atualizacao     datetime       not null,
     data_cadastro        datetime       not null,
+    data_atualizacao     datetime       not null,
 
     endereco_cidade_id   bigint,
     endereco_cep         varchar(9),
@@ -78,11 +84,12 @@ create table restaurante_forma_pagamento
 
 create table usuario
 (
-    id            bigint       not null auto_increment,
-    nome          varchar(80)  not null,
-    email         varchar(255) not null,
-    senha         varchar(255) not null,
-    data_cadastro datetime     not null,
+    id               bigint       not null auto_increment,
+    nome             varchar(80)  not null,
+    email            varchar(255) not null,
+    senha            varchar(255) not null,
+    data_cadastro    datetime     not null,
+    data_atualizacao datetime     not null,
 
     primary key (id)
 ) engine = InnoDB
