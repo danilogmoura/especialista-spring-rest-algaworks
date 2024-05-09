@@ -1,0 +1,16 @@
+meta {
+  name: buscar
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{BASE_URL}}/grupos/1
+  body: none
+  auth: none
+}
+
+headers {
+  ~Content-Type: application/xml
+  ~Accept: application/xml
+}

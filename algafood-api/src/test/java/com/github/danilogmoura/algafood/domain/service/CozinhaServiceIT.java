@@ -3,7 +3,7 @@ package com.github.danilogmoura.algafood.domain.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.github.danilogmoura.algafood.domain.exception.CozinhaNaoEcontradaException;
+import com.github.danilogmoura.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.github.danilogmoura.algafood.domain.exception.EntidadeEmUsoException;
 import com.github.danilogmoura.algafood.domain.model.Cozinha;
 import javax.validation.ConstraintViolationException;
@@ -44,7 +44,7 @@ class CozinhaServiceIT {
     @Test
     void deveFalhar_QuandoExcluirCozinhaInexistente() {
         var cozinhaId = 100L;
-        assertThrows(CozinhaNaoEcontradaException.class, () -> cozinhaService.remover(cozinhaId));
+        assertThrows(CozinhaNaoEncontradaException.class, () -> cozinhaService.remover(cozinhaId));
     }
 
 }

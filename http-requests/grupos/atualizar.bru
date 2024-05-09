@@ -1,0 +1,22 @@
+meta {
+  name: atualizar
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{BASE_URL}}/grupos/1
+  body: json
+  auth: none
+}
+
+headers {
+  ~Accept: application/xml
+  ~Content-Type: application/xml
+}
+
+body:json {
+  {
+    "nome": "Gerente Geral"
+  }
+}

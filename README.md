@@ -65,7 +65,7 @@
 - [**11.21. Corrigindo bug de tratamento de exception de integridade de dados com flush do JPA**](https://app.algaworks.com/aulas/2006/corrigindo-bug-de-tratamento-de-exception-de-integridade-de-dados-com-flush-do-jpa)
 
 
-- [****]()
+- [**12.14. Desafio: Implementando os endpoints de abertura e fechamento de restaurantes**](https://app.algaworks.com/aulas/2020/desafio-implementando-os-endpoints-de-abertura-e-fechamento-de-restaurantes)
 
 
 - [****]()

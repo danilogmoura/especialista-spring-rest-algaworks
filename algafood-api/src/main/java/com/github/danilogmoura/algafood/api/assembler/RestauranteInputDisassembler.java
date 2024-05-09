@@ -1,6 +1,7 @@
 package com.github.danilogmoura.algafood.api.assembler;
 
 import com.github.danilogmoura.algafood.api.model.input.RestauranteInput;
+import com.github.danilogmoura.algafood.domain.model.Cidade;
 import com.github.danilogmoura.algafood.domain.model.Cozinha;
 import com.github.danilogmoura.algafood.domain.model.Restaurante;
 import org.modelmapper.ModelMapper;
@@ -21,6 +22,10 @@ public class RestauranteInputDisassembler {
         // Para evitar org.hibernate.HibernateException: identifier of an instance of
         // com.github.danilogmoura.domain.model.Cozinha was altered from 1 to 2
         restaurante.setCozinha(new Cozinha());
+
+        if (restaurante.getEndereco() != null) {
+            restaurante.getEndereco().setCidade(new Cidade());
+        }
 
         modelMapper.map(restauranteInput, restaurante);
     }

@@ -1,6 +1,5 @@
 package com.github.danilogmoura.algafood.domain.model;
 
-import com.github.danilogmoura.algafood.core.validation.Groups.CozinhaId;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
@@ -22,13 +19,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 public class Cozinha {
 
-    @NotNull(groups = CozinhaId.class)
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     @Column(nullable = false)
     private String nome;
 

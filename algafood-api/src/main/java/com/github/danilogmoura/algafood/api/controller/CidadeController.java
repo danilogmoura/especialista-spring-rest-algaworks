@@ -4,7 +4,7 @@ import com.github.danilogmoura.algafood.api.assembler.CidadeInputDisassembler;
 import com.github.danilogmoura.algafood.api.assembler.CidadeModelAssembler;
 import com.github.danilogmoura.algafood.api.model.CidadeModel;
 import com.github.danilogmoura.algafood.api.model.input.CidadeInput;
-import com.github.danilogmoura.algafood.domain.exception.EstadoNaoEcontradoException;
+import com.github.danilogmoura.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.github.danilogmoura.algafood.domain.exception.NegocioException;
 import com.github.danilogmoura.algafood.domain.repository.CidadeRepository;
 import com.github.danilogmoura.algafood.domain.service.CidadeService;
@@ -55,7 +55,7 @@ public class CidadeController {
         try {
             var cidade = cidadeInputDisassembler.toDomainObjetct(cidadeInput);
             return cidadeModelAssembler.toModel(cidadeService.salvar(cidade));
-        } catch (EstadoNaoEcontradoException e) {
+        } catch (EstadoNaoEncontradoException e) {
             throw new NegocioException(e.getMessage(), e);
         }
     }
@@ -68,7 +68,7 @@ public class CidadeController {
             cidadeInputDisassembler.copyToDomainObject(cidadeInput, cidadeAtual);
 //            BeanUtils.copyProperties(cidadeInput, cidadeAtual, "id");
             return cidadeModelAssembler.toModel(cidadeService.salvar(cidadeAtual));
-        } catch (EstadoNaoEcontradoException e) {
+        } catch (EstadoNaoEncontradoException e) {
             throw new NegocioException(e.getMessage(), e);
         }
     }

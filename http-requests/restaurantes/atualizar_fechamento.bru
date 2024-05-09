@@ -1,0 +1,31 @@
+meta {
+  name: atualizar_fechamento
+  type: http
+  seq: 17
+}
+
+put {
+  url: {{BASE_URL}}/restaurantes/1/fechamento
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nome": "Tradição Mineira",
+    "taxa_frete": 13,
+    "cozinha": {
+      "id": 1
+    },
+    "endereco": {
+      "cep": "38400-999",
+      "logradouro": "Rua Afonso Pena",
+      "numero": "2000",
+      "complemento": null,
+      "bairro": "Centro",
+      "cidade": {
+        "id": 3
+      }
+    }
+  }
+}

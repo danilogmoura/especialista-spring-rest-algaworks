@@ -1,0 +1,23 @@
+meta {
+  name: atualizar
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{BASE_URL}}/usuarios/5
+  body: json
+  auth: none
+}
+
+headers {
+  ~Accept: application/xml
+  ~Content-Type: application/xml
+}
+
+body:json {
+  {
+    "nome": "Thiago Faria333",
+    "email": "sebastiao.cad@algafood.com"
+  }
+}

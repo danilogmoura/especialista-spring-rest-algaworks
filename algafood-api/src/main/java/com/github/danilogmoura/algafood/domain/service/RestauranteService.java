@@ -1,7 +1,7 @@
 package com.github.danilogmoura.algafood.domain.service;
 
 import com.github.danilogmoura.algafood.domain.exception.EntidadeEmUsoException;
-import com.github.danilogmoura.algafood.domain.exception.RestauranteNaoEcontradoException;
+import com.github.danilogmoura.algafood.domain.exception.RestauranteNaoEncontradoException;
 import com.github.danilogmoura.algafood.domain.model.Restaurante;
 import com.github.danilogmoura.algafood.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,28 +22,78 @@ public class RestauranteService {
     @Autowired
     private CozinhaService cozinhaService;
 
+    @Autowired
+    private CidadeService cidadeService;
+
+    @Autowired
+    private FormaPagamentoService formaPagamentoService;
+
     @Transactional
     public Restaurante salvar(Restaurante restaurante) {
         var cozinhaId = restaurante.getCozinha().getId();
+        var cidadeId = restaurante.getEndereco().getCidade().getId();
+
         var cozinha = cozinhaService.buscarOuFalhar(cozinhaId);
+        var cidade = cidadeService.buscarOuFalhar(cidadeId);
+
         restaurante.setCozinha(cozinha);
+        restaurante.getEndereco().setCidade(cidade);
+
         return restauranteRepository.save(restaurante);
     }
 
     @Transactional
-    public void remover(Long id) {
+    public void remover(Long restauranteId) {
         try {
-            restauranteRepository.deleteById(id);
+            restauranteRepository.deleteById(restauranteId);
             restauranteRepository.flush();
         } catch (EmptyResultDataAccessException e) {
-            throw new RestauranteNaoEcontradoException(id);
+            throw new RestauranteNaoEncontradoException(restauranteId);
         } catch (DataIntegrityViolationException e) {
-            throw new EntidadeEmUsoException(String.format(MSG_RESTAURANTE_EM_USO, id));
+            throw new EntidadeEmUsoException(String.format(MSG_RESTAURANTE_EM_USO, restauranteId));
         }
     }
 
-    public Restaurante buscarOuFalhar(Long id) {
-        return restauranteRepository.findById(id)
-            .orElseThrow(() -> new RestauranteNaoEcontradoException(id));
+    @Transactional
+    public void ativar(Long restauranteId) {
+        var restaurante = buscarOuFalhar(restauranteId);
+        restaurante.ativar();
+    }
+
+    @Transactional
+    public void inativar(Long restauranteId) {
+        var restaurante = buscarOuFalhar(restauranteId);
+        restaurante.inativar();
+    }
+
+    @Transactional
+    public void abrir(Long restauranteId) {
+        var restaurante = buscarOuFalhar(restauranteId);
+        restaurante.abrir();
+    }
+
+    @Transactional
+    public void fechar(Long restauranteId) {
+        var restaurante = buscarOuFalhar(restauranteId);
+        restaurante.fechar();
+    }
+
+    @Transactional
+    public void desassociarFormaPagamento(Long restauranteId, Long formaPagamentoId) {
+        var restaurante = buscarOuFalhar(restauranteId);
+        var formaPagamento = formaPagamentoService.buscarOuFalhar(formaPagamentoId);
+        restaurante.removerFormaPagamento(formaPagamento);
+    }
+
+    @Transactional
+    public void associarFormaPagamento(Long restauranteId, Long formaPagamentoId) {
+        var restaurante = buscarOuFalhar(restauranteId);
+        var formaPagamento = formaPagamentoService.buscarOuFalhar(formaPagamentoId);
+        restaurante.adicionarFormaPagamento(formaPagamento);
+    }
+
+    public Restaurante buscarOuFalhar(Long restauranteId) {
+        return restauranteRepository.findById(restauranteId)
+            .orElseThrow(() -> new RestauranteNaoEncontradoException(restauranteId));
     }
 }

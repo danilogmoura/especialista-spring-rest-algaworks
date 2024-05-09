@@ -1,0 +1,15 @@
+meta {
+  name: listar
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{BASE_URL}}/grupos
+  body: none
+  auth: none
+}
+
+headers {
+  ~Accept: application/xml
+}

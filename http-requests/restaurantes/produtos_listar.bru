@@ -1,0 +1,15 @@
+meta {
+  name: produtos_listar
+  type: http
+  seq: 12
+}
+
+get {
+  url: {{BASE_URL}}/restaurantes/1/produtos
+  body: none
+  auth: none
+}
+
+headers {
+  ~Accept: application/xml
+}

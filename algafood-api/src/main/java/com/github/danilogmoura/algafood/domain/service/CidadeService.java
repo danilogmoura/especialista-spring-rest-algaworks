@@ -1,6 +1,6 @@
 package com.github.danilogmoura.algafood.domain.service;
 
-import com.github.danilogmoura.algafood.domain.exception.CidadeNaoEcontradaException;
+import com.github.danilogmoura.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.github.danilogmoura.algafood.domain.exception.EntidadeEmUsoException;
 import com.github.danilogmoura.algafood.domain.model.Cidade;
 import com.github.danilogmoura.algafood.domain.repository.CidadeRepository;
@@ -35,7 +35,7 @@ public class CidadeService {
             cidadeRepository.deleteById(id);
             cidadeRepository.flush();
         } catch (EmptyResultDataAccessException e) {
-            throw new CidadeNaoEcontradaException(id);
+            throw new CidadeNaoEncontradaException(id);
         } catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(String.format(MSG_CIDADE_EM_USO, id));
         }
@@ -43,6 +43,6 @@ public class CidadeService {
 
     public Cidade buscarOuFalhar(Long id) {
         return cidadeRepository.findById(id)
-            .orElseThrow(() -> new CidadeNaoEcontradaException(id));
+            .orElseThrow(() -> new CidadeNaoEncontradaException(id));
     }
 }

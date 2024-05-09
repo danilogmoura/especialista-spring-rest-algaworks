@@ -2,6 +2,7 @@ package com.github.danilogmoura.algafood.api.assembler;
 
 import com.github.danilogmoura.algafood.api.model.RestauranteModel;
 import com.github.danilogmoura.algafood.domain.model.Restaurante;
+import java.util.Collection;
 import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,7 @@ public class RestauranteModelAssembler {
         return modelMapper.map(restaurante, RestauranteModel.class);
     }
 
-    public List<RestauranteModel> toCollectionModel(List<Restaurante> restaurantes) {
-        return restaurantes.stream()
-            .map(this::toModel)
-            .toList();
+    public List<RestauranteModel> toCollectionModel(Collection<Restaurante> restaurantes) {
+        return restaurantes.stream().map(this::toModel).toList();
     }
 }

@@ -1,0 +1,15 @@
+meta {
+  name: inativar
+  type: http
+  seq: 8
+}
+
+delete {
+  url: {{BASE_URL}}/restaurantes/1/inativar
+  body: none
+  auth: none
+}
+
+headers {
+  ~Accept: application/xml
+}

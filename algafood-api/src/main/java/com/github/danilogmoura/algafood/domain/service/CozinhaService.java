@@ -1,6 +1,6 @@
 package com.github.danilogmoura.algafood.domain.service;
 
-import com.github.danilogmoura.algafood.domain.exception.CozinhaNaoEcontradaException;
+import com.github.danilogmoura.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.github.danilogmoura.algafood.domain.exception.EntidadeEmUsoException;
 import com.github.danilogmoura.algafood.domain.model.Cozinha;
 import com.github.danilogmoura.algafood.domain.repository.CozinhaRepository;
@@ -29,7 +29,7 @@ public class CozinhaService {
             cozinhaRepository.deleteById(id);
             cozinhaRepository.flush();
         } catch (EmptyResultDataAccessException e) {
-            throw new CozinhaNaoEcontradaException(id);
+            throw new CozinhaNaoEncontradaException(id);
         } catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(String.format(MSG_COZINHA_EM_USO, id));
         }
@@ -37,6 +37,6 @@ public class CozinhaService {
 
     public Cozinha buscarOuFalhar(Long id) {
         return cozinhaRepository.findById(id)
-            .orElseThrow(() -> new CozinhaNaoEcontradaException(id));
+            .orElseThrow(() -> new CozinhaNaoEncontradaException(id));
     }
 }

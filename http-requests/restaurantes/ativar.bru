@@ -1,0 +1,15 @@
+meta {
+  name: ativar
+  type: http
+  seq: 7
+}
+
+put {
+  url: {{BASE_URL}}/restaurantes/1/ativar
+  body: none
+  auth: none
+}
+
+headers {
+  ~Accept: application/xml
+}

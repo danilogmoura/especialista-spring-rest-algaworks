@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
 import com.github.danilogmoura.algafood.core.validation.ValidacaoException;
 import com.github.danilogmoura.algafood.domain.exception.EntidadeEmUsoException;
-import com.github.danilogmoura.algafood.domain.exception.EntidadeNaoEcontradaException;
+import com.github.danilogmoura.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.github.danilogmoura.algafood.domain.exception.NegocioException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -199,8 +199,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, problem, headers, status, request);
     }
 
-    @ExceptionHandler(EntidadeNaoEcontradaException.class)
-    public ResponseEntity<Object> handleEntidadeNaoEcontrada(EntidadeNaoEcontradaException ex,
+    @ExceptionHandler(EntidadeNaoEncontradaException.class)
+    public ResponseEntity<Object> handleEntidadeNaoEcontrada(EntidadeNaoEncontradaException ex,
         WebRequest request) {
 
         var status = HttpStatus.NOT_FOUND;

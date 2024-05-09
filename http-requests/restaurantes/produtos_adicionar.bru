@@ -1,0 +1,24 @@
+meta {
+  name: produtos_adicionar
+  type: http
+  seq: 14
+}
+
+post {
+  url: {{BASE_URL}}/restaurantes/1/produtos
+  body: json
+  auth: none
+}
+
+headers {
+  ~Accept: application/xml
+}
+
+body:json {
+  {
+    "nome": "Frango com molho de laranja",
+    "descricao": "Saboroso frango ao molho cítrico",
+    "preco": 65.5,
+    "ativo": false
+  }
+}

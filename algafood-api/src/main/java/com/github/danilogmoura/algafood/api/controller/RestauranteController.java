@@ -7,7 +7,8 @@ import com.github.danilogmoura.algafood.api.assembler.RestauranteModelAssembler;
 import com.github.danilogmoura.algafood.api.model.RestauranteModel;
 import com.github.danilogmoura.algafood.api.model.input.RestauranteInput;
 import com.github.danilogmoura.algafood.core.validation.ValidacaoException;
-import com.github.danilogmoura.algafood.domain.exception.CozinhaNaoEcontradaException;
+import com.github.danilogmoura.algafood.domain.exception.CidadeNaoEncontradaException;
+import com.github.danilogmoura.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.github.danilogmoura.algafood.domain.exception.NegocioException;
 import com.github.danilogmoura.algafood.domain.model.Restaurante;
 import com.github.danilogmoura.algafood.domain.repository.RestauranteRepository;
@@ -73,7 +74,7 @@ public class RestauranteController {
         try {
             var restaurante = restauranteInputDisassembler.toDomainObjetct(restauranteInput);
             return restauranteModelAssembler.toModel(restauranteService.salvar(restaurante));
-        } catch (CozinhaNaoEcontradaException e) {
+        } catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage(), e);
         }
     }
@@ -86,7 +87,7 @@ public class RestauranteController {
             restauranteInputDisassembler.copyToDomainObject(restauranteInput, restauranteAtual);
 
             return restauranteModelAssembler.toModel(restauranteService.salvar(restauranteAtual));
-        } catch (CozinhaNaoEcontradaException e) {
+        } catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage(), e);
         }
     }
@@ -104,7 +105,7 @@ public class RestauranteController {
                 "dataCadastro", "produtos");
 
             return restauranteModelAssembler.toModel(restauranteService.salvar(restauranteAtual));
-        } catch (CozinhaNaoEcontradaException e) {
+        } catch (CozinhaNaoEncontradaException e) {
             throw new NegocioException(e.getMessage(), e);
         }
     }
@@ -112,6 +113,30 @@ public class RestauranteController {
     @DeleteMapping("/{id}")
     public void remover(@PathVariable Long id) {
         restauranteService.remover(id);
+    }
+
+    @PutMapping("/{id}/ativar")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void ativar(@PathVariable Long id) {
+        restauranteService.ativar(id);
+    }
+
+    @DeleteMapping("/{id}/inativar")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void inativar(@PathVariable Long id) {
+        restauranteService.inativar(id);
+    }
+
+    @PutMapping("/{restauranteId}/abertura")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void abertura(@PathVariable Long restauranteId) {
+        restauranteService.abrir(restauranteId);
+    }
+
+    @PutMapping("/{restauranteId}/fechamento")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void fechamento(@PathVariable Long restauranteId) {
+        restauranteService.fechar(restauranteId);
     }
 
     private void validate(Restaurante restaurante) {
