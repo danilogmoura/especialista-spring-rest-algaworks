@@ -1,11 +1,11 @@
 meta {
-  name: atualizar_senha
+  name: usuarios_atualizar
   type: http
-  seq: 6
+  seq: 4
 }
 
 put {
-  url: {{BASE_URL}}/usuarios/1/senha
+  url: {{BASE_URL}}/usuarios/5
   body: json
   auth: none
 }
@@ -17,7 +17,7 @@ headers {
 
 body:json {
   {
-    "senha_atual": "123",
-    "nova_senha": "asd"
+    "nome": "Thiago Faria333",
+    "email": "sebastiao.cad@algafood.com"
   }
 }

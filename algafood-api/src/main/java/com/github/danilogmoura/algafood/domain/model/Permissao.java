@@ -23,6 +23,9 @@ public class Permissao {
     @Column(nullable = false)
     private String nome;
 
+    @Column(nullable = false)
+    private String descricao;
+
     @CreationTimestamp
     @Column(nullable = false, columnDefinition = "datetime")
     private OffsetDateTime dataCadastro;
@@ -30,7 +33,4 @@ public class Permissao {
     @UpdateTimestamp
     @Column(nullable = false, columnDefinition = "datetime")
     private OffsetDateTime dataAtualizacao;
-
-    @Column(nullable = false)
-    private String descricao;
 }

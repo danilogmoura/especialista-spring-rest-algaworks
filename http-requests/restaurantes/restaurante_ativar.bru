@@ -1,11 +1,11 @@
 meta {
-  name: listar
+  name: restaurante_ativar
   type: http
-  seq: 1
+  seq: 7
 }
 
-get {
-  url: {{BASE_URL}}/grupos
+put {
+  url: {{BASE_URL}}/restaurantes/1/ativar
   body: none
   auth: none
 }

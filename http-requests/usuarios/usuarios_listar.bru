@@ -1,16 +1,15 @@
 meta {
-  name: buscar
+  name: usuarios_listar
   type: http
-  seq: 2
+  seq: 1
 }
 
 get {
-  url: {{BASE_URL}}/grupos/1
+  url: {{BASE_URL}}/usuarios
   body: none
   auth: none
 }
 
 headers {
-  ~Content-Type: application/xml
   ~Accept: application/xml
 }

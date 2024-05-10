@@ -1,0 +1,16 @@
+meta {
+  name: permissoes_desassociar
+  type: http
+  seq: 8
+}
+
+delete {
+  url: {{BASE_URL}}/grupos/1/permissoes/1
+  body: none
+  auth: none
+}
+
+headers {
+  ~Accept: application/xml
+  ~Content-Type: application/xml
+}

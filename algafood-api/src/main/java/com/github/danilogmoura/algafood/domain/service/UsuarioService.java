@@ -15,6 +15,9 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private GrupoService grupoService;
+
 
     public Usuario buscarOuFalhar(Long id) {
         return usuarioRepository.findById(id)
@@ -54,5 +57,19 @@ public class UsuarioService {
         } catch (EmptyResultDataAccessException e) {
             throw new UsuarioNaoEncontradoException(id);
         }
+    }
+
+    @Transactional
+    public void adicionarGrupo(Long usuarioId, Long grupoId) {
+        var usuario = buscarOuFalhar(usuarioId);
+        var grupo = grupoService.buscarOuFalhar(grupoId);
+        usuario.adicionarGrupo(grupo);
+    }
+
+    @Transactional
+    public void removerGrupo(Long usuarioId, Long grupoId) {
+        var usuario = buscarOuFalhar(usuarioId);
+        var grupo = grupoService.buscarOuFalhar(grupoId);
+        usuario.removerGrupo(grupo);
     }
 }

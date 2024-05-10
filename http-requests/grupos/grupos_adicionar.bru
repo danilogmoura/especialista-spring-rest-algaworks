@@ -1,11 +1,11 @@
 meta {
-  name: adicionar
+  name: grupos_adicionar
   type: http
   seq: 3
 }
 
 post {
-  url: {{BASE_URL}}/usuarios/
+  url: {{BASE_URL}}/grupos/
   body: json
   auth: none
 }
@@ -17,9 +17,7 @@ headers {
 
 body:json {
   {
-    "nome": "Thiago Faria",
-    "email": "thiago@algafood.com",
-    "senha": "abc"
+    "nome": "Gerente Geral"
   }
 }
 

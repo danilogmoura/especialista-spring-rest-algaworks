@@ -2,6 +2,7 @@ package com.github.danilogmoura.algafood.api.assembler;
 
 import com.github.danilogmoura.algafood.api.model.GrupoModel;
 import com.github.danilogmoura.algafood.domain.model.Grupo;
+import java.util.Collection;
 import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class GrupoModeAssembler {
         return modelMapper.map(grupo, GrupoModel.class);
     }
 
-    public List<GrupoModel> toCollectionModel(List<Grupo> grupos) {
+    public List<GrupoModel> toCollectionModel(Collection<Grupo> grupos) {
         return grupos.stream().map(this::toModel).toList();
     }
 }

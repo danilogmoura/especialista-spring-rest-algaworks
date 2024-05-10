@@ -1,0 +1,23 @@
+meta {
+  name: usuarios_atualizar_senha
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{BASE_URL}}/usuarios/1/senha
+  body: json
+  auth: none
+}
+
+headers {
+  ~Accept: application/xml
+  ~Content-Type: application/xml
+}
+
+body:json {
+  {
+    "senha_atual": "123",
+    "nova_senha": "asd"
+  }
+}

@@ -1,15 +1,16 @@
 meta {
-  name: produtos_buscar
+  name: usuarios_buscar
   type: http
-  seq: 15
+  seq: 2
 }
 
 get {
-  url: {{BASE_URL}}/restaurantes/1/produtos/1
+  url: {{BASE_URL}}/usuarios/1
   body: none
   auth: none
 }
 
 headers {
+  ~Content-Type: application/xml
   ~Accept: application/xml
 }

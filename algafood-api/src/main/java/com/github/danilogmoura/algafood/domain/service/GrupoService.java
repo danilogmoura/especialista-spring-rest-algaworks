@@ -18,9 +18,11 @@ public class GrupoService {
     @Autowired
     private GrupoRepository grupoRepository;
 
+    @Autowired
+    private PermissaoService permissaoService;
+
     public Grupo buscarOuFalhar(Long id) {
-        return grupoRepository.findById(id)
-            .orElseThrow(() -> new GrupoNaoEncontradoException(id));
+        return grupoRepository.findById(id).orElseThrow(() -> new GrupoNaoEncontradoException(id));
     }
 
     @Transactional
@@ -38,5 +40,19 @@ public class GrupoService {
         } catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(String.format(MSG_GRUPO_EM_USO, id));
         }
+    }
+
+    @Transactional
+    public void associarPermissao(Long grupoId, Long permissaoId) {
+        var grupo = buscarOuFalhar(grupoId);
+        var permissao = permissaoService.buscarOuFalhar(permissaoId);
+        grupo.adicionarPermissao(permissao);
+    }
+
+    @Transactional
+    public void desassociarPermissao(Long grupoId, Long permissaoId) {
+        var grupo = buscarOuFalhar(grupoId);
+        var permissao = permissaoService.buscarOuFalhar(permissaoId);
+        grupo.removerPermissao(permissao);
     }
 }

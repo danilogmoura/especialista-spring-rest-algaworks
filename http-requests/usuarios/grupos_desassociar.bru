@@ -1,0 +1,23 @@
+meta {
+  name: grupos_desassociar
+  type: http
+  seq: 9
+}
+
+delete {
+  url: {{BASE_URL}}/usuarios/1/grupos/2
+  body: none
+  auth: none
+}
+
+headers {
+  ~Accept: application/xml
+  ~Content-Type: application/xml
+}
+
+body:json {
+  {
+    "nome": "Thiago Faria333",
+    "email": "sebastiao.cad@algafood.com"
+  }
+}
