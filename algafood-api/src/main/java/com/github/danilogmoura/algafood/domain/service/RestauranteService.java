@@ -4,6 +4,7 @@ import com.github.danilogmoura.algafood.domain.exception.EntidadeEmUsoException;
 import com.github.danilogmoura.algafood.domain.exception.RestauranteNaoEncontradoException;
 import com.github.danilogmoura.algafood.domain.model.Restaurante;
 import com.github.danilogmoura.algafood.domain.repository.RestauranteRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -63,9 +64,20 @@ public class RestauranteService {
     }
 
     @Transactional
+    public void ativar(List<Long> restauranteIds) {
+        restauranteIds.forEach(this::ativar);
+    }
+
+
+    @Transactional
     public void inativar(Long restauranteId) {
         var restaurante = buscarOuFalhar(restauranteId);
         restaurante.inativar();
+    }
+
+    @Transactional
+    public void inativar(List<Long> restauranteIds) {
+        restauranteIds.forEach(this::inativar);
     }
 
     @Transactional

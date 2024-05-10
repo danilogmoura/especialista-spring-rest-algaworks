@@ -1,0 +1,19 @@
+meta {
+  name: listar
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{BASE_URL}}/pedidos
+  body: none
+  auth: none
+}
+
+headers {
+  ~Accept: application/xml
+}
+
+assert {
+  res.body.length: gte 2
+}

@@ -68,7 +68,7 @@
 - [**12.14. Desafio: Implementando os endpoints de abertura e fechamento de restaurantes**](https://app.algaworks.com/aulas/2020/desafio-implementando-os-endpoints-de-abertura-e-fechamento-de-restaurantes)
 
 
-- [****]()
+- [**12.18. Implementando ativação e inativação em massa de restaurantes**](https://app.algaworks.com/aulas/2024/implementando-ativacao-e-inativacao-em-massa-de-restaurantes)
 
 
 - [****]()

@@ -1,0 +1,23 @@
+meta {
+  name: restaurante_ativar_multiplos
+  type: http
+  seq: 21
+}
+
+put {
+  url: {{BASE_URL}}/restaurantes/ativacoes
+  body: json
+  auth: none
+}
+
+headers {
+  ~Accept: application/xml
+}
+
+body:json {
+  [
+    1,
+    3,
+    4
+  ]
+}

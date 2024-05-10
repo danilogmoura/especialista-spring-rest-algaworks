@@ -1,0 +1,23 @@
+meta {
+  name: restaurante_inativar_multiplos
+  type: http
+  seq: 22
+}
+
+delete {
+  url: {{BASE_URL}}/restaurantes/inativacoes
+  body: json
+  auth: none
+}
+
+headers {
+  ~Accept: application/xml
+}
+
+body:json {
+  [
+    1,
+    3,
+    4
+  ]
+}
