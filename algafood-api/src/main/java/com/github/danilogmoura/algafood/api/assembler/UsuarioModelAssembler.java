@@ -2,6 +2,7 @@ package com.github.danilogmoura.algafood.api.assembler;
 
 import com.github.danilogmoura.algafood.api.model.UsuarioModel;
 import com.github.danilogmoura.algafood.domain.model.Usuario;
+import java.util.Collection;
 import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class UsuarioModelAssembler {
         return modelMapper.map(usuario, UsuarioModel.class);
     }
 
-    public List<UsuarioModel> toCollectionModel(List<Usuario> usuarios) {
+    public List<UsuarioModel> toCollectionModel(Collection<Usuario> usuarios) {
         return usuarios.stream().map(this::toModel).toList();
     }
 }

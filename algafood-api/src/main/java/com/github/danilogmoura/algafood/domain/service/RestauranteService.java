@@ -27,6 +27,8 @@ public class RestauranteService {
 
     @Autowired
     private FormaPagamentoService formaPagamentoService;
+    @Autowired
+    private UsuarioService usuarioService;
 
     @Transactional
     public Restaurante salvar(Restaurante restaurante) {
@@ -90,6 +92,20 @@ public class RestauranteService {
         var restaurante = buscarOuFalhar(restauranteId);
         var formaPagamento = formaPagamentoService.buscarOuFalhar(formaPagamentoId);
         restaurante.adicionarFormaPagamento(formaPagamento);
+    }
+
+    @Transactional
+    public void associarResponsavel(Long restauranteId, Long responsavelId) {
+        var restaurante = buscarOuFalhar(restauranteId);
+        var responsavel = usuarioService.buscarOuFalhar(responsavelId);
+        restaurante.adicionarResponsavel(responsavel);
+    }
+
+    @Transactional
+    public void desassociarResponsavel(Long restauranteId, Long responsavelId) {
+        var restaurante = buscarOuFalhar(restauranteId);
+        var responsavel = usuarioService.buscarOuFalhar(responsavelId);
+        restaurante.removerResponsavel(responsavel);
     }
 
     public Restaurante buscarOuFalhar(Long restauranteId) {
