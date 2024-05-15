@@ -27,6 +27,8 @@ alter table permissao auto_increment = 1;
 alter table produto auto_increment = 1;
 alter table restaurante auto_increment = 1;
 alter table usuario auto_increment = 1;
+alter table pedido auto_increment = 1;
+alter table item_pedido auto_increment = 1;
 
 insert into cozinha (id, nome, data_cadastro, data_atualizacao) values (1, 'Tailandesa', current_timestamp, current_timestamp);
 insert into cozinha (id, nome, data_cadastro, data_atualizacao) values (2, 'Indiana', current_timestamp, current_timestamp);

@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{BASE_URL}}/pedidos/
+  url: {{BASE_URL}}/pedidos
   body: json
   auth: none
 }
@@ -17,7 +17,34 @@ headers {
 
 body:json {
   {
-    
+    "restaurante": {
+      "id": 1
+    },
+    "forma_pagamento": {
+      "id": 1
+    },
+    "endereco_entrega": {
+      "cep": "38400-000",
+      "logradouro": "Rua Floriano Peixoto",
+      "numero": "500",
+      "complemento": "Apto 801",
+      "bairro": "Brasil",
+      "cidade": {
+        "id": 1
+      }
+    },
+    "itens": [
+      {
+        "produto_id": 1,
+        "quantidade": 1,
+        "observacao": null
+      },
+      {
+        "produto_id": 2,
+        "quantidade": 2,
+        "observacao": "Menos picante, por favor"
+      }
+    ]
   }
 }
 
