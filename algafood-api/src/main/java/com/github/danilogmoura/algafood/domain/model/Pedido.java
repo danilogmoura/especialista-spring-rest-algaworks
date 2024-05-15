@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -70,7 +71,7 @@ public class Pedido {
         getItens().forEach(ItemPedido::calcularPrecoTotal);
 
         this.subtotal = getItens().stream()
-            .map(item -> item.getPrecoTotal())
+            .map(ItemPedido::getPrecoTotal)
             .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         this.valorTotal = this.subtotal.add(this.taxaFrete);
@@ -84,10 +85,17 @@ public class Pedido {
         getItens().forEach(item -> item.setPedido(this));
     }
 
+    @Getter
     public enum StatusPedido {
-        CRIADO,
-        CONFIRMADO,
-        ENTREGUE,
-        CANCELADO
+        CRIADO("Criado"),
+        CONFIRMADO("Confirmado"),
+        ENTREGUE("Entregue"),
+        CANCELADO("Cancelado");
+
+        private final String descricao;
+
+        StatusPedido(String descricao) {
+            this.descricao = descricao;
+        }
     }
 }

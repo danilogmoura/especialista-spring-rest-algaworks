@@ -5,6 +5,7 @@ import com.github.danilogmoura.algafood.domain.model.Pedido;
 import com.github.danilogmoura.algafood.domain.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EmissaoPedidoService {
@@ -27,6 +28,7 @@ public class EmissaoPedidoService {
     @Autowired
     private ProdutoService produtoService;
 
+    @Transactional
     public Pedido emitir(Pedido pedido) {
         validarPedido(pedido);
         validarItens(pedido);

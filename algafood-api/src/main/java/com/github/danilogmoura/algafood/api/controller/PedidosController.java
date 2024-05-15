@@ -58,14 +58,12 @@ public class PedidosController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public PedidoModel adicionar(@RequestBody @Valid PedidoInput pedidoInput) {
-        var pedido = pedidoInputDisassembler.toDomainObject(pedidoInput);
+        var novoPedido = pedidoInputDisassembler.toDomainObject(pedidoInput);
         var cliente = new Usuario();
         cliente.setId(1L);
 
-        pedido.setCliente(cliente);
-
-        pedido = emissaoPedidoService.emitir(pedido);
-
-        return pedidoModelAssembler.toModel(pedido);
+        novoPedido.setCliente(cliente);
+        novoPedido = emissaoPedidoService.emitir(novoPedido);
+        return pedidoModelAssembler.toModel(novoPedido);
     }
 }

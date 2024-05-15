@@ -1,0 +1,15 @@
+meta {
+  name: pedido-confirmacao
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{BASE_URL}}/pedidos/1/confirmacao
+  body: none
+  auth: none
+}
+
+headers {
+  ~Accept: application/xml
+}
