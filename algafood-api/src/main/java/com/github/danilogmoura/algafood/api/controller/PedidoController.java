@@ -8,11 +8,16 @@ import com.github.danilogmoura.algafood.api.model.PedidoResumoModel;
 import com.github.danilogmoura.algafood.api.model.input.PedidoInput;
 import com.github.danilogmoura.algafood.domain.model.Usuario;
 import com.github.danilogmoura.algafood.domain.repository.PedidoRepository;
+import com.github.danilogmoura.algafood.domain.repository.filter.PedidoFilter;
 import com.github.danilogmoura.algafood.domain.service.EmissaoPedidoService;
 import com.github.danilogmoura.algafood.domain.service.PedidoService;
-import java.util.List;
+import com.github.danilogmoura.algafood.infrastructure.repository.spec.PedidoSpecs;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/pedidos")
-public class PedidosController {
+public class PedidoController {
 
     @Autowired
     private PedidoRepository pedidoRepository;
@@ -45,8 +50,10 @@ public class PedidosController {
     private EmissaoPedidoService emissaoPedidoService;
 
     @GetMapping
-    public List<PedidoResumoModel> listar() {
-        return pedidoResumoModelAssembler.toCollectionModel(pedidoRepository.findAll());
+    public Page<PedidoResumoModel> pesquisar(PedidoFilter filtro, @PageableDefault(size = 10) Pageable pageable) {
+        var pedidosPage = pedidoRepository.findAll(PedidoSpecs.comFreteGratis(filtro), pageable);
+        var pedidosModel = pedidoResumoModelAssembler.toCollectionModel(pedidosPage.getContent());
+        return new PageImpl<>(pedidosModel, pageable, pedidosPage.getTotalElements());
     }
 
     @GetMapping("/{codigo}")

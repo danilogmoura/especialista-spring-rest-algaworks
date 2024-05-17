@@ -1,0 +1,24 @@
+meta {
+  name: pedido_listar
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{BASE_URL}}/pedidos?restauranteId=1&size=2&sort=taxaFrete,desc
+  body: none
+  auth: none
+}
+
+query {
+  restauranteId: 1
+  size: 2
+  sort: taxaFrete,desc
+  ~dataCriacaoFim: 2019-11-01T10:00:00
+  ~dataCriacaoInicio: 2019-10-10T10:00:00
+  ~clienteId: 1
+}
+
+headers {
+  ~Accept: application/xml
+}

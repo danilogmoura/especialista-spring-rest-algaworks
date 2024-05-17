@@ -1,19 +1,15 @@
 meta {
-  name: pedido-listar
+  name: pedido_buscar
   type: http
-  seq: 1
+  seq: 2
 }
 
 get {
-  url: {{BASE_URL}}/pedidos
+  url: {{BASE_URL}}/pedidos/f9981ca4-5a5e-4da3-af04-933861df3e55
   body: none
   auth: none
 }
 
 headers {
   ~Accept: application/xml
-}
-
-assert {
-  res.body.length: gte 2
 }

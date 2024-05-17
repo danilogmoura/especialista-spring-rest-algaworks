@@ -4,10 +4,12 @@ import com.github.danilogmoura.algafood.api.assembler.ProdutoInputDisassembler;
 import com.github.danilogmoura.algafood.api.assembler.ProdutoModelAssembler;
 import com.github.danilogmoura.algafood.api.model.ProdutoModel;
 import com.github.danilogmoura.algafood.api.model.input.ProdutoInput;
+import com.github.danilogmoura.algafood.domain.model.Produto;
 import com.github.danilogmoura.algafood.domain.repository.ProdutoRepository;
 import com.github.danilogmoura.algafood.domain.service.ProdutoService;
 import com.github.danilogmoura.algafood.domain.service.RestauranteService;
 import java.util.Collection;
+import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,9 +44,18 @@ public class RestauranteProdutoController {
     private ProdutoInputDisassembler produtoInputDisassembler;
 
     @GetMapping
-    public Collection<ProdutoModel> listar(@PathVariable Long restauranteId) {
+    public Collection<ProdutoModel> listar(
+        @RequestParam(required = false, name = "incluir_inativos") boolean incluirInativos,
+        @PathVariable Long restauranteId) {
         var restaurante = restauranteService.buscarOuFalhar(restauranteId);
-        var produtos = produtoRepository.findAllByRestaurante(restaurante);
+        List<Produto> produtos = null;
+
+        if (incluirInativos) {
+            produtos = produtoRepository.findAllByRestaurante(restaurante);
+        } else {
+            produtos = produtoRepository.findAtivosByRestaurante(restaurante);
+        }
+
         return produtoModelAssembler.toCollectionModel(produtos);
     }
 

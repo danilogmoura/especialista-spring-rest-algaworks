@@ -5,15 +5,19 @@ meta {
 }
 
 get {
-  url: {{BASE_URL}}/cozinhas
+  url: {{BASE_URL}}/cozinhas?size=4&page=0
   body: none
   auth: none
 }
 
-headers {
-  ~Accept: application/xml
+query {
+  size: 4
+  page: 0
+  ~sort: nome,id
+  ~sort: nome,desc
+  ~sort: id
 }
 
-assert {
-  res.body.length: gte 2
+headers {
+  ~Accept: application/xml
 }
