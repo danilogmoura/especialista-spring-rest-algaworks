@@ -5,7 +5,19 @@ meta {
 }
 
 get {
-  url: {{BASE_URL}}/estatisticas/vendas-diarias
+  url: {{BASE_URL}}/estatisticas/vendas-diarias?dataCriacaoInicio=2019-10-30T00:00:00Z&dataCriacaoFim=2019-11-04T23:59:59Z&timeOffset=-03:00
   body: none
   auth: none
+}
+
+query {
+  dataCriacaoInicio: 2019-10-30T00:00:00Z
+  dataCriacaoFim: 2019-11-04T23:59:59Z
+  timeOffset: -03:00
+  ~restauranteId: 1
+}
+
+headers {
+  Accept: application/pdf, application/json
+  ~Accept: application/json
 }
