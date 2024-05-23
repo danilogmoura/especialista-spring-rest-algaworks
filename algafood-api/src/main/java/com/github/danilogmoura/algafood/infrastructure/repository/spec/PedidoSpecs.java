@@ -1,7 +1,7 @@
 package com.github.danilogmoura.algafood.infrastructure.repository.spec;
 
 import com.github.danilogmoura.algafood.domain.model.Pedido;
-import com.github.danilogmoura.algafood.domain.repository.filter.PedidoFilter;
+import com.github.danilogmoura.algafood.domain.filter.PedidoFilter;
 import java.util.ArrayList;
 import javax.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;

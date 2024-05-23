@@ -6,12 +6,14 @@ import com.github.danilogmoura.algafood.api.assembler.PedidoResumoModelAssembler
 import com.github.danilogmoura.algafood.api.model.PedidoModel;
 import com.github.danilogmoura.algafood.api.model.PedidoResumoModel;
 import com.github.danilogmoura.algafood.api.model.input.PedidoInput;
+import com.github.danilogmoura.algafood.core.data.PageableTranslator;
 import com.github.danilogmoura.algafood.domain.model.Usuario;
 import com.github.danilogmoura.algafood.domain.repository.PedidoRepository;
-import com.github.danilogmoura.algafood.domain.repository.filter.PedidoFilter;
+import com.github.danilogmoura.algafood.domain.filter.PedidoFilter;
 import com.github.danilogmoura.algafood.domain.service.EmissaoPedidoService;
 import com.github.danilogmoura.algafood.domain.service.PedidoService;
 import com.github.danilogmoura.algafood.infrastructure.repository.spec.PedidoSpecs;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -51,6 +53,8 @@ public class PedidoController {
 
     @GetMapping
     public Page<PedidoResumoModel> pesquisar(PedidoFilter filtro, @PageableDefault(size = 10) Pageable pageable) {
+        pageable = traduzirPageable(pageable);
+
         var pedidosPage = pedidoRepository.findAll(PedidoSpecs.comFreteGratis(filtro), pageable);
         var pedidosModel = pedidoResumoModelAssembler.toCollectionModel(pedidosPage.getContent());
         return new PageImpl<>(pedidosModel, pageable, pedidosPage.getTotalElements());
@@ -72,5 +76,17 @@ public class PedidoController {
         novoPedido.setCliente(cliente);
         novoPedido = emissaoPedidoService.emitir(novoPedido);
         return pedidoModelAssembler.toModel(novoPedido);
+    }
+
+    private Pageable traduzirPageable(Pageable apiPageable) {
+        var mapeamento = Map.of(
+            "codio", "codigo",
+            "subtotal", "subtotal",
+            "restaurante.nome", "restaurante.nome",
+            "nomeCliente", "cliente.nome",
+            "valorTotal", "valorTotal"
+        );
+
+        return PageableTranslator.translate(apiPageable, mapeamento);
     }
 }
