@@ -1,0 +1,28 @@
+meta {
+  name: fotos_atualizar
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{BASE_URL}}/restaurantes/1/produtos/1/foto
+  body: multipartForm
+  auth: none
+}
+
+headers {
+  Accept: application/json
+  ~Content-Type: multipart/form-data
+}
+
+body:json {
+  {
+    "descricao": "Prime Rib ao ponto",
+    "arquivo": ""
+  }
+}
+
+body:multipart-form {
+  arquivo: @file(D:\Downloads\Prime-Rib.jpg)
+  descricao: Prime Rib ao ponto
+}
