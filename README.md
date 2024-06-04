@@ -96,7 +96,7 @@
 - [**Como setar no spring para utilizar o "ValidationMessages_pt_BR.properties" como resource padrão**](https://app.algaworks.com/forum/topicos/81267/como-setar-no-spring-para-utilizar-o-validationmessages_pt_br-properties-como-resource-padrao)
 
 
-- [****]()
+- [**Mapeamento OneToOne bidirecional com Lazy Loading**](https://blog.algaworks.com/lazy-loading-com-mapeamento-onetoone/)
 
 
 - [****]()
