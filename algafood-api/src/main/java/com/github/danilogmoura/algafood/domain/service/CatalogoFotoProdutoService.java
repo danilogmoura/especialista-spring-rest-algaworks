@@ -1,5 +1,6 @@
 package com.github.danilogmoura.algafood.domain.service;
 
+import com.github.danilogmoura.algafood.domain.exception.FotoProdutoNaoEncontradaException;
 import com.github.danilogmoura.algafood.domain.model.FotoProduto;
 import com.github.danilogmoura.algafood.domain.repository.ProdutoRepository;
 import com.github.danilogmoura.algafood.domain.service.FotoStorageService.NovaFoto;
@@ -42,5 +43,10 @@ public class CatalogoFotoProdutoService {
         fotoStorage.substituir(nomeArquivoExistente, novaFoto);
 
         return foto;
+    }
+
+    public FotoProduto buscarOuFalahar(Long restauranteId, Long produtoId) {
+        return produtoRepository.findFotoById(restauranteId, produtoId)
+            .orElseThrow(() -> new FotoProdutoNaoEncontradaException(restauranteId, produtoId));
     }
 }

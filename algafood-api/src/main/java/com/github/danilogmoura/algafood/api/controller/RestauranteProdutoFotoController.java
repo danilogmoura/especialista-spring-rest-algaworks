@@ -9,6 +9,7 @@ import com.github.danilogmoura.algafood.domain.service.ProdutoService;
 import java.io.IOException;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,13 @@ public class RestauranteProdutoFotoController {
 
     @Autowired
     private FotoProdutoAssembler fotoProdutoAssembler;
+
+
+    @GetMapping
+    public FotoProdutoModel buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
+        var fotoProduto = catalogoFotoProdutoService.buscarOuFalahar(restauranteId, produtoId);
+        return fotoProdutoAssembler.toModel(fotoProduto);
+    }
 
     @PutMapping
     public FotoProdutoModel atualizarFoto(@PathVariable Long restauranteId, @PathVariable Long produtoId,
