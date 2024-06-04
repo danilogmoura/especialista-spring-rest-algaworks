@@ -9,3 +9,12 @@ get {
   body: none
   auth: none
 }
+
+headers {
+  Accept: image/*
+  ~Accept: image/jpeg,image/png
+  ~Accept: image/gif
+  ~Accept: image/jpeg
+  ~Accept: image/png
+  ~Accept: application/json
+}
