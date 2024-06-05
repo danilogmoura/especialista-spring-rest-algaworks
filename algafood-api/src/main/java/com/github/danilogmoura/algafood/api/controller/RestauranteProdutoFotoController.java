@@ -7,10 +7,12 @@ import com.github.danilogmoura.algafood.domain.exception.EntidadeNaoEncontradaEx
 import com.github.danilogmoura.algafood.domain.model.FotoProduto;
 import com.github.danilogmoura.algafood.domain.service.CatalogoFotoProdutoService;
 import com.github.danilogmoura.algafood.domain.service.FotoStorageService;
+import com.github.danilogmoura.algafood.domain.service.FotoStorageService.FotoRecuperada;
 import com.github.danilogmoura.algafood.domain.service.ProdutoService;
 import java.io.IOException;
 import java.util.List;
 import javax.validation.Valid;
+import org.apache.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
@@ -46,27 +48,34 @@ public class RestauranteProdutoFotoController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public FotoProdutoModel buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
-        var fotoProduto = catalogoFotoProdutoService.buscarOuFalahar(restauranteId, produtoId);
+        var fotoProduto = catalogoFotoProdutoService.buscarOuFalhar(restauranteId, produtoId);
         return fotoProdutoAssembler.toModel(fotoProduto);
     }
 
     @GetMapping
-    public ResponseEntity<InputStreamResource> servirFoto(@PathVariable Long restauranteId,
+    public ResponseEntity<?> servir(@PathVariable Long restauranteId,
         @PathVariable Long produtoId, @RequestHeader(name = "accept") String acceptHeader)
         throws HttpMediaTypeNotAcceptableException {
         try {
-            var fotoProduto = catalogoFotoProdutoService.buscarOuFalahar(restauranteId, produtoId);
+            FotoProduto fotoProduto = catalogoFotoProdutoService.buscarOuFalhar(restauranteId, produtoId);
 
             MediaType mediaTypeFoto = MediaType.parseMediaType(fotoProduto.getContentType());
             List<MediaType> mediaTypesAceitas = MediaType.parseMediaTypes(acceptHeader);
 
             verificarCompatibilidadeMediaType(mediaTypeFoto, mediaTypesAceitas);
 
-            var inputStream = fotoStorageService.recuperar(fotoProduto.getNomeArquivo());
+            FotoRecuperada fotoRecuperada = fotoStorageService.recuperar(fotoProduto.getNomeArquivo());
 
-            return ResponseEntity.ok()
-                .contentType(mediaTypeFoto)
-                .body(new InputStreamResource(inputStream));
+            if (fotoRecuperada.temUrl()) {
+                return ResponseEntity
+                    .status(HttpStatus.FOUND)
+                    .header(HttpHeaders.LOCATION, fotoRecuperada.getUrl())
+                    .build();
+            } else {
+                return ResponseEntity.ok()
+                    .contentType(mediaTypeFoto)
+                    .body(new InputStreamResource(fotoRecuperada.getInputStream()));
+            }
         } catch (EntidadeNaoEncontradaException e) {
             return ResponseEntity.notFound().build();
         }

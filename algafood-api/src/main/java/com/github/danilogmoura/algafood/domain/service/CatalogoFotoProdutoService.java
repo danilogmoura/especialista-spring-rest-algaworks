@@ -37,6 +37,8 @@ public class CatalogoFotoProdutoService {
 
         NovaFoto novaFoto = NovaFoto.builder()
             .nomeArquivo(foto.getNomeArquivo())
+            .tamanho(foto.getTamanho())
+            .contentType(foto.getContentType())
             .inputStream(dadosArquivo)
             .build();
 
@@ -45,13 +47,13 @@ public class CatalogoFotoProdutoService {
         return foto;
     }
 
-    public FotoProduto buscarOuFalahar(Long restauranteId, Long produtoId) {
+    public FotoProduto buscarOuFalhar(Long restauranteId, Long produtoId) {
         return produtoRepository.findFotoById(restauranteId, produtoId)
             .orElseThrow(() -> new FotoProdutoNaoEncontradaException(restauranteId, produtoId));
     }
 
     public void remover(Long restauranteId, Long produtoId) {
-        var fotoProduto = buscarOuFalahar(restauranteId, produtoId);
+        var fotoProduto = buscarOuFalhar(restauranteId, produtoId);
 
         produtoRepository.delete(fotoProduto);
         produtoRepository.flush();

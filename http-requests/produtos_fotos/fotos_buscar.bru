@@ -11,10 +11,10 @@ get {
 }
 
 headers {
-  Accept: image/*
+  Accept: image/jpeg
+  ~Accept: image/*
+  ~Accept: application/json
   ~Accept: image/jpeg,image/png
   ~Accept: image/gif
-  ~Accept: image/jpeg
   ~Accept: image/png
-  ~Accept: application/json
 }
