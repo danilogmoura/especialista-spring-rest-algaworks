@@ -1,0 +1,59 @@
+version: "3.8"
+
+services:
+    localstack:
+        container_name: "${LOCALSTACK_DOCKER_NAME:-localstack-main}"
+        image: localstack/localstack
+        ports:
+            - "127.0.0.1:4566:4566"
+        environment:
+            - SERVICES=s3
+        volumes:
+            - "localstack_volume:/var/lib/localstack"
+            - "/var/run/docker.sock:/var/run/docker.sock"
+        healthcheck:
+            test: [ "CMD-SHELL", "curl -f http://localhost:4566/_localstack/health || exit 1" ]
+            interval: 30s
+            timeout: 10s
+            retries: 5
+
+    aws-cli:
+        image: amazon/aws-cli
+        depends_on:
+            localstack:
+                condition: service_healthy
+        environment:
+            - AWS_ACCESS_KEY_ID
+            - AWS_SECRET_ACCESS_KEY
+            - AWS_DEFAULT_REGION
+            - S3_BUCKET_NAME
+            - S3_PHOTOS_PATH
+        entrypoint: >
+            sh -c "
+                aws configure set aws_access_key_id $${AWS_ACCESS_KEY_ID} &&
+                aws configure set aws_secret_access_key $${AWS_SECRET_ACCESS_KEY} &&
+                aws configure set region $${AWS_DEFAULT_REGION} &&
+                aws --endpoint-url=http://localstack:4566 s3 mb s3://$${S3_BUCKET_NAME} &&
+                aws --endpoint-url=http://localstack:4566 s3api put-object --bucket $${S3_BUCKET_NAME} --key $${S3_PHOTOS_PATH}/ &&
+                tail -f /dev/null
+            "
+
+    mailhog:
+        image: mailhog/mailhog
+        container_name: mailhog
+        ports:
+            - "1025:1025"  # SMTP
+            - "8025:8025"  # Web UI
+
+    db:
+        image: mysql:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        volumes:
+            - db_data:/var/lib/mysql
+        ports:
+            - "3306:3306"
+
+volumes:
+    localstack_volume:
+    db_data:

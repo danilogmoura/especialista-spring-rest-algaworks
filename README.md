@@ -72,7 +72,7 @@
 
 
 - [**14.26. Selecionando a implementação do serviço de storage de fotos**](https://app.algaworks.com/aulas/2078/selecionando-a-implementacao-do-servico-de-storage-de-fotos?pagina=0)
-  - [**Annotation Interface ConditionalOnProperty**](https://docs.spring.io/spring-boot/api/java/org/springframework/boot/autoconfigure/condition/ConditionalOnProperty.html)
+  - [Annotation Interface ConditionalOnProperty](https://docs.spring.io/spring-boot/api/java/org/springframework/boot/autoconfigure/condition/ConditionalOnProperty.html)
 
 
 - [****]()
@@ -100,7 +100,7 @@
 - [**Mapeamento OneToOne bidirecional com Lazy Loading**](https://blog.algaworks.com/lazy-loading-com-mapeamento-onetoone/)
 
 
-- [****]()
+- [**Boas práticas de HTML para e-mails**](https://www.locaweb.com.br/ajuda/wiki/veja-as-boas-praticas-de-html-email-marketing/)
 
 
 - [****]()
