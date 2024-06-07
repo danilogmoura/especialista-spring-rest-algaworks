@@ -77,16 +77,8 @@
 - [**15.13. Reagindo a Domain Events em fases específicas da transação**](https://app.algaworks.com/aulas/2092/reagindo-a-domain-events-em-fases-especificas-da-transacao)
 
 
-- [****]()
+- [**16.6. Habilitando CORS globalmente no projeto da API**](https://app.algaworks.com/aulas/2099/habilitando-cors-globalmente-no-projeto-da-api)
 
-
-- [****]()
-
-
-- [****]()
-
-
-- [****]()
 
 ### DOCUMENTAÇÕES
 
@@ -111,10 +103,4 @@
 - [**Boas práticas de HTML para e-mails**](https://www.locaweb.com.br/ajuda/wiki/veja-as-boas-praticas-de-html-email-marketing/)
 
 
-- [****]()
-
-
-- [****]()
-
-
-- [****]()
+- [**Definição de requisição simples, de acordo com CORS**](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#Simple_requests)
