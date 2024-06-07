@@ -1,5 +1,7 @@
 package com.github.danilogmoura.algafood.domain.model;
 
+import com.github.danilogmoura.algafood.domain.event.PedidoCanceladoEvent;
+import com.github.danilogmoura.algafood.domain.event.PedidoConfirmadoEvent;
 import com.github.danilogmoura.algafood.domain.exception.NegocioException;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -25,11 +27,12 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.domain.AbstractAggregateRoot;
 
-@Entity
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Pedido {
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
+@Entity
+public class Pedido extends AbstractAggregateRoot<Pedido> {
 
     @Id
     @EqualsAndHashCode.Include
@@ -94,6 +97,8 @@ public class Pedido {
     public void confirmar() {
         setStatus(StatusPedido.CONFIRMADO);
         setDataConfirmacao(OffsetDateTime.now());
+
+        registerEvent(new PedidoConfirmadoEvent(this));
     }
 
     public void entregar() {
@@ -104,6 +109,8 @@ public class Pedido {
     public void cancelar() {
         setStatus(StatusPedido.CANCELADO);
         setDataCancelamento(OffsetDateTime.now());
+
+        registerEvent(new PedidoCanceladoEvent(this));
     }
 
     private void setStatus(StatusPedido novoStatus) {

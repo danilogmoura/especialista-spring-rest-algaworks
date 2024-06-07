@@ -1,9 +1,5 @@
 ## ESPECIALISTA JAVA
 
-### ATUAL
-
-- [**5.1. Implementando consultas JPQL em repositórios**](https://app.algaworks.com/aulas/1874/implementando-consultas-jpql-em-repositorios)
-
 ### REVISÃO
 
 - [**2.4. Conhecendo o Spring Boot**](https://app.algaworks.com/aulas/1790/conhecendo-o-spring-boot)
@@ -73,6 +69,18 @@
 
 - [**14.26. Selecionando a implementação do serviço de storage de fotos**](https://app.algaworks.com/aulas/2078/selecionando-a-implementacao-do-servico-de-storage-de-fotos?pagina=0)
   - [Annotation Interface ConditionalOnProperty](https://docs.spring.io/spring-boot/api/java/org/springframework/boot/autoconfigure/condition/ConditionalOnProperty.html)
+
+
+- [**15.11. Publicando Domain Events a partir do Aggregate Root**](https://app.algaworks.com/aulas/2090/publicando-domain-events-a-partir-do-aggregate-root)
+
+
+- [**15.13. Reagindo a Domain Events em fases específicas da transação**](https://app.algaworks.com/aulas/2092/reagindo-a-domain-events-em-fases-especificas-da-transacao)
+
+
+- [****]()
+
+
+- [****]()
 
 
 - [****]()

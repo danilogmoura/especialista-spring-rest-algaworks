@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <h1 style="color: red; font-size: 26px">Pedido confirmado!</h1>
-    <p>${pedido.cliente.nome}, seu pedido foi confirmado pelo restaurante e já está sendo preparado.</p>
+    <h1 style="color: red; font-size: 26px">Pedido cancelado!</h1>
+    <p>${pedido.cliente.nome}, seu pedido foi cancelado pelo restaurante.</p>
 
     <h2 style="font-size: 20px">${pedido.restaurante.nome}</h2>
 

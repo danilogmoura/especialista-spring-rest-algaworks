@@ -1,6 +1,6 @@
 package com.github.danilogmoura.algafood.domain.service;
 
-import com.github.danilogmoura.algafood.domain.service.EnvioEmailService.Mensagem;
+import com.github.danilogmoura.algafood.domain.repository.PedidoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,22 +12,13 @@ public class FluxoPedidoService {
     private PedidoService pedidoService;
 
     @Autowired
-    private EnvioEmailService envioEmailService;
+    private PedidoRepository pedidoRepository;
 
     @Transactional
     public void confirmar(String codigoPedido) {
         var pedido = pedidoService.buscarOuFalhar(codigoPedido);
-
-        var mensagem = Mensagem.builder()
-            .assunto(pedido.getRestaurante().getNome() + " - Pedido confirmado")
-            .corpo("pedido-confirmado.ftl")
-            .variavel("pedido", pedido)
-            .destinatario(pedido.getCliente().getEmail())
-            .build();
-
-        envioEmailService.enviar(mensagem);
-
         pedido.confirmar();
+        pedidoRepository.save(pedido);
     }
 
     @Transactional
@@ -40,5 +31,6 @@ public class FluxoPedidoService {
     public void cancelar(String codigoPedido) {
         var pedido = pedidoService.buscarOuFalhar(codigoPedido);
         pedido.cancelar();
+        pedidoRepository.save(pedido);
     }
 }
