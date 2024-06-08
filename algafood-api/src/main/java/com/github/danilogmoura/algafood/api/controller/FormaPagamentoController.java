@@ -7,9 +7,12 @@ import com.github.danilogmoura.algafood.api.model.input.FormaPagamentoInput;
 import com.github.danilogmoura.algafood.domain.repository.FormaPagamentoRepository;
 import com.github.danilogmoura.algafood.domain.service.FormaPagamentoService;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,8 +41,11 @@ public class FormaPagamentoController {
 
 
     @GetMapping
-    public List<FormaPagamentoModel> listar() {
-        return formaPagamentoModelAssembler.toCollectionModel(formaPagamentoRepository.findAll());
+    public ResponseEntity<List<FormaPagamentoModel>> listar() {
+        var formasPagamentoModel = formaPagamentoModelAssembler.toCollectionModel(formaPagamentoRepository.findAll());
+        return ResponseEntity.ok()
+            .cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+            .body(formasPagamentoModel);
     }
 
     @GetMapping("/{id}")
