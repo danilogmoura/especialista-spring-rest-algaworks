@@ -6,7 +6,6 @@ import org.springframework.web.client.RestTemplate;
 
 public class ListagemRestaurantesMain {
 
-
     public static void main(String[] args) {
 
         try {

@@ -1,0 +1,11 @@
+package com.github.danilogmoura.algafood.client.model.input;
+
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
+public class CozinhaInput {
+
+    private Long id;
+}
