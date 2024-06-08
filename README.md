@@ -83,6 +83,9 @@
 - [**17.6. Adicionando outras diretivas de Cache-Control na resposta HTTP**](https://app.algaworks.com/aulas/2111/adicionando-outras-diretivas-de-cache-control-na-resposta-http)
 
 
+- [**17.7. Usando a diretiva no-cache no cabeçalho Cache-Control da requisição**](https://app.algaworks.com/aulas/2112/usando-a-diretiva-no-cache-no-cabecalho-cache-control-da-requisicao)
+
+
 ### DOCUMENTAÇÕES
 
 - [Tutorial definitivo: Tudo o que você precisa para começar bem com JPA](https://blog.algaworks.com/tutorial-jpa/)
