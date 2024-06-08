@@ -53,9 +53,9 @@ insert into restaurante (id, nome, ativo, taxa_frete, cozinha_id, data_cadastro,
 insert into restaurante (id, nome, ativo, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, aberto) values (5, 'Lanchonete do Tio Sam', true, 11, 4, utc_timestamp, utc_timestamp, true);
 insert into restaurante (id, nome, ativo, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, aberto) values (6, 'Bar da Maria', true, 6, 4, utc_timestamp, utc_timestamp, true);
 
-insert into forma_pagamento (id, descricao, data_atualizacao) values (1, 'Cartão de crédito', utc_timestamp);
-insert into forma_pagamento (id, descricao, data_atualizacao) values (2, 'Cartão de débito', utc_timestamp);
-insert into forma_pagamento (id, descricao, data_atualizacao) values (3, 'Dinheiro', utc_timestamp);
+insert into forma_pagamento (id, descricao, data_cadastro, data_atualizacao) values (1, 'Cartão de crédito', utc_timestamp, utc_timestamp);
+insert into forma_pagamento (id, descricao, data_cadastro, data_atualizacao) values (2, 'Cartão de débito', utc_timestamp, utc_timestamp);
+insert into forma_pagamento (id, descricao, data_cadastro, data_atualizacao) values (3, 'Dinheiro', utc_timestamp, utc_timestamp);
 
 insert into permissao (id, nome, descricao, data_cadastro, data_atualizacao) values (1, 'CONSULTAR_COZINHAS', 'Permite consultar cozinhas', utc_timestamp, utc_timestamp);
 insert into permissao (id, nome, descricao, data_cadastro, data_atualizacao) values (2, 'EDITAR_COZINHAS', 'Permite editar cozinhas', utc_timestamp, utc_timestamp);
