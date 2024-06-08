@@ -80,6 +80,9 @@
 - [**16.6. Habilitando CORS globalmente no projeto da API**](https://app.algaworks.com/aulas/2099/habilitando-cors-globalmente-no-projeto-da-api)
 
 
+- [**17.6. Adicionando outras diretivas de Cache-Control na resposta HTTP**](https://app.algaworks.com/aulas/2111/adicionando-outras-diretivas-de-cache-control-na-resposta-http)
+
+
 ### DOCUMENTAÇÕES
 
 - [Tutorial definitivo: Tudo o que você precisa para começar bem com JPA](https://blog.algaworks.com/tutorial-jpa/)
@@ -104,3 +107,9 @@
 
 
 - [**Definição de requisição simples, de acordo com CORS**](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#Simple_requests)
+
+
+- [**Introduction to Spring Data Redis**](https://www.baeldung.com/spring-data-redis-tutorial)
+
+
+- [**Spring Boot cache with Redis**](https://medium.com/@MatthewFTech/spring-boot-cache-with-redis-56026f7da83a)
