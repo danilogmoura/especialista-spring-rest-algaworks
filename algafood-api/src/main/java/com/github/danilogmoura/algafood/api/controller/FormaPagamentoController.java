@@ -66,12 +66,28 @@ public class FormaPagamentoController {
             .body(formasPagamentoModel);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<FormaPagamentoModel> buscar(@PathVariable Long id) {
-        var formaPagamentoModel = formaPagamentoModelAssembler.toModel(formaPagamentoService.buscarOuFalhar(id));
+    @GetMapping("/{formaPagamentoId}")
+    public ResponseEntity<FormaPagamentoModel> buscar(@PathVariable Long formaPagamentoId, ServletWebRequest request) {
+        ShallowEtagHeaderFilter.disableContentCaching(request.getRequest());
+
+        var eTag = "0";
+
+        var dataUltimaAtualizacao = formaPagamentoRepository.getDataUltimaAtualizacaoById(formaPagamentoId);
+
+        if (dataUltimaAtualizacao != null) {
+            eTag = String.valueOf(dataUltimaAtualizacao.toEpochSecond());
+        }
+
+        if (request.checkNotModified(eTag)) {
+            return null;
+        }
+
+        var formaPagamentoModel = formaPagamentoModelAssembler.toModel(formaPagamentoService.buscarOuFalhar(
+            formaPagamentoId));
 
         return ResponseEntity.ok()
             .cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+            .eTag(eTag)
             .body(formaPagamentoModel);
     }
 
