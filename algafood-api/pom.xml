@@ -20,6 +20,7 @@
         <jasperreports.version>6.21.3</jasperreports.version>
         <aws-java-sdk-s3.version>1.12.735</aws-java-sdk-s3.version>
         <awssdk-ses.version>2.25.66</awssdk-ses.version>
+        <springfox.version>3.0.0</springfox.version>
     </properties>
     <dependencies>
         <dependency>
@@ -104,6 +105,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${springfox.version}</version>
         </dependency>
     </dependencies>
 
