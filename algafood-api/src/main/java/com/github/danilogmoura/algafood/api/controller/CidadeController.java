@@ -8,6 +8,7 @@ import com.github.danilogmoura.algafood.domain.exception.EstadoNaoEncontradoExce
 import com.github.danilogmoura.algafood.domain.exception.NegocioException;
 import com.github.danilogmoura.algafood.domain.repository.CidadeRepository;
 import com.github.danilogmoura.algafood.domain.service.CidadeService;
+import io.swagger.annotations.Api;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+@Api(tags = "Cidades")
 @RestController
 @RequestMapping("/cidades")
 public class CidadeController {

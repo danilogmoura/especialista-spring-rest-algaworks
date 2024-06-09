@@ -88,6 +88,7 @@
 
 
 - [**18.5. Selecionando os endpoints da API para gerar a documentação**](https://app.algaworks.com/aulas/2120/selecionando-os-endpoints-da-api-para-gerar-a-documentacao)
+    - [Sugestão para a abstração de todas as tags](https://app.algaworks.com/forum/topicos/81759/sugestao-para-a-abstracao-de-todas-as-tags)
 
 
 ### DOCUMENTAÇÕES
