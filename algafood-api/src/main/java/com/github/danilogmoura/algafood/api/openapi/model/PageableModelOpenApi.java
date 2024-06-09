@@ -1,4 +1,4 @@
-package com.github.danilogmoura.algafood.core.openapi;
+package com.github.danilogmoura.algafood.api.openapi.model;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

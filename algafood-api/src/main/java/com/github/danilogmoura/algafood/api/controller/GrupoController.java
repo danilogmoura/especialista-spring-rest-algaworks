@@ -2,9 +2,9 @@ package com.github.danilogmoura.algafood.api.controller;
 
 import com.github.danilogmoura.algafood.api.assembler.GrupoInputDisassembler;
 import com.github.danilogmoura.algafood.api.assembler.GrupoModeAssembler;
-import com.github.danilogmoura.algafood.api.controller.openapi.GrupoControllerOpenApi;
 import com.github.danilogmoura.algafood.api.model.GrupoModel;
 import com.github.danilogmoura.algafood.api.model.input.GrupoInput;
+import com.github.danilogmoura.algafood.api.openapi.controller.GrupoControllerOpenApi;
 import com.github.danilogmoura.algafood.domain.repository.GrupoRepository;
 import com.github.danilogmoura.algafood.domain.service.GrupoService;
 import java.util.List;

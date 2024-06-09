@@ -1,4 +1,4 @@
-package com.github.danilogmoura.algafood.api.controller.openapi;
+package com.github.danilogmoura.algafood.api.openapi.controller;
 
 import com.github.danilogmoura.algafood.api.exceptionhandler.Problem;
 import com.github.danilogmoura.algafood.api.model.CidadeModel;

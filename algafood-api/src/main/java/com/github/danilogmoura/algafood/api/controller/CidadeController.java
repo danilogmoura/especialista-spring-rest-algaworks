@@ -2,9 +2,9 @@ package com.github.danilogmoura.algafood.api.controller;
 
 import com.github.danilogmoura.algafood.api.assembler.CidadeInputDisassembler;
 import com.github.danilogmoura.algafood.api.assembler.CidadeModelAssembler;
-import com.github.danilogmoura.algafood.api.controller.openapi.CidadeControllerOpenApi;
 import com.github.danilogmoura.algafood.api.model.CidadeModel;
 import com.github.danilogmoura.algafood.api.model.input.CidadeInput;
+import com.github.danilogmoura.algafood.api.openapi.controller.CidadeControllerOpenApi;
 import com.github.danilogmoura.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.github.danilogmoura.algafood.domain.exception.NegocioException;
 import com.github.danilogmoura.algafood.domain.repository.CidadeRepository;
