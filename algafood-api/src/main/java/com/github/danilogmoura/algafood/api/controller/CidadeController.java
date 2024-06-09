@@ -9,6 +9,7 @@ import com.github.danilogmoura.algafood.domain.exception.NegocioException;
 import com.github.danilogmoura.algafood.domain.repository.CidadeRepository;
 import com.github.danilogmoura.algafood.domain.service.CidadeService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,17 +41,20 @@ public class CidadeController {
     @Autowired
     private CidadeInputDisassembler cidadeInputDisassembler;
 
+    @ApiOperation("Lista as cidades")
     @GetMapping
     public List<CidadeModel> listar() {
         return cidadeModelAssembler.toCollectionModel(cidadeRepository.findAll());
     }
 
-    @GetMapping("/{id}")
-    public CidadeModel buscar(@PathVariable Long id) {
-        var cidade = cidadeService.buscarOuFalhar(id);
+    @ApiOperation("Busca uma cidade por ID")
+    @GetMapping("/{cidadeId}")
+    public CidadeModel buscar(@PathVariable Long cidadeId) {
+        var cidade = cidadeService.buscarOuFalhar(cidadeId);
         return cidadeModelAssembler.toModel(cidade);
     }
 
+    @ApiOperation("Cadastra uma cidade")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CidadeModel adicionar(@RequestBody @Valid CidadeInput cidadeInput) {
@@ -62,22 +66,24 @@ public class CidadeController {
         }
     }
 
-    @PutMapping("/{id}")
-    public CidadeModel atualizar(@PathVariable Long id, @RequestBody @Valid CidadeInput cidadeInput) {
+    @ApiOperation("Cadastra uma cidade por ID")
+    @PutMapping("/{cidadeId}")
+    public CidadeModel atualizar(@PathVariable Long cidadeId, @RequestBody @Valid CidadeInput cidadeInput) {
         try {
-            var cidadeAtual = cidadeService.buscarOuFalhar(id);
+            var cidadeAtual = cidadeService.buscarOuFalhar(cidadeId);
 
             cidadeInputDisassembler.copyToDomainObject(cidadeInput, cidadeAtual);
-//            BeanUtils.copyProperties(cidadeInput, cidadeAtual, "id");
+
             return cidadeModelAssembler.toModel(cidadeService.salvar(cidadeAtual));
         } catch (EstadoNaoEncontradoException e) {
             throw new NegocioException(e.getMessage(), e);
         }
     }
 
-    @DeleteMapping("/{id}")
+    @ApiOperation("Exclui uma cidade por ID")
+    @DeleteMapping("/{cidadeId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void remover(@PathVariable Long id) {
-        cidadeService.remover(id);
+    public void remover(@PathVariable Long cidadeId) {
+        cidadeService.remover(cidadeId);
     }
 }
