@@ -13,7 +13,9 @@ public class SpringFoxConfig {
     public Docket apiDocket() {
         return new Docket(DocumentationType.OAS_30)
             .select()
+            .apis(RequestHandlerSelectors.basePackage("com.github.danilogmoura.algafood.api"))
             .apis(RequestHandlerSelectors.any())
+//            .paths(PathSelectors.ant("/restaurantes/*"))
             .build();
     }
 }

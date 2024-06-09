@@ -28,6 +28,7 @@
 
 - [**3.12. Excluindo um objeto do banco de dados**](https://app.algaworks.com/aulas/1826/excluindo-um-objeto-do-banco-de-dados)
 
+
 - [**3.13. Conhecendo o padrão Aggregate do DDD**](https://app.algaworks.com/aulas/1827/conhecendo-o-padrao-aggregate-do-ddd)
 
 
@@ -68,7 +69,7 @@
 
 
 - [**14.26. Selecionando a implementação do serviço de storage de fotos**](https://app.algaworks.com/aulas/2078/selecionando-a-implementacao-do-servico-de-storage-de-fotos?pagina=0)
-  - [Annotation Interface ConditionalOnProperty](https://docs.spring.io/spring-boot/api/java/org/springframework/boot/autoconfigure/condition/ConditionalOnProperty.html)
+    - [Annotation Interface ConditionalOnProperty](https://docs.spring.io/spring-boot/api/java/org/springframework/boot/autoconfigure/condition/ConditionalOnProperty.html)
 
 
 - [**15.11. Publicando Domain Events a partir do Aggregate Root**](https://app.algaworks.com/aulas/2090/publicando-domain-events-a-partir-do-aggregate-root)
@@ -84,6 +85,9 @@
 
 
 - [**17.7. Usando a diretiva no-cache no cabeçalho Cache-Control da requisição**](https://app.algaworks.com/aulas/2112/usando-a-diretiva-no-cache-no-cabecalho-cache-control-da-requisicao)
+
+
+- [**18.5. Selecionando os endpoints da API para gerar a documentação**](https://app.algaworks.com/aulas/2120/selecionando-os-endpoints-da-api-para-gerar-a-documentacao)
 
 
 ### DOCUMENTAÇÕES
