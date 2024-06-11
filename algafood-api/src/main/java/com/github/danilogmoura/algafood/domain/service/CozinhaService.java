@@ -24,19 +24,19 @@ public class CozinhaService {
     }
 
     @Transactional
-    public void remover(Long id) {
+    public void remover(Long cozinhaId) {
         try {
-            cozinhaRepository.deleteById(id);
+            cozinhaRepository.deleteById(cozinhaId);
             cozinhaRepository.flush();
         } catch (EmptyResultDataAccessException e) {
-            throw new CozinhaNaoEncontradaException(id);
+            throw new CozinhaNaoEncontradaException(cozinhaId);
         } catch (DataIntegrityViolationException e) {
-            throw new EntidadeEmUsoException(String.format(MSG_COZINHA_EM_USO, id));
+            throw new EntidadeEmUsoException(String.format(MSG_COZINHA_EM_USO, cozinhaId));
         }
     }
 
-    public Cozinha buscarOuFalhar(Long id) {
-        return cozinhaRepository.findById(id)
-            .orElseThrow(() -> new CozinhaNaoEncontradaException(id));
+    public Cozinha buscarOuFalhar(Long cozinhaId) {
+        return cozinhaRepository.findById(cozinhaId)
+            .orElseThrow(() -> new CozinhaNaoEncontradaException(cozinhaId));
     }
 }

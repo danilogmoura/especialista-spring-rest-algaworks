@@ -30,7 +30,7 @@ public interface CidadeControllerOpenApi {
     CidadeModel adicionar(
         @ApiParam(name = "corpo", value = "Representação de uma nova cidade") CidadeInput cidadeInput);
 
-    @ApiOperation("Cadastra uma cidade por ID")
+    @ApiOperation("Atualiza uma cidade por ID")
     @ApiResponses({
         @ApiResponse(code = 200, message = "Cidade Atualizada"),
         @ApiResponse(code = 404, message = "Cidade não encontrada", response = Problem.class)
