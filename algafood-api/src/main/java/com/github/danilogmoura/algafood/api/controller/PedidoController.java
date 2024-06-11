@@ -6,10 +6,11 @@ import com.github.danilogmoura.algafood.api.assembler.PedidoResumoModelAssembler
 import com.github.danilogmoura.algafood.api.model.PedidoModel;
 import com.github.danilogmoura.algafood.api.model.PedidoResumoModel;
 import com.github.danilogmoura.algafood.api.model.input.PedidoInput;
+import com.github.danilogmoura.algafood.api.openapi.controller.PedidoControllerOpenApi;
 import com.github.danilogmoura.algafood.core.data.PageableTranslator;
+import com.github.danilogmoura.algafood.domain.filter.PedidoFilter;
 import com.github.danilogmoura.algafood.domain.model.Usuario;
 import com.github.danilogmoura.algafood.domain.repository.PedidoRepository;
-import com.github.danilogmoura.algafood.domain.filter.PedidoFilter;
 import com.github.danilogmoura.algafood.domain.service.EmissaoPedidoService;
 import com.github.danilogmoura.algafood.domain.service.PedidoService;
 import com.github.danilogmoura.algafood.infrastructure.repository.spec.PedidoSpecs;
@@ -21,6 +22,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,8 +32,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/pedidos")
-public class PedidoController {
+@RequestMapping(path = "/pedidos")
+public class PedidoController implements PedidoControllerOpenApi {
 
     @Autowired
     private PedidoRepository pedidoRepository;
@@ -51,7 +53,7 @@ public class PedidoController {
     @Autowired
     private EmissaoPedidoService emissaoPedidoService;
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Page<PedidoResumoModel> pesquisar(PedidoFilter filtro, @PageableDefault(size = 10) Pageable pageable) {
         pageable = traduzirPageable(pageable);
 
@@ -60,13 +62,13 @@ public class PedidoController {
         return new PageImpl<>(pedidosModel, pageable, pedidosPage.getTotalElements());
     }
 
-    @GetMapping("/{codigo}")
+    @GetMapping(path = "/{codigo}", produces = MediaType.APPLICATION_JSON_VALUE)
     public PedidoModel buscar(@PathVariable String codigo) {
         var pedido = pedidoService.buscarOuFalhar(codigo);
         return pedidoModelAssembler.toModel(pedido);
     }
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public PedidoModel adicionar(@RequestBody @Valid PedidoInput pedidoInput) {
         var novoPedido = pedidoInputDisassembler.toDomainObject(pedidoInput);
