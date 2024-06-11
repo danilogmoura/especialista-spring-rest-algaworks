@@ -7,6 +7,7 @@ import com.github.danilogmoura.algafood.api.model.CozinhaModel;
 import com.github.danilogmoura.algafood.api.openapi.model.CozinhasModelOpenApi;
 import com.github.danilogmoura.algafood.api.openapi.model.PageableModelOpenApi;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import org.springframework.context.annotation.Bean;
@@ -23,10 +24,13 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RepresentationBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.builders.RequestParameterBuilder;
 import springfox.documentation.builders.ResponseBuilder;
 import springfox.documentation.schema.AlternateTypeRules;
+import springfox.documentation.schema.ScalarType;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.ParameterType;
 import springfox.documentation.service.Response;
 import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
@@ -58,6 +62,14 @@ public class SpringFoxConfig {
             .alternateTypeRules(AlternateTypeRules.newRule(
                 typeResolver.resolve(Page.class, CozinhaModel.class), CozinhasModelOpenApi.class))
             .apiInfo(apiInfo())
+            .globalRequestParameters(Collections.singletonList(
+                new RequestParameterBuilder()
+                    .name("campos")
+                    .description("Nomes das propriedades para filtrar na resposta, separados por vírgula")
+                    .in(ParameterType.QUERY)
+                    .required(true)
+                    .query(q -> q.model(m -> m.scalarModel(ScalarType.STRING)))
+                    .build()))
             .tags(new Tag("Cidades", "Gerencia as cidades"),
                 new Tag("Grupos", "Gerencia os grupos de usuários"),
                 new Tag("Cozinhas", "Gerencia as cozinhas"),
