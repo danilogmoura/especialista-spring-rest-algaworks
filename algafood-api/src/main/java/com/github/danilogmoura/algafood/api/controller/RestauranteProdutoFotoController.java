@@ -3,6 +3,7 @@ package com.github.danilogmoura.algafood.api.controller;
 import com.github.danilogmoura.algafood.api.assembler.FotoProdutoAssembler;
 import com.github.danilogmoura.algafood.api.model.FotoProdutoModel;
 import com.github.danilogmoura.algafood.api.model.input.FotoProdutoInput;
+import com.github.danilogmoura.algafood.api.openapi.controller.RestauranteProdutoFotoControllerOpenApi;
 import com.github.danilogmoura.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.github.danilogmoura.algafood.domain.model.FotoProduto;
 import com.github.danilogmoura.algafood.domain.service.CatalogoFotoProdutoService;
@@ -31,7 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/restaurantes/{restauranteId}/produtos/{produtoId}/foto")
-public class RestauranteProdutoFotoController {
+public class RestauranteProdutoFotoController implements RestauranteProdutoFotoControllerOpenApi {
 
     @Autowired
     private CatalogoFotoProdutoService catalogoFotoProdutoService;
@@ -52,7 +53,7 @@ public class RestauranteProdutoFotoController {
         return fotoProdutoAssembler.toModel(fotoProduto);
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.ALL_VALUE)
     public ResponseEntity<?> servir(@PathVariable Long restauranteId,
         @PathVariable Long produtoId, @RequestHeader(name = "accept") String acceptHeader)
         throws HttpMediaTypeNotAcceptableException {
@@ -91,7 +92,7 @@ public class RestauranteProdutoFotoController {
         }
     }
 
-    @PutMapping
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public FotoProdutoModel atualizarFoto(@PathVariable Long restauranteId, @PathVariable Long produtoId,
         @Valid FotoProdutoInput fotoProdutoInput) throws IOException {
         var produto = produtoService.buscarOuFalhar(restauranteId, produtoId);
