@@ -1,5 +1,6 @@
 package com.github.danilogmoura.algafood.api.controller;
 
+import com.github.danilogmoura.algafood.api.openapi.controller.EstatisticaControllerOpenApi;
 import com.github.danilogmoura.algafood.domain.filter.VendaDiariaFilter;
 import com.github.danilogmoura.algafood.domain.model.dto.VendaDiaria;
 import com.github.danilogmoura.algafood.domain.service.VendaQueryService;
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/estatisticas")
-public class EstatisticaController {
+@RequestMapping(path = "/estatisticas")
+public class EstatisticaController implements EstatisticaControllerOpenApi {
 
     @Autowired
     private VendaQueryService vendaQueryService;
@@ -39,9 +40,6 @@ public class EstatisticaController {
         var headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=vendas-diarias.pdf");
 
-        return ResponseEntity.ok()
-            .contentType(MediaType.APPLICATION_PDF)
-            .headers(headers)
-            .body(bytesPdf);
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).headers(headers).body(bytesPdf);
     }
 }
