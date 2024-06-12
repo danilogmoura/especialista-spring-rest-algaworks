@@ -4,12 +4,14 @@ import com.github.danilogmoura.algafood.api.assembler.EstadoInputDisassembler;
 import com.github.danilogmoura.algafood.api.assembler.EstadoModelAssembler;
 import com.github.danilogmoura.algafood.api.model.EstadoModel;
 import com.github.danilogmoura.algafood.api.model.input.EstadoInput;
+import com.github.danilogmoura.algafood.api.openapi.controller.EstadoControllerOpenApi;
 import com.github.danilogmoura.algafood.domain.repository.EstadoRepository;
 import com.github.danilogmoura.algafood.domain.service.EstadoService;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/estados")
-public class EstadoController {
+public class EstadoController implements EstadoControllerOpenApi {
 
     @Autowired
     private EstadoRepository estadoRepository;
@@ -36,24 +38,24 @@ public class EstadoController {
     @Autowired
     private EstadoInputDisassembler estadoInputDisassembler;
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<EstadoModel> listar() {
         return estadoModelAssembler.toCollectionModel(estadoRepository.findAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public EstadoModel buscar(@PathVariable Long id) {
         return estadoModelAssembler.toModel(estadoService.buscarOuFalhar(id));
     }
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public EstadoModel adicionar(@RequestBody @Valid EstadoInput estadoInput) {
         var estado = estadoInputDisassembler.toDomainObject(estadoInput);
         return estadoModelAssembler.toModel(estadoService.salvar(estado));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public EstadoModel atualizar(@PathVariable Long id, @RequestBody @Valid EstadoInput estadoInput) {
         var estadoAtual = estadoService.buscarOuFalhar(id);
         estadoInputDisassembler.copyToCollectionModel(estadoInput, estadoAtual);
