@@ -21,7 +21,6 @@ public class RestauranteBasicoModelOpenApi {
     @ApiModelProperty(example = "12.00")
     private BigDecimal taxaFrete;
 
-    @ApiModelProperty(example = "")
     private CozinhaModel cozinha;
 
 }

@@ -8,7 +8,7 @@ import com.github.danilogmoura.algafood.api.assembler.RestauranteModelAssembler;
 import com.github.danilogmoura.algafood.api.model.RestauranteModel;
 import com.github.danilogmoura.algafood.api.model.input.RestauranteInput;
 import com.github.danilogmoura.algafood.api.model.view.RestauranteView;
-import com.github.danilogmoura.algafood.api.openapi.model.RestauranteBasicoModelOpenApi;
+import com.github.danilogmoura.algafood.api.openapi.controller.RestauranteControllerOpenApi;
 import com.github.danilogmoura.algafood.core.validation.ValidacaoException;
 import com.github.danilogmoura.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.github.danilogmoura.algafood.domain.exception.CozinhaNaoEncontradaException;
@@ -17,9 +17,6 @@ import com.github.danilogmoura.algafood.domain.exception.RestauranteNaoEncontrad
 import com.github.danilogmoura.algafood.domain.model.Restaurante;
 import com.github.danilogmoura.algafood.domain.repository.RestauranteRepository;
 import com.github.danilogmoura.algafood.domain.service.RestauranteService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +25,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.util.ReflectionUtils;
@@ -46,8 +44,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/restaurantes")
-public class RestauranteController {
+@RequestMapping(path = "/restaurantes")
+public class RestauranteController implements RestauranteControllerOpenApi {
 
     @Autowired
     private RestauranteRepository restauranteRepository;
@@ -61,34 +59,28 @@ public class RestauranteController {
     @Autowired
     private RestauranteInputDisassembler restauranteInputDisassembler;
 
-    @ApiOperation(value = "Lista restaurantes", response = RestauranteBasicoModelOpenApi.class)
-    @ApiImplicitParams({
-        @ApiImplicitParam(value = "Nome da projeção de pedidos", name = "projecao", paramType = "query",
-            type = "string", allowableValues = "apenas-nome")
-    })
+    @Autowired
+    private SmartValidator validator;
+
     @JsonView(RestauranteView.Resumo.class)
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<RestauranteModel> listar() {
         return restauranteModelAssembler.toCollectionModel(restauranteRepository.findAll());
     }
 
-    @ApiOperation(value = "Lista restaurantes", hidden = true)
     @JsonView(RestauranteView.ApenasNome.class)
-    @GetMapping(params = "projecao=apenas-nome")
+    @GetMapping(params = "projecao=apenas-nome", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<RestauranteModel> listarApenasNomes() {
         return listar();
     }
 
-    @Autowired
-    private SmartValidator validator;
-
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public RestauranteModel buscar(@PathVariable Long id) {
         var restaurante = restauranteService.buscarOuFalhar(id);
         return restauranteModelAssembler.toModel(restaurante);
     }
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public RestauranteModel adicionar(@RequestBody @Valid RestauranteInput restauranteInput) {
         try {
@@ -99,7 +91,7 @@ public class RestauranteController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public RestauranteModel atualizar(@PathVariable Long id, @RequestBody @Valid RestauranteInput restauranteInput) {
         try {
             var restauranteAtual = restauranteService.buscarOuFalhar(id);
@@ -112,7 +104,7 @@ public class RestauranteController {
         }
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public RestauranteModel atualizarParcial(@PathVariable Long id, @RequestBody Map<String, Object> dados,
         HttpServletRequest request) {
         try {

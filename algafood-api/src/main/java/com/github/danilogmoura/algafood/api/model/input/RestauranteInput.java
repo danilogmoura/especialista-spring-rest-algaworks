@@ -1,6 +1,7 @@
 package com.github.danilogmoura.algafood.api.model.input;
 
 import com.github.danilogmoura.algafood.core.validation.ValorZeroIncluiDescricao;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -14,9 +15,11 @@ import lombok.Setter;
 @Setter
 public class RestauranteInput {
 
+    @ApiModelProperty(example = "Thai Gourmet", required = true)
     @NotBlank
     private String nome;
 
+    @ApiModelProperty(example = "12.00", required = true)
     @NotNull
     @PositiveOrZero
     private BigDecimal taxaFrete;

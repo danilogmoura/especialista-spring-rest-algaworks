@@ -26,7 +26,7 @@ public class EnderecoInput {
     @ApiModelProperty(example = "Apto 801")
     private String complemento;
 
-    @ApiModelProperty(example = "Bambuí", required = true)
+    @ApiModelProperty(example = "Cambuí", required = true)
     @NotBlank
     private String bairro;
 
