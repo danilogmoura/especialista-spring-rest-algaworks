@@ -11,13 +11,14 @@ import io.swagger.annotations.ApiResponses;
 import java.io.IOException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
+import org.springframework.web.multipart.MultipartFile;
 
 @Api(tags = "Produtos")
 public interface RestauranteProdutoFotoControllerOpenApi {
 
 
     @ApiOperation(value = "Busca a foto do produto de um restaurante",
-        produces = "application/json, image/jpeg, image/png")
+        produces = "image/jpeg, image/png, application/json")
     @ApiResponses({
         @ApiResponse(code = 400, message = "ID do restaurante ou produto inválido", response = Problem.class),
         @ApiResponse(code = 404, message = "Foto de produto não encontrada", response = Problem.class)
@@ -27,7 +28,7 @@ public interface RestauranteProdutoFotoControllerOpenApi {
         @ApiParam(value = "ID do produto", example = "1", required = true) Long produtoId);
 
     @ApiOperation(value = "Busca a foto do produto de um restaurante", hidden = true,
-        produces = "application/json, image/jpeg, image/png")
+        produces = "image/jpeg, image/png, application/json")
     ResponseEntity<?> servir(
         @ApiParam(value = "ID do restaurante", example = "1", required = true) Long restauranteId,
         @ApiParam(value = "ID do produto", example = "1", required = true) Long produtoId,
@@ -41,7 +42,9 @@ public interface RestauranteProdutoFotoControllerOpenApi {
     FotoProdutoModel atualizarFoto(
         @ApiParam(value = "ID do restaurante", example = "1", required = true) Long restauranteId,
         @ApiParam(value = "ID do produto", example = "1", required = true) Long produtoId,
-        FotoProdutoInput fotoProdutoInput) throws IOException;
+        FotoProdutoInput fotoProdutoInput,
+        @ApiParam(value = "Arquivo da foto do produto (máximo 500KB, apenas JPG e PNG)", required = true) MultipartFile arquivo)
+        throws IOException;
 
     @ApiOperation("Exclui a foto do produto de um restaurante")
     @ApiResponses({

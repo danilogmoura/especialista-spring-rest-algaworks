@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -47,13 +48,14 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
     private FotoStorageService fotoStorageService;
 
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.IMAGE_PNG_VALUE})
     public FotoProdutoModel buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
         var fotoProduto = catalogoFotoProdutoService.buscarOuFalhar(restauranteId, produtoId);
         return fotoProdutoAssembler.toModel(fotoProduto);
     }
 
-    @GetMapping(produces = MediaType.ALL_VALUE)
+    @GetMapping(produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> servir(@PathVariable Long restauranteId,
         @PathVariable Long produtoId, @RequestHeader(name = "accept") String acceptHeader)
         throws HttpMediaTypeNotAcceptableException {
@@ -94,10 +96,9 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public FotoProdutoModel atualizarFoto(@PathVariable Long restauranteId, @PathVariable Long produtoId,
-        @Valid FotoProdutoInput fotoProdutoInput) throws IOException {
+        @Valid FotoProdutoInput fotoProdutoInput,
+        @RequestPart MultipartFile arquivo) throws IOException {
         var produto = produtoService.buscarOuFalhar(restauranteId, produtoId);
-
-        MultipartFile arquivo = fotoProdutoInput.getArquivo();
 
         FotoProduto foto = new FotoProduto();
         foto.setProduto(produto);
