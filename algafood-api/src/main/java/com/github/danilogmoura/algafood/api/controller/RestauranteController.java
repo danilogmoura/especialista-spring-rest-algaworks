@@ -8,6 +8,7 @@ import com.github.danilogmoura.algafood.api.assembler.RestauranteModelAssembler;
 import com.github.danilogmoura.algafood.api.model.RestauranteModel;
 import com.github.danilogmoura.algafood.api.model.input.RestauranteInput;
 import com.github.danilogmoura.algafood.api.model.view.RestauranteView;
+import com.github.danilogmoura.algafood.api.openapi.model.RestauranteBasicoModelOpenApi;
 import com.github.danilogmoura.algafood.core.validation.ValidacaoException;
 import com.github.danilogmoura.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.github.danilogmoura.algafood.domain.exception.CozinhaNaoEncontradaException;
@@ -16,6 +17,9 @@ import com.github.danilogmoura.algafood.domain.exception.RestauranteNaoEncontrad
 import com.github.danilogmoura.algafood.domain.model.Restaurante;
 import com.github.danilogmoura.algafood.domain.repository.RestauranteRepository;
 import com.github.danilogmoura.algafood.domain.service.RestauranteService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -57,12 +61,18 @@ public class RestauranteController {
     @Autowired
     private RestauranteInputDisassembler restauranteInputDisassembler;
 
+    @ApiOperation(value = "Lista restaurantes", response = RestauranteBasicoModelOpenApi.class)
+    @ApiImplicitParams({
+        @ApiImplicitParam(value = "Nome da projeção de pedidos", name = "projecao", paramType = "query",
+            type = "string", allowableValues = "apenas-nome")
+    })
     @JsonView(RestauranteView.Resumo.class)
     @GetMapping
     public List<RestauranteModel> listar() {
         return restauranteModelAssembler.toCollectionModel(restauranteRepository.findAll());
     }
 
+    @ApiOperation(value = "Lista restaurantes", hidden = true)
     @JsonView(RestauranteView.ApenasNome.class)
     @GetMapping(params = "projecao=apenas-nome")
     public List<RestauranteModel> listarApenasNomes() {
