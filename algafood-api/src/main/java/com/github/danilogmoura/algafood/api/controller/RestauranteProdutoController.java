@@ -4,6 +4,7 @@ import com.github.danilogmoura.algafood.api.assembler.ProdutoInputDisassembler;
 import com.github.danilogmoura.algafood.api.assembler.ProdutoModelAssembler;
 import com.github.danilogmoura.algafood.api.model.ProdutoModel;
 import com.github.danilogmoura.algafood.api.model.input.ProdutoInput;
+import com.github.danilogmoura.algafood.api.openapi.controller.RestauranteProdutoControllerOpenApi;
 import com.github.danilogmoura.algafood.domain.model.Produto;
 import com.github.danilogmoura.algafood.domain.repository.ProdutoRepository;
 import com.github.danilogmoura.algafood.domain.service.ProdutoService;
@@ -13,6 +14,7 @@ import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/restaurantes/{restauranteId}/produtos")
-public class RestauranteProdutoController {
+public class RestauranteProdutoController implements RestauranteProdutoControllerOpenApi {
 
     @Autowired
     private ProdutoRepository produtoRepository;
@@ -43,10 +45,10 @@ public class RestauranteProdutoController {
     @Autowired
     private ProdutoInputDisassembler produtoInputDisassembler;
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Collection<ProdutoModel> listar(
-        @RequestParam(required = false, name = "incluir_inativos") boolean incluirInativos,
-        @PathVariable Long restauranteId) {
+        @PathVariable Long restauranteId,
+        @RequestParam(required = false, name = "incluir_inativos") Boolean incluirInativos) {
         var restaurante = restauranteService.buscarOuFalhar(restauranteId);
         List<Produto> produtos = null;
 
@@ -59,13 +61,13 @@ public class RestauranteProdutoController {
         return produtoModelAssembler.toCollectionModel(produtos);
     }
 
-    @GetMapping("/{produtoId}")
+    @GetMapping(path = "/{produtoId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ProdutoModel buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
         var produto = produtoService.buscarOuFalhar(restauranteId, produtoId);
         return produtoModelAssembler.toModel(produto);
     }
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ProdutoModel adicionar(@PathVariable Long restauranteId, @RequestBody @Valid ProdutoInput produtoInput) {
         var restaurante = restauranteService.buscarOuFalhar(restauranteId);
@@ -77,7 +79,7 @@ public class RestauranteProdutoController {
         return produtoModelAssembler.toModel(produto);
     }
 
-    @PutMapping("/{produtoId}")
+    @PutMapping(path = "/{produtoId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ProdutoModel atualizar(@PathVariable Long restauranteId, @PathVariable Long produtoId,
         @RequestBody @Valid ProdutoInput produtoInput) {
         var produto = produtoService.buscarOuFalhar(restauranteId, produtoId);
