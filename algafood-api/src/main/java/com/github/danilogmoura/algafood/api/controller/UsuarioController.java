@@ -6,13 +6,14 @@ import com.github.danilogmoura.algafood.api.model.UsuarioModel;
 import com.github.danilogmoura.algafood.api.model.input.SenhaInput;
 import com.github.danilogmoura.algafood.api.model.input.UsuarioComSenhaInput;
 import com.github.danilogmoura.algafood.api.model.input.UsuarioInput;
+import com.github.danilogmoura.algafood.api.openapi.controller.UsuarioControllerOpenApi;
 import com.github.danilogmoura.algafood.domain.repository.UsuarioRepository;
 import com.github.danilogmoura.algafood.domain.service.UsuarioService;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/usuarios")
-public class UsuarioController {
+public class UsuarioController implements UsuarioControllerOpenApi {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -39,25 +40,25 @@ public class UsuarioController {
     private UsuarioInputDisassembler usuarioInputDisassembler;
 
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<UsuarioModel> listar() {
         return usuarioModelAssembler.toCollectionModel(usuarioRepository.findAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public UsuarioModel buscar(@PathVariable Long id) {
         var usuario = usuarioService.buscarOuFalhar(id);
         return usuarioModelAssembler.toModel(usuario);
     }
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public UsuarioModel adicionar(@RequestBody @Valid UsuarioComSenhaInput usuarioComSenhaInput) {
         var usuario = usuarioInputDisassembler.toDomainObject(usuarioComSenhaInput);
         return usuarioModelAssembler.toModel(usuarioService.salvar(usuario));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public UsuarioModel atualizar(@PathVariable Long id, @RequestBody @Valid UsuarioInput usuarioInput) {
         var usuarioAtual = usuarioService.buscarOuFalhar(id);
         usuarioInputDisassembler.copyToDomainObject(usuarioInput, usuarioAtual);
@@ -68,11 +69,5 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void atualizarSenha(@PathVariable Long id, @RequestBody @Valid SenhaInput senha) {
         usuarioService.atualizarSenha(id, senha.getSenhaAtual(), senha.getNovaSenha());
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void remover(@PathVariable Long id) {
-        usuarioService.remover(id);
     }
 }

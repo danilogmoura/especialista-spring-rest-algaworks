@@ -1,5 +1,6 @@
 package com.github.danilogmoura.algafood.api.model.input;
 
+import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class UsuarioComSenhaInput extends UsuarioInput {
 
+    @ApiModelProperty(example = "123", required = true)
     @NotBlank
     private String senha;
 }
