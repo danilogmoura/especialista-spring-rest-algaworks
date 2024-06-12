@@ -1,5 +1,6 @@
 package com.github.danilogmoura.algafood.api.controller;
 
+import com.github.danilogmoura.algafood.api.openapi.controller.FluxoPedidosControllerOpenApi;
 import com.github.danilogmoura.algafood.domain.service.FluxoPedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/pedidos/{codigoPedido}")
-public class FluxoPedidosController {
+public class FluxoPedidosController implements FluxoPedidosControllerOpenApi {
 
     @Autowired
     private FluxoPedidoService fluxoPedidoService;
