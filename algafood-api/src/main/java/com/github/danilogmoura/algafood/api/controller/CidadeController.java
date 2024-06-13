@@ -1,5 +1,6 @@
 package com.github.danilogmoura.algafood.api.controller;
 
+import com.github.danilogmoura.algafood.api.ResourceUriHelper;
 import com.github.danilogmoura.algafood.api.assembler.CidadeInputDisassembler;
 import com.github.danilogmoura.algafood.api.assembler.CidadeModelAssembler;
 import com.github.danilogmoura.algafood.api.model.CidadeModel;
@@ -12,6 +13,7 @@ import com.github.danilogmoura.algafood.domain.service.CidadeService;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -49,16 +51,29 @@ public class CidadeController implements CidadeControllerOpenApi {
     @GetMapping(path = "/{cidadeId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public CidadeModel buscar(@PathVariable Long cidadeId) {
         var cidade = cidadeService.buscarOuFalhar(cidadeId);
-        return cidadeModelAssembler.toModel(cidade);
+
+        var cidadeModel = cidadeModelAssembler.toModel(cidade);
+
+        cidadeModel.add(Link.of("http://localhost:8080/cidades/1"));
+
+        cidadeModel.add(Link.of("http://localhost:8080/cidades", "cidades"));
+
+        cidadeModel.getEstado().add(Link.of("http://localhost:8080/estados/1", "estados"));
+
+        return cidadeModel;
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public CidadeModel adicionar(@RequestBody @Valid CidadeInput cidadeInput) {
-
         try {
             var cidade = cidadeInputDisassembler.toDomainObjetct(cidadeInput);
-            return cidadeModelAssembler.toModel(cidadeService.salvar(cidade));
+
+            var cidadeModel = cidadeModelAssembler.toModel(cidadeService.salvar(cidade));
+
+            ResourceUriHelper.addUriInResponseHeader(cidadeModel.getId());
+
+            return cidadeModel;
         } catch (EstadoNaoEncontradoException e) {
             throw new NegocioException(e.getMessage(), e);
         }

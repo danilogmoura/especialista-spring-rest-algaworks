@@ -1,4 +1,4 @@
-package com.github.danilogmoura.algafood.core.openapi;
+package com.github.danilogmoura.algafood.core.springfox;
 
 import com.fasterxml.classmate.TypeResolver;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;

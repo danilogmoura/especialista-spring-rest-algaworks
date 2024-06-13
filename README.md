@@ -90,7 +90,6 @@
 - [**18.5. Selecionando os endpoints da API para gerar a documentação**](https://app.algaworks.com/aulas/2120/selecionando-os-endpoints-da-api-para-gerar-a-documentacao)
     - [Sugestão para a abstração de todas as tags](https://app.algaworks.com/forum/topicos/81759/sugestao-para-a-abstracao-de-todas-as-tags)
 
-
 ### DOCUMENTAÇÕES
 
 - [Tutorial definitivo: Tudo o que você precisa para começar bem com JPA](https://blog.algaworks.com/tutorial-jpa/)
@@ -121,3 +120,25 @@
 
 
 - [**Spring Boot cache with Redis**](https://medium.com/@MatthewFTech/spring-boot-cache-with-redis-56026f7da83a)
+
+
+- [**HAL - Hypertext Application Language**](http://stateless.co/hal_specification.html)
+
+
+- [**UBER - Uniform Basis for Exchanging Representations**](https://rawgit.com/uber-hypermedia/specification/master/uber-hypermedia.html)
+
+
+- [**JSON:API**](https://jsonapi.org/)
+
+
+- [**JSON-LD - JSON for Linking Data**](https://json-ld.org/)
+
+
+- [**Collection+JSON**](http://amundsen.com/media-types/collection/format/)
+
+
+- [**Siren**](https://github.com/kevinswiber/siren)
+
+
+- [****]()
+
