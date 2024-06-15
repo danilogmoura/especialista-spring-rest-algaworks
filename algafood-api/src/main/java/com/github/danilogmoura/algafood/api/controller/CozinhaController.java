@@ -5,14 +5,15 @@ import com.github.danilogmoura.algafood.api.assembler.CozinhaModelAssembler;
 import com.github.danilogmoura.algafood.api.model.CozinhaModel;
 import com.github.danilogmoura.algafood.api.model.input.CozinhaInput;
 import com.github.danilogmoura.algafood.api.openapi.controller.CozinhaControllerOpenApi;
+import com.github.danilogmoura.algafood.domain.model.Cozinha;
 import com.github.danilogmoura.algafood.domain.repository.CozinhaRepository;
 import com.github.danilogmoura.algafood.domain.service.CozinhaService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,11 +42,15 @@ public class CozinhaController implements CozinhaControllerOpenApi {
     @Autowired
     private CozinhaInputDisassembler cozinhaInputDisassembler;
 
+    @Autowired
+    private PagedResourcesAssembler<Cozinha> pagedResourcesAssembler;
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Page<CozinhaModel> listar(@PageableDefault(size = 10) Pageable pageable) {
+    public PagedModel<CozinhaModel> listar(@PageableDefault(size = 10) Pageable pageable) {
         var cozinhasPage = cozinhaRepository.findAll(pageable);
-        var cozinhasModel = cozinhaModelAssembler.toCollectionModel(cozinhasPage.getContent());
-        return new PageImpl<>(cozinhasModel, pageable, cozinhasPage.getTotalElements());
+
+        return pagedResourcesAssembler
+            .toModel(cozinhasPage, cozinhaModelAssembler);
     }
 
     @GetMapping(path = "/{cozinhaId}", produces = MediaType.APPLICATION_JSON_VALUE)
