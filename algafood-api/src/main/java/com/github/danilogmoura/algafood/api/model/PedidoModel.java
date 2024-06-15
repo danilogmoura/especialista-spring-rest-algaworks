@@ -8,10 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
+@Relation(collectionRelation = "pedidos")
 @Getter
 @Setter
-public class PedidoModel {
+public class PedidoModel extends RepresentationModel<PedidoModel> {
 
     @ApiModelProperty(example = "8d774bcf-b238-42f3-aef1-5fb388754d63")
     private String codigo;

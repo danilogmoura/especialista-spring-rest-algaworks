@@ -9,6 +9,7 @@ import com.github.danilogmoura.algafood.api.model.input.PedidoInput;
 import com.github.danilogmoura.algafood.api.openapi.controller.PedidoControllerOpenApi;
 import com.github.danilogmoura.algafood.core.data.PageableTranslator;
 import com.github.danilogmoura.algafood.domain.filter.PedidoFilter;
+import com.github.danilogmoura.algafood.domain.model.Pedido;
 import com.github.danilogmoura.algafood.domain.model.Usuario;
 import com.github.danilogmoura.algafood.domain.repository.PedidoRepository;
 import com.github.danilogmoura.algafood.domain.service.EmissaoPedidoService;
@@ -17,10 +18,10 @@ import com.github.danilogmoura.algafood.infrastructure.repository.spec.PedidoSpe
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -53,13 +54,16 @@ public class PedidoController implements PedidoControllerOpenApi {
     @Autowired
     private EmissaoPedidoService emissaoPedidoService;
 
+    @Autowired
+    private PagedResourcesAssembler<Pedido> pagedResourcesAssembler;
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Page<PedidoResumoModel> pesquisar(PedidoFilter filtro, @PageableDefault(size = 10) Pageable pageable) {
+    public PagedModel<PedidoResumoModel> pesquisar(PedidoFilter filtro, @PageableDefault(size = 10) Pageable pageable) {
         pageable = traduzirPageable(pageable);
 
         var pedidosPage = pedidoRepository.findAll(PedidoSpecs.comFreteGratis(filtro), pageable);
-        var pedidosModel = pedidoResumoModelAssembler.toCollectionModel(pedidosPage.getContent());
-        return new PageImpl<>(pedidosModel, pageable, pedidosPage.getTotalElements());
+
+        return pagedResourcesAssembler.toModel(pedidosPage, pedidoResumoModelAssembler);
     }
 
     @GetMapping(path = "/{codigo}", produces = MediaType.APPLICATION_JSON_VALUE)

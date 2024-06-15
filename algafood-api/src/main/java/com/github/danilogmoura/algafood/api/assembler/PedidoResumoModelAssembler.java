@@ -1,24 +1,41 @@
 package com.github.danilogmoura.algafood.api.assembler;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+import com.github.danilogmoura.algafood.api.controller.PedidoController;
+import com.github.danilogmoura.algafood.api.controller.RestauranteController;
+import com.github.danilogmoura.algafood.api.controller.UsuarioController;
 import com.github.danilogmoura.algafood.api.model.PedidoResumoModel;
 import com.github.danilogmoura.algafood.domain.model.Pedido;
-import java.util.Collection;
-import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PedidoResumoModelAssembler {
+public class PedidoResumoModelAssembler extends RepresentationModelAssemblerSupport<Pedido, PedidoResumoModel> {
 
     @Autowired
     private ModelMapper modelMapper;
 
-    public PedidoResumoModel toModel(Pedido pedido) {
-        return modelMapper.map(pedido, PedidoResumoModel.class);
+    public PedidoResumoModelAssembler() {
+        super(PedidoController.class, PedidoResumoModel.class);
     }
 
-    public List<PedidoResumoModel> toCollectionModel(Collection<Pedido> pedidos) {
-        return pedidos.stream().map(this::toModel).toList();
+    public PedidoResumoModel toModel(Pedido pedido) {
+        var pedidoResumoModel = createModelWithId(pedido.getId(), pedido);
+
+        modelMapper.map(pedido, pedidoResumoModel);
+
+        pedidoResumoModel.add(linkTo(PedidoController.class).withSelfRel());
+
+        pedidoResumoModel.getRestaurante()
+            .add(linkTo(methodOn(RestauranteController.class).buscar(pedido.getRestaurante().getId())).withSelfRel());
+
+        pedidoResumoModel.getCliente()
+            .add(linkTo(methodOn(UsuarioController.class).buscar(pedido.getCliente().getId())).withSelfRel());
+
+        return pedidoResumoModel;
     }
 }
