@@ -7,9 +7,9 @@ import com.github.danilogmoura.algafood.api.model.input.EstadoInput;
 import com.github.danilogmoura.algafood.api.openapi.controller.EstadoControllerOpenApi;
 import com.github.danilogmoura.algafood.domain.repository.EstadoRepository;
 import com.github.danilogmoura.algafood.domain.service.EstadoService;
-import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,7 +39,7 @@ public class EstadoController implements EstadoControllerOpenApi {
     private EstadoInputDisassembler estadoInputDisassembler;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<EstadoModel> listar() {
+    public CollectionModel<EstadoModel> listar() {
         return estadoModelAssembler.toCollectionModel(estadoRepository.findAll());
     }
 
