@@ -1,8 +1,5 @@
 package com.github.danilogmoura.algafood.api.controller;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
 import com.github.danilogmoura.algafood.api.ResourceUriHelper;
 import com.github.danilogmoura.algafood.api.assembler.CidadeInputDisassembler;
 import com.github.danilogmoura.algafood.api.assembler.CidadeModelAssembler;
@@ -47,38 +44,14 @@ public class CidadeController implements CidadeControllerOpenApi {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public CollectionModel<CidadeModel> listar() {
-        var cidadesModel = cidadeModelAssembler.toCollectionModel(cidadeRepository.findAll());
-
-        var cidadesColletionsModel = CollectionModel.of(cidadesModel);
-
-        cidadesModel.forEach(cidadeModel -> {
-            cidadeModel.add(linkTo(methodOn(CidadeController.class).buscar(cidadeModel.getId())).withSelfRel());
-
-            cidadeModel.add(linkTo(methodOn(CidadeController.class).listar()).withSelfRel());
-
-            cidadeModel.getEstado()
-                .add(linkTo(methodOn(EstadoController.class).buscar(cidadeModel.getEstado().getId())).withSelfRel());
-        });
-
-        cidadesColletionsModel.add(linkTo(CidadeController.class).withSelfRel());
-
-        return cidadesColletionsModel;
+        return cidadeModelAssembler.toCollectionModel(cidadeRepository.findAll());
     }
 
     @GetMapping(path = "/{cidadeId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public CidadeModel buscar(@PathVariable Long cidadeId) {
         var cidade = cidadeService.buscarOuFalhar(cidadeId);
 
-        var cidadeModel = cidadeModelAssembler.toModel(cidade);
-
-        cidadeModel.add(linkTo(methodOn(CidadeController.class).buscar(cidadeModel.getId())).withSelfRel());
-
-        cidadeModel.add(linkTo(methodOn(CidadeController.class).listar()).withSelfRel());
-
-        cidadeModel.getEstado()
-            .add(linkTo(methodOn(EstadoController.class).buscar(cidadeModel.getEstado().getId())).withSelfRel());
-
-        return cidadeModel;
+        return cidadeModelAssembler.toModel(cidade);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
