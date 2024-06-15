@@ -13,9 +13,9 @@ import com.github.danilogmoura.algafood.domain.exception.EstadoNaoEncontradoExce
 import com.github.danilogmoura.algafood.domain.exception.NegocioException;
 import com.github.danilogmoura.algafood.domain.repository.CidadeRepository;
 import com.github.danilogmoura.algafood.domain.service.CidadeService;
-import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -46,8 +46,23 @@ public class CidadeController implements CidadeControllerOpenApi {
     private CidadeInputDisassembler cidadeInputDisassembler;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<CidadeModel> listar() {
-        return cidadeModelAssembler.toCollectionModel(cidadeRepository.findAll());
+    public CollectionModel<CidadeModel> listar() {
+        var cidadesModel = cidadeModelAssembler.toCollectionModel(cidadeRepository.findAll());
+
+        var cidadesColletionsModel = CollectionModel.of(cidadesModel);
+
+        cidadesModel.forEach(cidadeModel -> {
+            cidadeModel.add(linkTo(methodOn(CidadeController.class).buscar(cidadeModel.getId())).withSelfRel());
+
+            cidadeModel.add(linkTo(methodOn(CidadeController.class).listar()).withSelfRel());
+
+            cidadeModel.getEstado()
+                .add(linkTo(methodOn(EstadoController.class).buscar(cidadeModel.getEstado().getId())).withSelfRel());
+        });
+
+        cidadesColletionsModel.add(linkTo(CidadeController.class).withSelfRel());
+
+        return cidadesColletionsModel;
     }
 
     @GetMapping(path = "/{cidadeId}", produces = MediaType.APPLICATION_JSON_VALUE)
