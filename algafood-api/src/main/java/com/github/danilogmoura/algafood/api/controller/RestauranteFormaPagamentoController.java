@@ -1,11 +1,12 @@
 package com.github.danilogmoura.algafood.api.controller;
 
+import com.github.danilogmoura.algafood.api.AlgaLinks;
 import com.github.danilogmoura.algafood.api.assembler.FormaPagamentoModelAssembler;
 import com.github.danilogmoura.algafood.api.model.FormaPagamentoModel;
 import com.github.danilogmoura.algafood.api.openapi.controller.RestauranteFormaPagamentoControllerOpenApi;
 import com.github.danilogmoura.algafood.domain.service.RestauranteService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,11 +28,16 @@ public class RestauranteFormaPagamentoController implements RestauranteFormaPaga
     @Autowired
     private FormaPagamentoModelAssembler formaPagamentoModelAssembler;
 
+    @Autowired
+    private AlgaLinks algaLinks;
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<FormaPagamentoModel> listar(@PathVariable Long restauranteId) {
+    public CollectionModel<FormaPagamentoModel> listar(@PathVariable Long restauranteId) {
         var restaurante = restauranteService.buscarOuFalhar(restauranteId);
         var formasPagamento = restaurante.getFormasPagamento();
-        return formaPagamentoModelAssembler.toCollectionModel(formasPagamento);
+        return formaPagamentoModelAssembler.toCollectionModel(formasPagamento)
+            .removeLinks()
+            .add(algaLinks.linkToRestauranteFormaPagamento(restauranteId));
     }
 
     @DeleteMapping(path = "/{formaPagamentoId}")
