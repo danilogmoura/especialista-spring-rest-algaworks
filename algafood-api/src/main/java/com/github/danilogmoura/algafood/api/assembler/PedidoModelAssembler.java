@@ -1,7 +1,5 @@
 package com.github.danilogmoura.algafood.api.assembler;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-
 import com.github.danilogmoura.algafood.api.AlgaLinks;
 import com.github.danilogmoura.algafood.api.controller.PedidoController;
 import com.github.danilogmoura.algafood.api.model.PedidoModel;
@@ -30,9 +28,19 @@ public class PedidoModelAssembler extends RepresentationModelAssemblerSupport<Pe
 
         modelMapper.map(pedido, pedidoModel);
 
-        pedidoModel.add(linkTo(PedidoController.class).withRel("pedidos"));
-
         pedidoModel.add(algaLinks.linkToPedidos());
+
+        if (pedido.podeSerConfirmado()) {
+            pedidoModel.add(algaLinks.linkToConfirmacaoPedido(pedido.getCodigo(), "confirmar"));
+        }
+
+        if (pedido.podeSerCancelado()) {
+            pedidoModel.add(algaLinks.linkToCancelamentoPedido(pedido.getCodigo(), "cancelar"));
+        }
+
+        if (pedido.podeSerEntregue()) {
+            pedidoModel.add(algaLinks.linkToEntregaPedido(pedido.getCodigo(), "enregar"));
+        }
 
         pedidoModel.getRestaurante().add(algaLinks.linkToRestaurante(pedido.getRestaurante().getId()));
 

@@ -6,6 +6,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import com.github.danilogmoura.algafood.api.controller.CidadeController;
 import com.github.danilogmoura.algafood.api.controller.CozinhaController;
 import com.github.danilogmoura.algafood.api.controller.EstadoController;
+import com.github.danilogmoura.algafood.api.controller.FluxoPedidosController;
 import com.github.danilogmoura.algafood.api.controller.FormaPagamentoController;
 import com.github.danilogmoura.algafood.api.controller.PedidoController;
 import com.github.danilogmoura.algafood.api.controller.RestauranteController;
@@ -39,6 +40,18 @@ public class AlgaLinks {
         var pedidosUrl = linkTo(PedidoController.class).toUri().toString();
 
         return Link.of(UriTemplate.of(pedidosUrl, PAGE_VARIABLES.concat(filtroVariables)), "pedidos");
+    }
+
+    public Link linkToConfirmacaoPedido(String codigoPedido, String rel) {
+        return linkTo(methodOn(FluxoPedidosController.class).confirmar(codigoPedido)).withRel(rel);
+    }
+
+    public Link linkToEntregaPedido(String codigoPedido, String rel) {
+        return linkTo(methodOn(FluxoPedidosController.class).entregar(codigoPedido)).withRel(rel);
+    }
+
+    public Link linkToCancelamentoPedido(String codigoPedido, String rel) {
+        return linkTo(methodOn(FluxoPedidosController.class).cancelar(codigoPedido)).withRel(rel);
     }
 
     public Link linkToPedido(String pedidoCodigo) {
