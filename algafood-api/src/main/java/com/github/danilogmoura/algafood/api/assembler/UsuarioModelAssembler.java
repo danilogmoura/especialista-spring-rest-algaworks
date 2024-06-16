@@ -1,10 +1,7 @@
 package com.github.danilogmoura.algafood.api.assembler;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
+import com.github.danilogmoura.algafood.api.AlgaLinks;
 import com.github.danilogmoura.algafood.api.controller.UsuarioController;
-import com.github.danilogmoura.algafood.api.controller.UsuarioGrupoController;
 import com.github.danilogmoura.algafood.api.model.UsuarioModel;
 import com.github.danilogmoura.algafood.domain.model.Usuario;
 import org.modelmapper.ModelMapper;
@@ -19,6 +16,9 @@ public class UsuarioModelAssembler extends RepresentationModelAssemblerSupport<U
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private AlgaLinks algaLinks;
+
     public UsuarioModelAssembler() {
         super(UsuarioController.class, UsuarioModel.class);
     }
@@ -29,16 +29,15 @@ public class UsuarioModelAssembler extends RepresentationModelAssemblerSupport<U
 
         modelMapper.map(usuario, usuarioModel);
 
-        usuarioModel.add(linkTo(methodOn(UsuarioController.class).listar()).withRel("usuarios"));
+        usuarioModel.add(algaLinks.linkToUsuarios("usuarios"));
 
-        usuarioModel.add(linkTo(methodOn(UsuarioGrupoController.class).listar(usuario.getId()))
-            .withRel("grupos-usuario"));
+        usuarioModel.add(algaLinks.linkToUsuarioGrupos(usuario.getId(), "usuario-grupos"));
 
         return usuarioModel;
     }
 
     @Override
     public CollectionModel<UsuarioModel> toCollectionModel(Iterable<? extends Usuario> entities) {
-        return super.toCollectionModel(entities).add(linkTo(UsuarioController.class).withSelfRel());
+        return super.toCollectionModel(entities).add(algaLinks.linkToUsuarios());
     }
 }

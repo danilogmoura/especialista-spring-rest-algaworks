@@ -1,8 +1,6 @@
 package com.github.danilogmoura.algafood.api.controller;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
+import com.github.danilogmoura.algafood.api.AlgaLinks;
 import com.github.danilogmoura.algafood.api.assembler.UsuarioModelAssembler;
 import com.github.danilogmoura.algafood.api.model.UsuarioModel;
 import com.github.danilogmoura.algafood.api.openapi.controller.RestauranteUsuarioResponsavelControllerOpenApi;
@@ -29,12 +27,15 @@ public class RestauranteUsuarioResponsavelController implements RestauranteUsuar
     @Autowired
     private UsuarioModelAssembler usuarioModelAssembler;
 
+    @Autowired
+    private AlgaLinks algaLinks;
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public CollectionModel<UsuarioModel> listar(@PathVariable Long restauranteId) {
         var restaurante = restauranteService.buscarOuFalhar(restauranteId);
         return usuarioModelAssembler.toCollectionModel(restaurante.getResponsaveis())
             .removeLinks()
-            .add(linkTo(methodOn(RestauranteUsuarioResponsavelController.class).listar(restauranteId)).withSelfRel());
+            .add(algaLinks.linkToResponsaveisRestaurante(restauranteId));
     }
 
     @PutMapping("/{responsavelId}")

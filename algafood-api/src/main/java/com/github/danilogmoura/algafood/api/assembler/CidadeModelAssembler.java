@@ -1,10 +1,7 @@
 package com.github.danilogmoura.algafood.api.assembler;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
+import com.github.danilogmoura.algafood.api.AlgaLinks;
 import com.github.danilogmoura.algafood.api.controller.CidadeController;
-import com.github.danilogmoura.algafood.api.controller.EstadoController;
 import com.github.danilogmoura.algafood.api.model.CidadeModel;
 import com.github.danilogmoura.algafood.domain.model.Cidade;
 import org.modelmapper.ModelMapper;
@@ -18,6 +15,8 @@ public class CidadeModelAssembler extends RepresentationModelAssemblerSupport<Ci
 
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private AlgaLinks algaLinks;
 
     public CidadeModelAssembler() {
         super(CidadeController.class, CidadeModel.class);
@@ -30,16 +29,15 @@ public class CidadeModelAssembler extends RepresentationModelAssemblerSupport<Ci
 
         modelMapper.map(cidade, cidadeModel);
 
-        cidadeModel.add(linkTo(methodOn(CidadeController.class).listar()).withSelfRel());
+        cidadeModel.add(algaLinks.linkToCidades());
 
-        cidadeModel.getEstado()
-            .add(linkTo(methodOn(EstadoController.class).buscar(cidadeModel.getEstado().getId())).withSelfRel());
+        cidadeModel.getEstado().add(algaLinks.linkToEstado(cidadeModel.getEstado().getId()));
 
         return cidadeModel;
     }
 
     @Override
     public CollectionModel<CidadeModel> toCollectionModel(Iterable<? extends Cidade> entities) {
-        return super.toCollectionModel(entities).add(linkTo(CidadeController.class).withSelfRel());
+        return super.toCollectionModel(entities).add(algaLinks.linkToEstados());
     }
 }
