@@ -32,14 +32,19 @@ public class AlgaLinks {
         new TemplateVariable("sort", VariableType.REQUEST_PARAM));
 
     public Link linkToPedidos() {
-        var filtroVariables = new TemplateVariables(new TemplateVariable("clienteId", VariableType.REQUEST_PARAM),
+        return linkToPedidos(IanaLinkRelations.SELF_VALUE);
+    }
+
+    public Link linkToPedidos(String rel) {
+        var filtroVariables = new TemplateVariables(
+            new TemplateVariable("clienteId", VariableType.REQUEST_PARAM),
             new TemplateVariable("restauranteId", VariableType.REQUEST_PARAM),
             new TemplateVariable("dataCriacaoInicio", VariableType.REQUEST_PARAM),
             new TemplateVariable("dataCriacaoFim", VariableType.REQUEST_PARAM));
 
         var pedidosUrl = linkTo(PedidoController.class).toUri().toString();
 
-        return Link.of(UriTemplate.of(pedidosUrl, PAGE_VARIABLES.concat(filtroVariables)), "pedidos");
+        return Link.of(UriTemplate.of(pedidosUrl, PAGE_VARIABLES.concat(filtroVariables)), rel);
     }
 
     public Link linkToRestauranteAtivacao(Long restauranteId, String rel) {
@@ -83,7 +88,11 @@ public class AlgaLinks {
     }
 
     public Link linkToRestaurantes(String rel) {
-        return linkTo(RestauranteController.class).withRel(rel);
+        var filtroVariables = new TemplateVariables(new TemplateVariable("apenas-nome", VariableType.REQUEST_PARAM));
+
+        var pedidosUrl = linkTo(RestauranteController.class).toUri().toString();
+
+        return Link.of(UriTemplate.of(pedidosUrl, filtroVariables), rel);
     }
 
     public Link linkToRestaurante(Long restauranteId) {
