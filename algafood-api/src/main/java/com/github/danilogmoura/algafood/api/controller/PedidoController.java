@@ -7,6 +7,7 @@ import com.github.danilogmoura.algafood.api.model.PedidoModel;
 import com.github.danilogmoura.algafood.api.model.PedidoResumoModel;
 import com.github.danilogmoura.algafood.api.model.input.PedidoInput;
 import com.github.danilogmoura.algafood.api.openapi.controller.PedidoControllerOpenApi;
+import com.github.danilogmoura.algafood.core.data.PageWrapper;
 import com.github.danilogmoura.algafood.core.data.PageableTranslator;
 import com.github.danilogmoura.algafood.domain.filter.PedidoFilter;
 import com.github.danilogmoura.algafood.domain.model.Pedido;
@@ -59,9 +60,11 @@ public class PedidoController implements PedidoControllerOpenApi {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public PagedModel<PedidoResumoModel> pesquisar(PedidoFilter filtro, @PageableDefault(size = 10) Pageable pageable) {
-        pageable = traduzirPageable(pageable);
+        var pageableTraduzido = traduzirPageable(pageable);
 
-        var pedidosPage = pedidoRepository.findAll(PedidoSpecs.comFreteGratis(filtro), pageable);
+        var pedidosPage = pedidoRepository.findAll(PedidoSpecs.comFreteGratis(filtro), pageableTraduzido);
+
+        pedidosPage = new PageWrapper<>(pedidosPage, pageable);
 
         return pagedResourcesAssembler.toModel(pedidosPage, pedidoResumoModelAssembler);
     }
