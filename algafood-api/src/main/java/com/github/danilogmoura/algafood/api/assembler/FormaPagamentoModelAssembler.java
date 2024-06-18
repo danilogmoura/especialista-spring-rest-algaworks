@@ -24,6 +24,7 @@ public class FormaPagamentoModelAssembler extends
         super(FormaPagamentoController.class, FormaPagamentoModel.class);
     }
 
+    @Override
     public FormaPagamentoModel toModel(FormaPagamento formaPagamento) {
         var formaPagamentoModel = createModelWithId(formaPagamento.getId(), formaPagamento);
 

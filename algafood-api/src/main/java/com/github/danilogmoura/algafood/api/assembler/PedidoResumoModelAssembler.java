@@ -22,6 +22,7 @@ public class PedidoResumoModelAssembler extends RepresentationModelAssemblerSupp
         super(PedidoController.class, PedidoResumoModel.class);
     }
 
+    @Override
     public PedidoResumoModel toModel(Pedido pedido) {
         var pedidoResumoModel = createModelWithId(pedido.getId(), pedido);
 

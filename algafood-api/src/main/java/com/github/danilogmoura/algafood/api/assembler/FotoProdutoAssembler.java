@@ -22,6 +22,7 @@ public class FotoProdutoAssembler extends RepresentationModelAssemblerSupport<Fo
         super(RestauranteProdutoFotoController.class, FotoProdutoModel.class);
     }
 
+    @Override
     public FotoProdutoModel toModel(FotoProduto fotoProduto) {
         var fotoProdutoModel = modelMapper.map(fotoProduto, FotoProdutoModel.class);
 

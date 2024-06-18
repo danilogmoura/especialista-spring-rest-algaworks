@@ -8,6 +8,8 @@ import com.github.danilogmoura.algafood.api.controller.CozinhaController;
 import com.github.danilogmoura.algafood.api.controller.EstadoController;
 import com.github.danilogmoura.algafood.api.controller.FluxoPedidosController;
 import com.github.danilogmoura.algafood.api.controller.FormaPagamentoController;
+import com.github.danilogmoura.algafood.api.controller.GrupoController;
+import com.github.danilogmoura.algafood.api.controller.GrupoPermissaoController;
 import com.github.danilogmoura.algafood.api.controller.PedidoController;
 import com.github.danilogmoura.algafood.api.controller.RestauranteController;
 import com.github.danilogmoura.algafood.api.controller.RestauranteFormaPagamentoController;
@@ -187,6 +189,14 @@ public class AlgaLinks {
         return linkTo(methodOn(UsuarioGrupoController.class).listar(usuarioId)).withRel(rel);
     }
 
+    public Link linkToGrupos() {
+        return linkToGrupos(IanaLinkRelations.SELF_VALUE);
+    }
+
+    public Link linkToGrupos(String rel) {
+        return linkTo(GrupoController.class).withRel(rel);
+    }
+
     public Link linkToFormasPagamento() {
         return linkToFormasPagamento(IanaLinkRelations.SELF_VALUE);
     }
@@ -245,5 +255,13 @@ public class AlgaLinks {
 
     public Link linkToCozinha(Long cozinhaId, String rel) {
         return linkTo(methodOn(CozinhaController.class).buscar(cozinhaId)).withRel(rel);
+    }
+
+    public Link linkToGrupoPermissoes(Long grupoId) {
+        return linkToGrupoPermissoes(grupoId, IanaLinkRelations.SELF_VALUE);
+    }
+
+    public Link linkToGrupoPermissoes(Long grupoId, String rel) {
+        return linkTo(methodOn(GrupoPermissaoController.class).listar(grupoId)).withRel(rel);
     }
 }

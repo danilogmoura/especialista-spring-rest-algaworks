@@ -24,6 +24,7 @@ public class RestauranteBasicoAssembler extends
         super(RestauranteController.class, RestauranteBasicoModel.class);
     }
 
+    @Override
     public RestauranteBasicoModel toModel(Restaurante restaurante) {
         var restauranteModel = createModelWithId(restaurante.getId(), restaurante);
 

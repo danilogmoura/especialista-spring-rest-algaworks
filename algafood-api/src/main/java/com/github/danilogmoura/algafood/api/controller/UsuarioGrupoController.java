@@ -4,8 +4,8 @@ import com.github.danilogmoura.algafood.api.assembler.GrupoModeAssembler;
 import com.github.danilogmoura.algafood.api.model.GrupoModel;
 import com.github.danilogmoura.algafood.api.openapi.controller.UsuarioGrupoControllerOpenApi;
 import com.github.danilogmoura.algafood.domain.service.UsuarioService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,7 +27,7 @@ public class UsuarioGrupoController implements UsuarioGrupoControllerOpenApi {
     private GrupoModeAssembler grupoModeAssembler;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<GrupoModel> listar(@PathVariable Long usuarioId) {
+    public CollectionModel<GrupoModel> listar(@PathVariable Long usuarioId) {
         var usuario = usuarioService.buscarOuFalhar(usuarioId);
         return grupoModeAssembler.toCollectionModel(usuario.getGrupos());
     }

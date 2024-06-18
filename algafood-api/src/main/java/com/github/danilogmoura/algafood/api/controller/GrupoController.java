@@ -7,9 +7,9 @@ import com.github.danilogmoura.algafood.api.model.input.GrupoInput;
 import com.github.danilogmoura.algafood.api.openapi.controller.GrupoControllerOpenApi;
 import com.github.danilogmoura.algafood.domain.repository.GrupoRepository;
 import com.github.danilogmoura.algafood.domain.service.GrupoService;
-import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,7 +39,7 @@ public class GrupoController implements GrupoControllerOpenApi {
     private GrupoInputDisassembler grupoInputDisassembler;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<GrupoModel> listar() {
+    public CollectionModel<GrupoModel> listar() {
         return grupoModeAssembler.toCollectionModel(grupoRepository.findAll());
     }
 
