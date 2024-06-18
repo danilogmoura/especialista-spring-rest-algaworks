@@ -12,6 +12,7 @@ import com.github.danilogmoura.algafood.api.controller.PedidoController;
 import com.github.danilogmoura.algafood.api.controller.RestauranteController;
 import com.github.danilogmoura.algafood.api.controller.RestauranteFormaPagamentoController;
 import com.github.danilogmoura.algafood.api.controller.RestauranteProdutoController;
+import com.github.danilogmoura.algafood.api.controller.RestauranteProdutoFotoController;
 import com.github.danilogmoura.algafood.api.controller.RestauranteUsuarioResponsavelController;
 import com.github.danilogmoura.algafood.api.controller.UsuarioController;
 import com.github.danilogmoura.algafood.api.controller.UsuarioGrupoController;
@@ -114,6 +115,14 @@ public class AlgaLinks {
 
     public Link linkToRestauranteProdutos(Long restauranteId, String rel) {
         return linkTo(methodOn(RestauranteProdutoController.class).listar(restauranteId, null)).withRel(rel);
+    }
+
+    public Link linkToRestauranteProdutosFoto(Long restauranteId, Long produtoId) {
+        return linkToRestauranteProdutosFoto(restauranteId, produtoId, IanaLinkRelations.SELF_VALUE);
+    }
+
+    public Link linkToRestauranteProdutosFoto(Long restauranteId, Long produtoId, String rel) {
+        return linkTo(methodOn(RestauranteProdutoFotoController.class).buscar(restauranteId, produtoId)).withRel(rel);
     }
 
     public Link linkToResponsaveisRestaurante(Long restauranteId) {
