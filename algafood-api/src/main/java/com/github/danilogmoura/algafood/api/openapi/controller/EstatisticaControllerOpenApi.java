@@ -1,5 +1,6 @@
 package com.github.danilogmoura.algafood.api.openapi.controller;
 
+import com.github.danilogmoura.algafood.api.controller.EstatisticaController.EstatisticasEntryPointModel;
 import com.github.danilogmoura.algafood.domain.filter.VendaDiariaFilter;
 import com.github.danilogmoura.algafood.domain.model.dto.VendaDiaria;
 import io.swagger.annotations.Api;
@@ -12,6 +13,10 @@ import org.springframework.http.ResponseEntity;
 
 @Api(tags = "Estatísticas")
 public interface EstatisticaControllerOpenApi {
+
+
+    @ApiOperation(value = "Estatísticas", hidden = true)
+    EstatisticasEntryPointModel listar();
 
     @ApiOperation("Consulta estatísticas de vendas diárias")
     @ApiImplicitParams({

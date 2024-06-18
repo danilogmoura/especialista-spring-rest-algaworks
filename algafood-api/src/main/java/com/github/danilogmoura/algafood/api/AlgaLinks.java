@@ -6,6 +6,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import com.github.danilogmoura.algafood.api.controller.CidadeController;
 import com.github.danilogmoura.algafood.api.controller.CozinhaController;
 import com.github.danilogmoura.algafood.api.controller.EstadoController;
+import com.github.danilogmoura.algafood.api.controller.EstatisticaController;
 import com.github.danilogmoura.algafood.api.controller.FluxoPedidosController;
 import com.github.danilogmoura.algafood.api.controller.FormaPagamentoController;
 import com.github.danilogmoura.algafood.api.controller.GrupoController;
@@ -294,4 +295,23 @@ public class AlgaLinks {
         return linkTo(methodOn(UsuarioGrupoController.class).desassociar(usuarioId, grupoId)).withRel(rel);
     }
 
+    public Link linkToEstatisticas() {
+        return linkToEstatisticas(IanaLinkRelations.SELF_VALUE);
+    }
+
+    public Link linkToEstatisticas(String rel) {
+        return linkTo(EstatisticaController.class).withRel(rel);
+    }
+
+    public Link linkToEstatisticasVendasDiarias(String rel) {
+        var filtroVariables = new TemplateVariables(new TemplateVariable("restauranteId", VariableType.REQUEST_PARAM),
+            new TemplateVariable("timeOffset", VariableType.REQUEST_PARAM),
+            new TemplateVariable("dataCriacaoInicio", VariableType.REQUEST_PARAM),
+            new TemplateVariable("dataCriacaoFim", VariableType.REQUEST_PARAM));
+
+        var estatisticaVendasDiariasUrl = linkTo(methodOn(EstatisticaController.class)
+            .consultarVendasDiarias(null, null)).toUri().toString();
+
+        return Link.of(UriTemplate.of(estatisticaVendasDiariasUrl, filtroVariables), rel);
+    }
 }

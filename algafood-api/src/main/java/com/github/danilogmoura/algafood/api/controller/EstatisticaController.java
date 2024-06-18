@@ -1,5 +1,6 @@
 package com.github.danilogmoura.algafood.api.controller;
 
+import com.github.danilogmoura.algafood.api.AlgaLinks;
 import com.github.danilogmoura.algafood.api.openapi.controller.EstatisticaControllerOpenApi;
 import com.github.danilogmoura.algafood.domain.filter.VendaDiariaFilter;
 import com.github.danilogmoura.algafood.domain.model.dto.VendaDiaria;
@@ -7,6 +8,7 @@ import com.github.danilogmoura.algafood.domain.service.VendaQueryService;
 import com.github.danilogmoura.algafood.domain.service.VendaReportService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,17 @@ public class EstatisticaController implements EstatisticaControllerOpenApi {
     @Autowired
     private VendaReportService vendaReportService;
 
+    @Autowired
+    private AlgaLinks algaLinks;
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public EstatisticasEntryPointModel listar() {
+        var estatisticasEntryPointModel = new EstatisticasEntryPointModel();
+
+        estatisticasEntryPointModel.add(algaLinks.linkToEstatisticasVendasDiarias("vendas-diarias"));
+
+        return estatisticasEntryPointModel;
+    }
 
     @GetMapping(value = "/vendas-diarias", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<VendaDiaria> consultarVendasDiarias(VendaDiariaFilter filtro,
@@ -41,5 +54,9 @@ public class EstatisticaController implements EstatisticaControllerOpenApi {
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=vendas-diarias.pdf");
 
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).headers(headers).body(bytesPdf);
+    }
+
+    public static class EstatisticasEntryPointModel extends RepresentationModel<EstatisticasEntryPointModel> {
+
     }
 }

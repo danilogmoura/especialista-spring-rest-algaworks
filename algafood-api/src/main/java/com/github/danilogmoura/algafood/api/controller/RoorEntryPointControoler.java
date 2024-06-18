@@ -28,6 +28,7 @@ public class RoorEntryPointControoler {
         roorEntryPointModel.add(algaLinks.linkToFormasPagamento("formas-pagamento"));
         roorEntryPointModel.add(algaLinks.linkToEstados("estados"));
         roorEntryPointModel.add(algaLinks.linkToCidades("cidades"));
+        roorEntryPointModel.add(algaLinks.linkToEstatisticas("estatisticas"));
 
         return roorEntryPointModel;
     }
