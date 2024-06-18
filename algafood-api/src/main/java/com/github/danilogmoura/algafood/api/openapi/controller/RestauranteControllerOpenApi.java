@@ -20,6 +20,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 
 @Api(tags = "Restaurantes")
@@ -34,6 +35,7 @@ public interface RestauranteControllerOpenApi {
     })
     CollectionModel<RestauranteBasicoModel> listar();
 
+    @ApiIgnore
     @ApiOperation(value = "Lista restaurantes", hidden = true)
     CollectionModel<RestauranteApenasNomeModel> listarApenasNomes();
 
@@ -99,13 +101,15 @@ public interface RestauranteControllerOpenApi {
         @ApiResponse(code = 204, message = "Restaurante aberto com sucesso"),
         @ApiResponse(code = 404, message = "Restaurante não encontrado", response = Problem.class)
     })
-    ResponseEntity<Void> abertura(@ApiParam(value = "ID de um restaurante", example = "1", required = true) Long restauranteId);
+    ResponseEntity<Void> abertura(
+        @ApiParam(value = "ID de um restaurante", example = "1", required = true) Long restauranteId);
 
     @ApiOperation("Fecha um restaurante por ID")
     @ApiResponses({
         @ApiResponse(code = 204, message = "Restaurante fechado com sucesso"),
         @ApiResponse(code = 404, message = "Restaurante não encontrado", response = Problem.class)
     })
-    ResponseEntity<Void> fechamento(@ApiParam(value = "ID de um restaurante", example = "1", required = true) Long restauranteId);
+    ResponseEntity<Void> fechamento(
+        @ApiParam(value = "ID de um restaurante", example = "1", required = true) Long restauranteId);
 
 }
