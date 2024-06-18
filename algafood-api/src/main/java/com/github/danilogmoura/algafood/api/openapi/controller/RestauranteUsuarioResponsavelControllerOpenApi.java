@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.http.ResponseEntity;
 
 
 @Api(tags = "Restaurantes")
@@ -25,7 +26,7 @@ public interface RestauranteUsuarioResponsavelControllerOpenApi {
         @ApiResponse(code = 404, message = "Restaurante ou usuário não encontrado",
             response = Problem.class)
     })
-    void associar(@ApiParam(value = "ID do restaurante", example = "1") Long restauranteId,
+    ResponseEntity<Void> associar(@ApiParam(value = "ID do restaurante", example = "1") Long restauranteId,
         @ApiParam(value = "ID do usuário", example = "1", required = true) Long responsavelId);
 
     @ApiOperation("Desassociação de restaurante com usuário responsável")
@@ -34,6 +35,6 @@ public interface RestauranteUsuarioResponsavelControllerOpenApi {
         @ApiResponse(code = 404, message = "Restaurante ou usuário não encontrado",
             response = Problem.class)
     })
-    void desassociar(@ApiParam(value = "ID do restaurante", example = "1") Long restauranteId,
+    ResponseEntity<Void> desassociar(@ApiParam(value = "ID do restaurante", example = "1") Long restauranteId,
         @ApiParam(value = "ID do usuário", example = "1", required = true) Long responsavelId);
 }

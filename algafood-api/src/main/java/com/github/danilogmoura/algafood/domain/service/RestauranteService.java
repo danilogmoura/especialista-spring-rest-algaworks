@@ -107,17 +107,17 @@ public class RestauranteService {
     }
 
     @Transactional
-    public void associarResponsavel(Long restauranteId, Long responsavelId) {
+    public void associarResponsavel(Long restauranteId, Long usuarioId) {
         var restaurante = buscarOuFalhar(restauranteId);
-        var responsavel = usuarioService.buscarOuFalhar(responsavelId);
-        restaurante.adicionarResponsavel(responsavel);
+        var usuario = usuarioService.buscarOuFalhar(usuarioId);
+        restaurante.adicionarResponsavel(usuario);
     }
 
     @Transactional
-    public void desassociarResponsavel(Long restauranteId, Long responsavelId) {
+    public void desassociarResponsavel(Long restauranteId, Long usuarioId) {
         var restaurante = buscarOuFalhar(restauranteId);
-        var responsavel = usuarioService.buscarOuFalhar(responsavelId);
-        restaurante.removerResponsavel(responsavel);
+        var usuario = usuarioService.buscarOuFalhar(usuarioId);
+        restaurante.removerResponsavel(usuario);
     }
 
     public Restaurante buscarOuFalhar(Long restauranteId) {
