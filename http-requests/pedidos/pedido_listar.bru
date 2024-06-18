@@ -5,14 +5,14 @@ meta {
 }
 
 get {
-  url: {{BASE_URL}}/pedidos?sort=restaurante.nome,desc&size=2&page=0
+  url: {{BASE_URL}}/pedidos?sort=restaurante.nome,desc&size=20&page=0
   body: none
   auth: none
 }
 
 params:query {
   sort: restaurante.nome,desc
-  size: 2
+  size: 20
   page: 0
   ~sort: cliente.nome,desc
   ~sort: taxaFrete,desc

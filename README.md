@@ -140,5 +140,5 @@
 - [**Siren**](https://github.com/kevinswiber/siren)
 
 
-- [****]()
+- [**Cabeçalho de resposta "Content-Encoding: gzip"**](https://app.algaworks.com/forum/topicos/88954/cabecalho-de-resposta-content-encoding-gzip)
 
