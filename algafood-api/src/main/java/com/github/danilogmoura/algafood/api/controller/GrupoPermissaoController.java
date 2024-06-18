@@ -44,8 +44,8 @@ public class GrupoPermissaoController implements GrupoPermissaoControllerOpenApi
 
         return permissoesModel
             .removeLinks()
-            .add(algaLinks.linkToGrupoPermissaoAssociar(grupoId, "associar"))
-            .add(algaLinks.linkToGrupoPermissoes(grupoId));
+            .add(algaLinks.linkToGrupoPermissoes(grupoId))
+            .add(algaLinks.linkToGrupoPermissaoAssociar(grupoId, "associar"));
     }
 
     @PutMapping("/{permissaoId}")
