@@ -11,6 +11,7 @@ import com.github.danilogmoura.algafood.api.controller.FormaPagamentoController;
 import com.github.danilogmoura.algafood.api.controller.GrupoController;
 import com.github.danilogmoura.algafood.api.controller.GrupoPermissaoController;
 import com.github.danilogmoura.algafood.api.controller.PedidoController;
+import com.github.danilogmoura.algafood.api.controller.PermissoesController;
 import com.github.danilogmoura.algafood.api.controller.RestauranteController;
 import com.github.danilogmoura.algafood.api.controller.RestauranteFormaPagamentoController;
 import com.github.danilogmoura.algafood.api.controller.RestauranteProdutoController;
@@ -263,5 +264,21 @@ public class AlgaLinks {
 
     public Link linkToGrupoPermissoes(Long grupoId, String rel) {
         return linkTo(methodOn(GrupoPermissaoController.class).listar(grupoId)).withRel(rel);
+    }
+
+    public Link linkToPermissoes() {
+        return linkToPermissoes(IanaLinkRelations.SELF_VALUE);
+    }
+
+    public Link linkToPermissoes(String rel) {
+        return linkTo(PermissoesController.class).withRel(rel);
+    }
+
+    public Link linkToGrupoPermissaoAssociar(Long grupoId, String rel) {
+        return linkTo(methodOn(GrupoPermissaoController.class).desassociar(grupoId, null)).withRel(rel);
+    }
+
+    public Link linkToGrupoPermissaoDesassociar(Long grupoId, Long permissaoId, String rel) {
+        return linkTo(methodOn(GrupoPermissaoController.class).desassociar(grupoId, permissaoId)).withRel(rel);
     }
 }
