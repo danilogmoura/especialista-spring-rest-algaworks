@@ -3,12 +3,29 @@ package com.github.danilogmoura.algafood.core.springfox;
 import com.fasterxml.classmate.TypeResolver;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.danilogmoura.algafood.api.exceptionhandler.Problem;
+import com.github.danilogmoura.algafood.api.model.CidadeModel;
 import com.github.danilogmoura.algafood.api.model.CozinhaModel;
+import com.github.danilogmoura.algafood.api.model.EstadoModel;
+import com.github.danilogmoura.algafood.api.model.FormaPagamentoModel;
+import com.github.danilogmoura.algafood.api.model.GrupoModel;
 import com.github.danilogmoura.algafood.api.model.PedidoResumoModel;
+import com.github.danilogmoura.algafood.api.model.PermissaoModel;
+import com.github.danilogmoura.algafood.api.model.ProdutoModel;
+import com.github.danilogmoura.algafood.api.model.RestauranteBasicoModel;
+import com.github.danilogmoura.algafood.api.model.UsuarioModel;
+import com.github.danilogmoura.algafood.api.openapi.model.CidadesModelOpenApi;
 import com.github.danilogmoura.algafood.api.openapi.model.CozinhasModelOpenApi;
+import com.github.danilogmoura.algafood.api.openapi.model.EstadosModelOpenApi;
+import com.github.danilogmoura.algafood.api.openapi.model.FormasPagamentoModelOpenApi;
+import com.github.danilogmoura.algafood.api.openapi.model.GruposModelOpenApi;
 import com.github.danilogmoura.algafood.api.openapi.model.LinksModelOpenApi;
 import com.github.danilogmoura.algafood.api.openapi.model.PageableModelOpenApi;
 import com.github.danilogmoura.algafood.api.openapi.model.PedidosModelOpenApi;
+import com.github.danilogmoura.algafood.api.openapi.model.PedidosResumoModelOpenApi;
+import com.github.danilogmoura.algafood.api.openapi.model.PermissoesModelOpenApi;
+import com.github.danilogmoura.algafood.api.openapi.model.ProdutosModelOpenApi;
+import com.github.danilogmoura.algafood.api.openapi.model.RestaurantesBasicoModelOpenApi;
+import com.github.danilogmoura.algafood.api.openapi.model.UsuariosModelOpenApi;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URI;
@@ -23,7 +40,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.Links;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -67,11 +86,28 @@ public class SpringFoxConfig {
                 URL.class, URI.class, URLStreamHandler.class, Resource.class, File.class, InputStream.class)
             .directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
             .directModelSubstitute(Links.class, LinksModelOpenApi.class)
-            .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(Page.class, CozinhaModel.class),
-                CozinhasModelOpenApi.class))
-            .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(Page.class, PedidoResumoModel.class),
-                PedidosModelOpenApi.class))
-            .apiInfo(apiInfo())
+            .alternateTypeRules(AlternateTypeRules.newRule(typeResolver
+                .resolve(PagedModel.class, CozinhaModel.class), CozinhasModelOpenApi.class))
+            .alternateTypeRules(AlternateTypeRules.newRule(typeResolver
+                .resolve(Page.class, PedidoResumoModel.class), PedidosModelOpenApi.class))
+            .alternateTypeRules(AlternateTypeRules.newRule(typeResolver
+                .resolve(CollectionModel.class, CidadeModel.class), CidadesModelOpenApi.class)).apiInfo(apiInfo())
+            .alternateTypeRules(AlternateTypeRules.newRule(typeResolver
+                .resolve(CollectionModel.class, EstadoModel.class), EstadosModelOpenApi.class))
+            .alternateTypeRules(AlternateTypeRules.newRule(typeResolver
+                .resolve(CollectionModel.class, FormaPagamentoModel.class), FormasPagamentoModelOpenApi.class))
+            .alternateTypeRules(AlternateTypeRules.newRule(typeResolver
+                .resolve(CollectionModel.class, GrupoModel.class), GruposModelOpenApi.class))
+            .alternateTypeRules(AlternateTypeRules.newRule(typeResolver
+                .resolve(CollectionModel.class, PermissaoModel.class), PermissoesModelOpenApi.class))
+            .alternateTypeRules(AlternateTypeRules.newRule(typeResolver
+                .resolve(PagedModel.class, PedidoResumoModel.class), PedidosResumoModelOpenApi.class))
+            .alternateTypeRules(AlternateTypeRules.newRule(typeResolver
+                .resolve(CollectionModel.class, ProdutoModel.class), ProdutosModelOpenApi.class))
+            .alternateTypeRules(AlternateTypeRules.newRule(typeResolver
+                .resolve(CollectionModel.class, RestauranteBasicoModel.class), RestaurantesBasicoModelOpenApi.class))
+            .alternateTypeRules(AlternateTypeRules.newRule(typeResolver
+                .resolve(CollectionModel.class, UsuarioModel.class), UsuariosModelOpenApi.class))
             .tags(new Tag("Cidades", "Gerencia as cidades"),
                 new Tag("Grupos", "Gerencia os grupos de usuários"),
                 new Tag("Cozinhas", "Gerencia as cozinhas"),

@@ -3,6 +3,7 @@ package com.github.danilogmoura.algafood.api.openapi.controller;
 import com.github.danilogmoura.algafood.api.exceptionhandler.Problem;
 import com.github.danilogmoura.algafood.api.model.FormaPagamentoModel;
 import com.github.danilogmoura.algafood.api.model.input.FormaPagamentoInput;
+import com.github.danilogmoura.algafood.api.openapi.model.FormasPagamentoModelOpenApi;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -15,7 +16,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 @Api(tags = "Formas Pagamento")
 public interface FormaPagamentoControllerOpenApi {
 
-    @ApiOperation("Lista as formas de pagamanto")
+    @ApiOperation(value = "Lista as formas de pagamanto", response = FormasPagamentoModelOpenApi.class)
     ResponseEntity<CollectionModel<FormaPagamentoModel>> listar(ServletWebRequest request);
 
     @ApiOperation("Busca uma forma de pagamento por ID")
