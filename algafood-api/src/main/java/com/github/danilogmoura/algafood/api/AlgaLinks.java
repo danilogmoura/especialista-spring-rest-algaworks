@@ -231,7 +231,11 @@ public class AlgaLinks {
     }
 
     public Link linkToEstados() {
-        return linkTo(CidadeController.class).withSelfRel();
+        return linkToEstados(IanaLinkRelations.SELF_VALUE);
+    }
+
+    public Link linkToEstados(String rel) {
+        return linkTo(EstadoController.class).withRel(rel);
     }
 
     public Link linkToEstado(Long estadoId) {
