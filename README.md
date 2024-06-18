@@ -142,3 +142,6 @@
 
 - [**Cabeçalho de resposta "Content-Encoding: gzip"**](https://app.algaworks.com/forum/topicos/88954/cabecalho-de-resposta-content-encoding-gzip)
 
+
+- [**Atributo na documentação deveria aparecer _links mas está como links"**](https://app.algaworks.com/forum/topicos/88364/atributo-na-documentacao-deveria-aparecer-_links-mas-esta-como-links)
+
