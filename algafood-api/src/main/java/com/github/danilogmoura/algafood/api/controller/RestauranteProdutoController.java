@@ -1,5 +1,6 @@
 package com.github.danilogmoura.algafood.api.controller;
 
+import com.github.danilogmoura.algafood.api.AlgaLinks;
 import com.github.danilogmoura.algafood.api.assembler.ProdutoInputDisassembler;
 import com.github.danilogmoura.algafood.api.assembler.ProdutoModelAssembler;
 import com.github.danilogmoura.algafood.api.model.ProdutoModel;
@@ -9,10 +10,10 @@ import com.github.danilogmoura.algafood.domain.model.Produto;
 import com.github.danilogmoura.algafood.domain.repository.ProdutoRepository;
 import com.github.danilogmoura.algafood.domain.service.ProdutoService;
 import com.github.danilogmoura.algafood.domain.service.RestauranteService;
-import java.util.Collection;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,12 +46,17 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
     @Autowired
     private ProdutoInputDisassembler produtoInputDisassembler;
 
+    @Autowired
+    private AlgaLinks algaLinks;
+
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public Collection<ProdutoModel> listar(
+    public CollectionModel<ProdutoModel> listar(
         @PathVariable Long restauranteId,
-        @RequestParam(required = false, name = "incluir_inativos") Boolean incluirInativos) {
+        @RequestParam(required = false, defaultValue = "false") Boolean incluirInativos) {
         var restaurante = restauranteService.buscarOuFalhar(restauranteId);
-        List<Produto> produtos = null;
+
+        List<Produto> produtos;
 
         if (incluirInativos) {
             produtos = produtoRepository.findAllByRestaurante(restaurante);
@@ -58,7 +64,8 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
             produtos = produtoRepository.findAtivosByRestaurante(restaurante);
         }
 
-        return produtoModelAssembler.toCollectionModel(produtos);
+        return produtoModelAssembler.toCollectionModel(produtos)
+            .add(algaLinks.linkToRestauranteProdutos(restauranteId));
     }
 
     @GetMapping(path = "/{produtoId}", produces = MediaType.APPLICATION_JSON_VALUE)

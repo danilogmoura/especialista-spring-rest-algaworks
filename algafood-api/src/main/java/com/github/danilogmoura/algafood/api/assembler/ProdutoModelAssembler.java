@@ -1,23 +1,37 @@
 package com.github.danilogmoura.algafood.api.assembler;
 
+import com.github.danilogmoura.algafood.api.AlgaLinks;
+import com.github.danilogmoura.algafood.api.controller.RestauranteProdutoController;
 import com.github.danilogmoura.algafood.api.model.ProdutoModel;
 import com.github.danilogmoura.algafood.domain.model.Produto;
-import java.util.Collection;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProdutoModelAssembler {
+public class ProdutoModelAssembler extends RepresentationModelAssemblerSupport<Produto, ProdutoModel> {
 
     @Autowired
     private ModelMapper modelMapper;
 
-    public ProdutoModel toModel(Produto produto) {
-        return modelMapper.map(produto, ProdutoModel.class);
+    @Autowired
+    private AlgaLinks algaLinks;
+
+    public ProdutoModelAssembler() {
+        super(RestauranteProdutoController.class, ProdutoModel.class);
     }
 
-    public Collection<ProdutoModel> toCollectionModel(Collection<Produto> produtos) {
-        return produtos.stream().map(this::toModel).toList();
+    @Override
+    public ProdutoModel toModel(Produto produto) {
+        var restauranteId = produto.getRestaurante().getId();
+
+        var produtoModel = createModelWithId(produto.getId(), produto, restauranteId);
+
+        modelMapper.map(produto, produtoModel);
+
+        produtoModel.add(algaLinks.linkToRestauranteProdutos(restauranteId, "produtos"));
+
+        return produtoModel;
     }
 }
