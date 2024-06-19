@@ -1,0 +1,32 @@
+meta {
+  name: adicionar
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{BASE_URL}}/cidades/
+  body: json
+  auth: none
+}
+
+headers {
+  Accept: application/vnd.algafood.v2+json
+}
+
+body:json {
+  {
+    "nomeCidade": "Ouro Preto",
+    "idEstado": 1
+  }
+}
+
+body:xml {
+  <cozinha>
+      <nome>Japonesa</nome>
+  </cozinha>
+}
+
+assert {
+  ~res.body.id: eq 3
+}
