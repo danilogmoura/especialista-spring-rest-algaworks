@@ -23,10 +23,10 @@ public class WebConfig implements WebMvcConfigurer {
 //            .maxAge(30);
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(apiRetirementHandler);
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        registry.addInterceptor(apiRetirementHandler);
+//    }
 
     @Bean
     public Filter shallowEtagHeaderFilter() {
