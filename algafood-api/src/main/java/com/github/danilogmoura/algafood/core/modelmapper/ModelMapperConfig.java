@@ -1,7 +1,7 @@
 package com.github.danilogmoura.algafood.core.modelmapper;
 
-import com.github.danilogmoura.algafood.api.model.EnderecoModel;
-import com.github.danilogmoura.algafood.api.model.input.ItemPedidoInput;
+import com.github.danilogmoura.algafood.api.v1.model.EnderecoModel;
+import com.github.danilogmoura.algafood.api.v1.model.input.ItemPedidoInput;
 import com.github.danilogmoura.algafood.domain.model.Endereco;
 import com.github.danilogmoura.algafood.domain.model.ItemPedido;
 import org.modelmapper.ModelMapper;
