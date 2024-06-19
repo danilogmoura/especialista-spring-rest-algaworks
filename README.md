@@ -145,3 +145,5 @@
 
 - [**Atributo na documentação deveria aparecer _links mas está como links"**](https://app.algaworks.com/forum/topicos/88364/atributo-na-documentacao-deveria-aparecer-_links-mas-esta-como-links)
 
+
+- [**Logar requests e responses**](https://app.algaworks.com/forum/topicos/84496/sugestao-aula-sobre-como-logar-requests-e-responses-como-forma-de-encontrar-possiveis-problemas)
