@@ -28,7 +28,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
 @RestController
-@RequestMapping(path = "/formas-pagamento")
+@RequestMapping(path = "/v1/formas-pagamento")
 public class FormaPagamentoController implements FormaPagamentoControllerOpenApi {
 
     @Autowired

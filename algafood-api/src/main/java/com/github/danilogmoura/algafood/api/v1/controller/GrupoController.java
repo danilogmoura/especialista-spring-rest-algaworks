@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/grupos")
+@RequestMapping(path = "/v1/grupos")
 public class GrupoController implements GrupoControllerOpenApi {
 
     @Autowired

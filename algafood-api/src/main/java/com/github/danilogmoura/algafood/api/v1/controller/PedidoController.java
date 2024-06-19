@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/pedidos")
+@RequestMapping(path = "/v1/pedidos")
 public class PedidoController implements PedidoControllerOpenApi {
 
     @Autowired

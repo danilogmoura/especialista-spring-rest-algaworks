@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/estados")
+@RequestMapping("/v1/estados")
 public class EstadoController implements EstadoControllerOpenApi {
 
     @Autowired

@@ -48,7 +48,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(path = "/restaurantes")
+@RequestMapping(path = "/v1/restaurantes")
 public class RestauranteController implements RestauranteControllerOpenApi {
 
     @Autowired

@@ -5,14 +5,14 @@ meta {
 }
 
 get {
-  url: {{BASE_URL}}/restaurantes/1/produtos/1/foto
+  url: {{BASE_URL}}/v1/restaurantes/1/produtos/1/foto
   body: none
   auth: none
 }
 
 headers {
+  Accept: image/jpeg
   ~Accept: application/json
-  ~Accept: image/jpeg
   ~Accept: image/*
   ~Accept: image/jpeg,image/png
   ~Accept: image/gif

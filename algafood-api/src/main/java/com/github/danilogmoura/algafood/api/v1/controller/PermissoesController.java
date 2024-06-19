@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(path = "/permissoes")
+@RequestMapping(path = "/v1/permissoes")
 public class PermissoesController implements PermissoesControllerOpenApi {
 
     @Autowired
