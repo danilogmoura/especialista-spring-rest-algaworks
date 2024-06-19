@@ -1,11 +1,13 @@
 package com.github.danilogmoura.algafood.api.v2.model.input;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+@ApiModel("CidadeInput")
 @Getter
 @Setter
 public class CidadeInputV2 {

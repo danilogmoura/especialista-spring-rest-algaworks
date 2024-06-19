@@ -4,6 +4,7 @@ import com.github.danilogmoura.algafood.api.v2.assembler.CozinhaInputDisassemble
 import com.github.danilogmoura.algafood.api.v2.assembler.CozinhaModelAssemblerV2;
 import com.github.danilogmoura.algafood.api.v2.model.CozinhaModelV2;
 import com.github.danilogmoura.algafood.api.v2.model.input.CozinhaInputV2;
+import com.github.danilogmoura.algafood.api.v2.openapi.controller.CozinhaControllerV2OpenApi;
 import com.github.danilogmoura.algafood.domain.model.Cozinha;
 import com.github.danilogmoura.algafood.domain.repository.CozinhaRepository;
 import com.github.danilogmoura.algafood.domain.service.CozinhaService;
@@ -27,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/v2/cozinhas")
-public class CozinhaControllerV2 {
+public class CozinhaControllerV2 implements CozinhaControllerV2OpenApi {
 
     @Autowired
     private CozinhaRepository cozinhaRepository;

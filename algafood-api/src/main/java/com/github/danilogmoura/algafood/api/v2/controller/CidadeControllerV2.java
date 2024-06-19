@@ -5,6 +5,7 @@ import com.github.danilogmoura.algafood.api.v2.assembler.CidadeInputDisassembler
 import com.github.danilogmoura.algafood.api.v2.assembler.CidadeModelAssemblerV2;
 import com.github.danilogmoura.algafood.api.v2.model.CidadeModelV2;
 import com.github.danilogmoura.algafood.api.v2.model.input.CidadeInputV2;
+import com.github.danilogmoura.algafood.api.v2.openapi.controller.CidadeControllerV2OpenApi;
 import com.github.danilogmoura.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.github.danilogmoura.algafood.domain.exception.NegocioException;
 import com.github.danilogmoura.algafood.domain.model.Cidade;
@@ -28,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/v2/cidades")
-public class CidadeControllerV2 {
+public class CidadeControllerV2 implements CidadeControllerV2OpenApi {
 
     @Autowired
     private CidadeRepository cidadeRepository;
