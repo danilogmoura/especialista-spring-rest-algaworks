@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <springProfile name="production">
+        <springProperty name="logstashToken" source="logging.logstash.token"/>
+        <springProperty name="logstashHost" source="logging.logstash.host"/>
+        <springProperty name="logstashPort" source="logging.logstash.port"/>
+
+        <!-- Define o appender Logstash -->
+        <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+            <destination>${logstashHost}:${logstashPort}</destination>
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <customFields>{"token":"${logstashToken}"}</customFields>
+            </encoder>
+        </appender>
+
+        <!-- Define o appender assíncrono que utiliza o appender Logstash -->
+        <appender name="ASYNC_LOGSTASH" class="ch.qos.logback.classic.AsyncAppender">
+            <appender-ref ref="LOGSTASH"/>
+        </appender>
+
+        <!-- Define o nível de log e o appender padrão -->
+        <root level="info">
+            <appender-ref ref="ASYNC_LOGSTASH"/>
+        </root>
+    </springProfile>
+</configuration>
