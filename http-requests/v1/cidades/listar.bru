@@ -5,11 +5,12 @@ meta {
 }
 
 get {
-  url: {{BASE_URL}}/cidades
+  url: {{BASE_URL}}/v1/cidades
   body: none
   auth: none
 }
 
 headers {
-  Accept: application/vnd.algafood.v1+json
+  Accept: application/json
+  ~Accept: application/vnd.algafood.v1+json
 }
