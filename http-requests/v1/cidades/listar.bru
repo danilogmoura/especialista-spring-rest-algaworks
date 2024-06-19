@@ -7,10 +7,15 @@ meta {
 get {
   url: {{BASE_URL}}/v1/cidades
   body: none
-  auth: none
+  auth: basic
 }
 
 headers {
   Accept: application/json
   ~Accept: application/vnd.algafood.v1+json
+}
+
+auth:basic {
+  username: algafood
+  password: 123456
 }
