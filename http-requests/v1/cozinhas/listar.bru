@@ -7,7 +7,7 @@ meta {
 get {
   url: {{BASE_URL}}/v1/cozinhas?size=1&page=2
   body: none
-  auth: none
+  auth: basic
 }
 
 params:query {
@@ -18,6 +18,7 @@ params:query {
   ~sort: id
 }
 
-headers {
-  ~Accept: application/xml
+auth:basic {
+  username: algafood
+  password: 123456
 }
