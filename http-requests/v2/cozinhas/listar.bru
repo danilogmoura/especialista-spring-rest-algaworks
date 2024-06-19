@@ -1,0 +1,23 @@
+meta {
+  name: listar
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{BASE_URL}}/v2/cozinhas?size=10&page=0
+  body: none
+  auth: none
+}
+
+params:query {
+  size: 10
+  page: 0
+  ~sort: nome,id
+  ~sort: nome,desc
+  ~sort: id
+}
+
+headers {
+  ~Accept: application/xml
+}

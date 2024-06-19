@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -84,10 +85,9 @@ public class CidadeControllerV2 {
         }
     }
 
-    //  Não pode ser mapeado na mesma URL em um MediaType diferente, já que não aceita entrada e retorna void.
-    // @DeleteMapping("/{cidadeId}")
-    // @ResponseStatus(HttpStatus.NO_CONTENT)
-    // public void remover(@PathVariable Long cidadeId) {
-    //    cidadeService.remover(cidadeId);
-    // }
+    @DeleteMapping("/{cidadeId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable Long cidadeId) {
+        cidadeService.remover(cidadeId);
+    }
 }

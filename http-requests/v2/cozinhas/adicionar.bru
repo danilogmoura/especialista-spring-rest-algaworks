@@ -1,0 +1,32 @@
+meta {
+  name: adicionar
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{BASE_URL}}/v2/cozinhas/
+  body: json
+  auth: none
+}
+
+headers {
+  ~Content-Type: application/xml
+  ~Accept: application/xml
+}
+
+body:json {
+  {
+    "nomeCozinha": "Brasileira"
+  }
+}
+
+body:xml {
+  <cozinha>
+      <nome>Japonesa</nome>
+  </cozinha>
+}
+
+assert {
+  ~res.body.id: eq 3
+}
