@@ -33,8 +33,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
             .and()
 
-            .withClient("app-mobile")
-            .secret(passwordEncoder.encode("mobile123"))
+            .withClient("ckecktoken")
+            .secret(passwordEncoder.encode("ckeck123"))
             .authorizedGrantTypes("password")
             .scopes("write", "read");
     }
