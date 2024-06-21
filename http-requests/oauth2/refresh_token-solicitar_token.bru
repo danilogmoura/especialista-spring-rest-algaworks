@@ -1,0 +1,21 @@
+meta {
+  name: refresh_token-solicitar_token
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{AUTH_URL}}/oauth/token
+  body: formUrlEncoded
+  auth: basic
+}
+
+auth:basic {
+  username: algafood-web
+  password: web123
+}
+
+body:form-urlencoded {
+  refresh_token: L7QfuzeflUL3A5jB8yPAGG3F-Rg
+  grant_type: refresh_token
+}

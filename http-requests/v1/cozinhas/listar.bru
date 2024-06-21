@@ -7,7 +7,7 @@ meta {
 get {
   url: {{BASE_URL}}/v1/cozinhas?size=1&page=2
   body: none
-  auth: none
+  auth: bearer
 }
 
 params:query {
@@ -19,5 +19,9 @@ params:query {
 }
 
 headers {
-  Authorization: Bearer BwgY2ZDgJ4MuH-yKwj7mfSuH2Xo
+  ~Authorization: Bearer Py1AKMi41ccVInrCIblqgJX9Qho
+}
+
+auth:bearer {
+  token: 2BZAavDEZqaqCeAQrx4wzMpSZxM
 }
