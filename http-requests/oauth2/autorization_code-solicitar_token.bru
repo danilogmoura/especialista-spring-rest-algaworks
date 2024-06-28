@@ -1,0 +1,22 @@
+meta {
+  name: autorization_code-solicitar_token
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{AUTH_URL}}/oauth/token
+  body: formUrlEncoded
+  auth: basic
+}
+
+auth:basic {
+  username: foodanalytics
+  password: food123
+}
+
+body:form-urlencoded {
+  grant_type: authorization_code
+  code: 5vUrvf
+  redirect_uri: http://aplicacao-cliente
+}

@@ -17,13 +17,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
+        auth
+            .inMemoryAuthentication()
+
             .withUser("danilo")
             .password(passwordEncoder().encode("123"))
             .roles("ADMIN")
 
             .and()
-
             .withUser("thiago")
             .password(passwordEncoder().encode("123"))
             .roles("ADMIN");
