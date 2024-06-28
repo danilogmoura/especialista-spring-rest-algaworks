@@ -41,7 +41,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             .secret(passwordEncoder.encode("food123"))
             .authorizedGrantTypes("authorization_code")
             .scopes("write", "read")
-            .redirectUris("http://aplicacao-cliente")
+            .redirectUris("http://localhost:8082")
 
             //localhost:8081/oauth/authorize?response_type=code&client_id=foodanalytics&state=abc&redirect_uri=http://aplicacao-cliente
 

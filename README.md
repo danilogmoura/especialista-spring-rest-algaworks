@@ -90,6 +90,9 @@
 - [**18.5. Selecionando os endpoints da API para gerar a documentação**](https://app.algaworks.com/aulas/2120/selecionando-os-endpoints-da-api-para-gerar-a-documentacao)
     - [Sugestão para a abstração de todas as tags](https://app.algaworks.com/forum/topicos/81759/sugestao-para-a-abstracao-de-todas-as-tags)
 
+
+- [**Testando o fluxo Authorization Code com um client JavaScript \*CORS**]()
+
 ### DOCUMENTAÇÕES
 
 - [Tutorial definitivo: Tudo o que você precisa para começar bem com JPA](https://blog.algaworks.com/tutorial-jpa/)
