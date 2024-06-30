@@ -91,7 +91,10 @@
     - [Sugestão para a abstração de todas as tags](https://app.algaworks.com/forum/topicos/81759/sugestao-para-a-abstracao-de-todas-as-tags)
 
 
-- [**Testando o fluxo Authorization Code com um client JavaScript \*CORS**]()
+- [**22.19. Testando o fluxo Authorization Code com um client JavaScript \*CORS**]()
+
+
+- [**22.27. Decidindo qual fluxo OAuth2 usar**](https://app.algaworks.com/aulas/2254/decidindo-qual-fluxo-oauth2-usar)
 
 ### DOCUMENTAÇÕES
 
