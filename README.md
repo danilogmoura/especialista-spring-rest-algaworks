@@ -150,3 +150,9 @@
 
 
 - [**Logar requests e responses**](https://app.algaworks.com/forum/topicos/84496/sugestao-aula-sobre-como-logar-requests-e-responses-como-forma-de-encontrar-possiveis-problemas)
+
+
+- [**RFC 7636 - PKCE**](https://tools.ietf.org/html/rfc7636)
+
+
+- [**Ferramenta online para gerar Code Verifier e Code Challenge (PKCE)**](https://tonyxu-io.github.io/pkce-generator/)

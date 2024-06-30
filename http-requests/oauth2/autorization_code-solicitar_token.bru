@@ -7,16 +7,13 @@ meta {
 post {
   url: {{AUTH_URL}}/oauth/token
   body: formUrlEncoded
-  auth: basic
-}
-
-auth:basic {
-  username: foodanalytics
-  password: food123
+  auth: none
 }
 
 body:form-urlencoded {
   grant_type: authorization_code
-  code: 5vUrvf
-  redirect_uri: http://aplicacao-cliente
+  code: _95O-V
+  redirect_uri: http://localhost:8082
+  code_verifier: fAySfEj74uQNOxzuEqMUHk1kYyTYoDYZ39nQDipZakw
+  client_id: foodanalytics
 }
