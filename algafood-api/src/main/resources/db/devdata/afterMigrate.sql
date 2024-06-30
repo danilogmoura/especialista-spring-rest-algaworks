@@ -79,13 +79,13 @@ insert into grupo (nome, data_cadastro, data_atualizacao) values ('Cadastrador',
 
 insert into grupo_permissao (grupo_id, permissao_id) values (1, 1), (1, 2), (2, 1), (2, 2), (3, 1);
 
-insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values (1, 'João da Silva', 'algafood.dgm.teste+joao@gmail.com', '123', utc_timestamp, utc_timestamp);
-insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values(2, 'Maria Joaquina', 'algafood.dgm.teste+maria@gmail.com', '123', utc_timestamp, utc_timestamp);
-insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values(3, 'José Souza', 'algafood.dgm.teste+jose@gmail.com', '123', utc_timestamp, utc_timestamp);
-insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values(4, 'Sebastião Martins', 'algafood.dgm.teste+sebastiao@gmail.com', '123', utc_timestamp, utc_timestamp);
-insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values (5, 'Manoel Lima', 'algafood.dgm.teste+manoel@gmail.com', '123', utc_timestamp, utc_timestamp);
-insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values (6, 'Débora Mendonça', 'algafood.dgm.teste+debora@gmail.com', '123', utc_timestamp, utc_timestamp);
-insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values (7, 'Carlos Lima', 'algafood.dgm.teste+carlos@gmail.com', '123', utc_timestamp, utc_timestamp);
+insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values (1, 'João da Silva', 'algafood.dgm.teste+joao@gmail.com', '$2a$10$UZCuAc03qyzQZgZ/I7z3xuMkf2OIGgqiCONrRgC77Wx6TYp2MYYFS', utc_timestamp, utc_timestamp);
+insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values(2, 'Maria Joaquina', 'algafood.dgm.teste+maria@gmail.com', '$2a$10$UZCuAc03qyzQZgZ/I7z3xuMkf2OIGgqiCONrRgC77Wx6TYp2MYYFS', utc_timestamp, utc_timestamp);
+insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values(3, 'José Souza', 'algafood.dgm.teste+jose@gmail.com', '$2a$10$UZCuAc03qyzQZgZ/I7z3xuMkf2OIGgqiCONrRgC77Wx6TYp2MYYFS', utc_timestamp, utc_timestamp);
+insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values(4, 'Sebastião Martins', 'algafood.dgm.teste+sebastiao@gmail.com', '$2a$10$UZCuAc03qyzQZgZ/I7z3xuMkf2OIGgqiCONrRgC77Wx6TYp2MYYFS', utc_timestamp, utc_timestamp);
+insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values (5, 'Manoel Lima', 'algafood.dgm.teste+manoel@gmail.com', '$2a$10$UZCuAc03qyzQZgZ/I7z3xuMkf2OIGgqiCONrRgC77Wx6TYp2MYYFS', utc_timestamp, utc_timestamp);
+insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values (6, 'Débora Mendonça', 'algafood.dgm.teste+debora@gmail.com', '$2a$10$UZCuAc03qyzQZgZ/I7z3xuMkf2OIGgqiCONrRgC77Wx6TYp2MYYFS', utc_timestamp, utc_timestamp);
+insert into usuario (id, nome, email, senha, data_cadastro, data_atualizacao) values (7, 'Carlos Lima', 'algafood.dgm.teste+carlos@gmail.com', '$2a$10$UZCuAc03qyzQZgZ/I7z3xuMkf2OIGgqiCONrRgC77Wx6TYp2MYYFS', utc_timestamp, utc_timestamp);
 
 insert into usuario_grupo (usuario_id, grupo_id) values (1, 1), (1, 2), (2, 2);
 

@@ -1,4 +1,4 @@
-package com.github.danilogmoura.algafood.auth;
+package com.github.danilogmoura.algafood.auth.core;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -70,5 +70,4 @@ public class PkceAuthorizationCodeTokenGranter extends AuthorizationCodeTokenGra
             throw new RuntimeException(e);
         }
     }
-
 }

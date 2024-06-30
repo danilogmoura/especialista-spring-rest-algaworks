@@ -1,4 +1,4 @@
-package com.github.danilogmoura.algafood.auth;
+package com.github.danilogmoura.algafood.auth.core;
 
 import javax.validation.constraints.NotBlank;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -19,28 +19,28 @@ public class JwtKeyStoreProperties {
     @NotBlank
     private String keypairAlias;
 
-
-    public @NotBlank String getPath() {
-        return path;
-    }
-
-    public void setPath(@NotBlank String path) {
-        this.path = path;
-    }
-
-    public @NotBlank String getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(@NotBlank String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public @NotBlank String getKeypairAlias() {
+    public String getKeypairAlias() {
         return keypairAlias;
     }
 
-    public void setKeypairAlias(@NotBlank String keypairAlias) {
+    public void setKeypairAlias(String keypairAlias) {
         this.keypairAlias = keypairAlias;
     }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
 }

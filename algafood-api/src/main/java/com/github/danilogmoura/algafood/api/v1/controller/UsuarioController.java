@@ -65,9 +65,9 @@ public class UsuarioController implements UsuarioControllerOpenApi {
         return usuarioModelAssembler.toModel(usuarioService.salvar(usuarioAtual));
     }
 
-    @PutMapping("/{id}/senha")
+    @PutMapping("/{usuarioId}/senha")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizarSenha(@PathVariable Long id, @RequestBody @Valid SenhaInput senha) {
-        usuarioService.atualizarSenha(id, senha.getSenhaAtual(), senha.getNovaSenha());
+    public void atualizarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senha) {
+        usuarioService.alterarSenha(usuarioId, senha.getSenhaAtual(), senha.getNovaSenha());
     }
 }

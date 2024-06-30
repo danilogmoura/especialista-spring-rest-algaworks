@@ -1,4 +1,4 @@
-package com.github.danilogmoura.algafood.auth;
+package com.github.danilogmoura.algafood.auth.core;
 
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +45,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients
             .inMemory()
-
             .withClient("algafood-web")
             .secret(passwordEncoder.encode("web123"))
             .authorizedGrantTypes("password", "refresh_token")
             .scopes("write", "read")
-            .accessTokenValiditySeconds(60 * 60 * 6)        // 6 horas (padrão são 12 horas)
+            .accessTokenValiditySeconds(6 * 60 * 60)// 6 horas
             .refreshTokenValiditySeconds(60 * 24 * 60 * 60) // 60 dias
 
             .and()
@@ -92,8 +91,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             .scopes("write", "read")
 
             .and()
-            .withClient("ckecktoken")
-            .secret(passwordEncoder.encode("ckeck123"));
+            .withClient("checktoken")
+            .secret(passwordEncoder.encode("check123"));
     }
 
     @Override
@@ -101,6 +100,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 //        security.checkTokenAccess("isAuthenticated()");
         security
             .checkTokenAccess("permitAll()")
+            .tokenKeyAccess("permitAll()")
             .allowFormAuthenticationForClients();
     }
 
@@ -127,13 +127,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         var jwtAccessTokenConverter = new JwtAccessTokenConverter();
 
-        //        jwtAccessTokenConverter.setSigningKey("89a7sd89f7as98f7dsa98fds7fd89sasd9898asdf98s");
-
-        var jskResource = new ClassPathResource(jwtKeyStoreProperties.getPath());
+        var jksResource = new ClassPathResource(jwtKeyStoreProperties.getPath());
         var keyStorePass = jwtKeyStoreProperties.getPassword();
         var keyPairAlias = jwtKeyStoreProperties.getKeypairAlias();
 
-        var keyStoreKeyFactory = new KeyStoreKeyFactory(jskResource, keyStorePass.toCharArray());
+        var keyStoreKeyFactory = new KeyStoreKeyFactory(jksResource, keyStorePass.toCharArray());
         var keyPair = keyStoreKeyFactory.getKeyPair(keyPairAlias);
 
         jwtAccessTokenConverter.setKeyPair(keyPair);
