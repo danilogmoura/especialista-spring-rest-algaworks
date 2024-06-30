@@ -159,3 +159,9 @@
 
 
 - [**Ferramenta online para gerar Code Verifier e Code Challenge (PKCE)**](https://tonyxu-io.github.io/pkce-generator/)
+
+
+- [**RFC 7519 - JSON Web Token**](https://tools.ietf.org/html/rfc7519)
+
+
+- [**Ferramenta online para debugging de JWT**](https://jwt.io/)
