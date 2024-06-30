@@ -43,7 +43,15 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             .scopes("write", "read")
             .redirectUris("http://localhost:8082")
 
-            //localhost:8081/oauth/authorize?response_type=code&client_id=foodanalytics&state=abc&redirect_uri=http://aplicacao-cliente
+            //localhost:8081/oauth/authorize?response_type=code&client_id=foodanalytics&state=abc&redirect_uri=http://localhost:8082
+
+            .and()
+            .withClient("webadmin")
+            .authorizedGrantTypes("implicit")
+            .scopes("write", "read")
+            .redirectUris("http://aplicacao-cliente")
+
+            //localhost:8081/oauth/authorize?response_type=token&client_id=webadmin&state=abc&redirect_uri=http://aplicacao-cliente
 
             .and()
             .withClient("faturamento")
