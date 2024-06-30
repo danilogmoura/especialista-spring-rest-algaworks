@@ -8,11 +8,16 @@ import org.springframework.security.core.userdetails.User;
 @Getter
 public class AuthUser extends User {
 
-    private final String fullName;
+    private static final long serialVersionUID = 1L;
+
+    private Long userId;
+    private String fullName;
 
     public AuthUser(Usuario usuario) {
-        super(usuario.getEmail(), usuario.getSenha(), Collections.EMPTY_LIST);
+        super(usuario.getEmail(), usuario.getSenha(), Collections.emptyList());
 
+        this.userId = usuario.getId();
         this.fullName = usuario.getNome();
     }
+
 }

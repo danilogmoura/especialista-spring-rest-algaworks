@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +17,7 @@ import org.springframework.security.oauth2.provider.CompositeTokenGranter;
 import org.springframework.security.oauth2.provider.TokenGranter;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
@@ -36,10 +36,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private UserDetailsService userDetailsService;
 
     @Autowired
-    private RedisConnectionFactory redisConnectionFactory;
-
-    @Autowired
-    JwtKeyStoreProperties jwtKeyStoreProperties;
+    private JwtKeyStoreProperties jwtKeyStoreProperties;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -59,30 +56,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             .scopes("write", "read")
             .redirectUris("http://localhost:8082")
 
-            //localhost:8081/oauth/authorize?response_type=code&client_id=foodanalytics&state=abc&redirect_uri=http://localhost:8082
-
-            /*
-             * PKCE - Plain
-             * Code Verifier:  9djqash1NKdmqalLN
-             * Code Challenge: 9djqash1NKdmqalLN
-             *
-             * localhost:8081/oauth/authorize?response_type=code&client_id=foodanalytics&redirect_uri=http://localhost:8082&code_challenge=9djqash1NKdmqalLN&code_challenge_method=plain
-             *
-             * PKCE - SHA-256
-             * Code Verifier:   fAySfEj74uQNOxzuEqMUHk1kYyTYoDYZ39nQDipZakw
-             * Code Challenge:  base64url(sha256("fAySfEj74uQNOxzuEqMUHk1kYyTYoDYZ39nQDipZakw"))
-             *                  hxJEjAxtLwpUGzYvgSRLZu0-GTNKSF6BRiVgAIJM8N8
-             *
-             * localhost:8081/oauth/authorize?response_type=code&client_id=foodanalytics&redirect_uri=http://localhost:8082&code_challenge=hxJEjAxtLwpUGzYvgSRLZu0-GTNKSF6BRiVgAIJM8N8&code_challenge_method=s256
-             */
-
             .and()
             .withClient("webadmin")
             .authorizedGrantTypes("implicit")
             .scopes("write", "read")
             .redirectUris("http://aplicacao-cliente")
-
-            //localhost:8081/oauth/authorize?response_type=token&client_id=webadmin&state=abc&redirect_uri=http://aplicacao-cliente
 
             .and()
             .withClient("faturamento")
@@ -97,24 +75,27 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-//        security.checkTokenAccess("isAuthenticated()");
-        security
-            .checkTokenAccess("permitAll()")
+//		security.checkTokenAccess("isAuthenticated()");
+        security.checkTokenAccess("permitAll()")
             .tokenKeyAccess("permitAll()")
             .allowFormAuthenticationForClients();
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        var enhancerChain = new TokenEnhancerChain();
+        enhancerChain.setTokenEnhancers(
+            Arrays.asList(new JwtCustomClaimsTokenEnhancer(), jwtAccessTokenConverter()));
+
         endpoints
             .authenticationManager(authenticationManager)
             .userDetailsService(userDetailsService)
             .reuseRefreshTokens(false)
             .accessTokenConverter(jwtAccessTokenConverter())
+            .tokenEnhancer(enhancerChain)
             .approvalStore(approvalStore(endpoints.getTokenStore()))
             .tokenGranter(tokenGranter(endpoints));
     }
-
 
     private ApprovalStore approvalStore(TokenStore tokenStore) {
         var approvalStore = new TokenApprovalStore();

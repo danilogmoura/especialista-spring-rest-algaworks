@@ -70,4 +70,5 @@ public class PkceAuthorizationCodeTokenGranter extends AuthorizationCodeTokenGra
             throw new RuntimeException(e);
         }
     }
+
 }
