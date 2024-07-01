@@ -9,6 +9,7 @@ import com.github.danilogmoura.algafood.api.v1.model.input.PedidoInput;
 import com.github.danilogmoura.algafood.api.v1.openapi.controller.PedidoControllerOpenApi;
 import com.github.danilogmoura.algafood.core.data.PageWrapper;
 import com.github.danilogmoura.algafood.core.data.PageableTranslator;
+import com.github.danilogmoura.algafood.core.security.AlgaSecurity;
 import com.github.danilogmoura.algafood.domain.filter.PedidoFilter;
 import com.github.danilogmoura.algafood.domain.model.Pedido;
 import com.github.danilogmoura.algafood.domain.model.Usuario;
@@ -58,6 +59,10 @@ public class PedidoController implements PedidoControllerOpenApi {
     @Autowired
     private PagedResourcesAssembler<Pedido> pagedResourcesAssembler;
 
+    @Autowired
+    private AlgaSecurity algaSecurity;
+
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public PagedModel<PedidoResumoModel> pesquisar(PedidoFilter filtro, @PageableDefault(size = 10) Pageable pageable) {
         var pageableTraduzido = traduzirPageable(pageable);
@@ -79,8 +84,9 @@ public class PedidoController implements PedidoControllerOpenApi {
     @ResponseStatus(HttpStatus.CREATED)
     public PedidoModel adicionar(@RequestBody @Valid PedidoInput pedidoInput) {
         var novoPedido = pedidoInputDisassembler.toDomainObject(pedidoInput);
+
         var cliente = new Usuario();
-        cliente.setId(1L);
+        cliente.setId(algaSecurity.getUsuarioId());
 
         novoPedido.setCliente(cliente);
         novoPedido = emissaoPedidoService.emitir(novoPedido);

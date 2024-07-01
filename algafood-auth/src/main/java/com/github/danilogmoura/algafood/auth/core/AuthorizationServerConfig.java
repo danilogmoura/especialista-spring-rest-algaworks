@@ -56,6 +56,21 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
             .scopes("write", "read")
             .redirectUris("http://localhost:8082")
 
+            /*
+             * PKCE - Plain
+             * Code Verifier:  9djqash1NKdmqalLN
+             * Code Challenge: 9djqash1NKdmqalLN
+             *
+             * localhost:8081/oauth/authorize?response_type=code&client_id=foodanalytics&redirect_uri=http://localhost:8082&code_challenge=9djqash1NKdmqalLN&code_challenge_method=plain
+             *
+             * PKCE - SHA-256
+             * Code Verifier:   fAySfEj74uQNOxzuEqMUHk1kYyTYoDYZ39nQDipZakw
+             * Code Challenge:  base64url(sha256("fAySfEj74uQNOxzuEqMUHk1kYyTYoDYZ39nQDipZakw"))
+             *                  hxJEjAxtLwpUGzYvgSRLZu0-GTNKSF6BRiVgAIJM8N8
+             *
+             * localhost:8081/oauth/authorize?response_type=code&client_id=foodanalytics&redirect_uri=http://localhost:8082&code_challenge=hxJEjAxtLwpUGzYvgSRLZu0-GTNKSF6BRiVgAIJM8N8&code_challenge_method=s256
+             */
+
             .and()
             .withClient("webadmin")
             .authorizedGrantTypes("implicit")

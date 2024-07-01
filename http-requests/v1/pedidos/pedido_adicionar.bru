@@ -7,7 +7,7 @@ meta {
 post {
   url: {{BASE_URL}}/v1/pedidos
   body: json
-  auth: none
+  auth: bearer
 }
 
 headers {
@@ -15,15 +15,19 @@ headers {
   ~Accept: application/xml
 }
 
+auth:bearer {
+  token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo2LCJ1c2VyX25hbWUiOiJhbGdhZm9vZC5kZ20udGVzdGUrZGVib3JhQGdtYWlsLmNvbSIsInNjb3BlIjpbIndyaXRlIiwicmVhZCJdLCJleHAiOjE3MTk4ODYyOTEsImp0aSI6IjE0ZmY0YjIxLWJkNTQtNDg1NS1iZGI1LWNiMTZiYzAwYTYxMSIsIm5vbWVfY29tcGxldG8iOiJEw6lib3JhIE1lbmRvbsOnYSIsImNsaWVudF9pZCI6ImFsZ2Fmb29kLXdlYiJ9.L-IqgTJnii7R1sVsCnTH1HK_Axr1Zp7eSMtVud9m8iZaCGnX5RhHAQABfGBY1KGbenQjMuYam60IVyDwjDg_7-wpk8Q_Ni4nfLnK-A-no33BxU08H666D37EGweWXppzNhYcMHx3WhUq-DGp7X-zpgefeU4-PlGlwtSOrddhBZbkRWWWqwhQybFEYjK1h4ZqA2a1dzg0CqMQa3gBOaeRBjdc7oH4Ab2sDsU7jzPflXdNn-B0S97Uyg4V4mnOjlonc80IHol1FMYX5W1HaW4PCko350_z5BBhibx7M5Mrfr2Ta35Ew4_dSZOS8vB0iSHY_IQYXxFmeOycILrMAEKxsQ
+}
+
 body:json {
   {
     "restaurante": {
       "id": 1
     },
-    "forma_pagamento": {
+    "formaPagamento": {
       "id": 1
     },
-    "endereco_entrega": {
+    "enderecoEntrega": {
       "cep": "38400-000",
       "logradouro": "Rua Floriano Peixoto",
       "numero": "500",
@@ -35,12 +39,12 @@ body:json {
     },
     "itens": [
       {
-        "produto_id": 1,
+        "produtoId": 1,
         "quantidade": 1,
         "observacao": null
       },
       {
-        "produto_id": 2,
+        "produtoId": 2,
         "quantidade": 2,
         "observacao": "Menos picante, por favor"
       }
