@@ -61,8 +61,8 @@ insert into permissao (id, nome, descricao, data_cadastro, data_atualizacao) val
 insert into permissao (id, nome, descricao, data_cadastro, data_atualizacao) values (2, 'EDITAR_FORMAS_PAGAMENTO', 'Permite criar ou editar formas de pagamento', utc_timestamp, utc_timestamp);
 insert into permissao (id, nome, descricao, data_cadastro, data_atualizacao) values (3, 'EDITAR_CIDADES', 'Permite criar ou editar cidades', utc_timestamp, utc_timestamp);
 insert into permissao (id, nome, descricao, data_cadastro, data_atualizacao) values (4, 'EDITAR_ESTADOS', 'Permite criar ou editar estados', utc_timestamp, utc_timestamp);
-insert into permissao (id, nome, descricao, data_cadastro, data_atualizacao) values (5, 'CONSULTAR_USUARIOS', 'Permite consultar usuários', utc_timestamp, utc_timestamp);
-insert into permissao (id, nome, descricao, data_cadastro, data_atualizacao) values (6, 'EDITAR_USUARIOS', 'Permite criar ou editar usuários', utc_timestamp, utc_timestamp);
+insert into permissao (id, nome, descricao, data_cadastro, data_atualizacao) values (5, 'CONSULTAR_USUARIOS_GRUPOS_PERMISSOES', 'Permite consultar usuários, grupos e permissões', utc_timestamp, utc_timestamp);
+insert into permissao (id, nome, descricao, data_cadastro, data_atualizacao) values (6, 'EDITAR_USUARIOS_GRUPOS_PERMISSOES', 'Permite criar ou editar usuários, grupos e permissões', utc_timestamp, utc_timestamp);
 insert into permissao (id, nome, descricao, data_cadastro, data_atualizacao) values (7, 'EDITAR_RESTAURANTES', 'Permite criar, editar ou gerenciar restaurantes', utc_timestamp, utc_timestamp);
 insert into permissao (id, nome, descricao, data_cadastro, data_atualizacao) values (8, 'CONSULTAR_PEDIDOS', 'Permite consultar pedidos', utc_timestamp, utc_timestamp);
 insert into permissao (id, nome, descricao, data_cadastro, data_atualizacao) values (9, 'GERENCIAR_PEDIDOS', 'Permite gerenciar pedidos', utc_timestamp, utc_timestamp);

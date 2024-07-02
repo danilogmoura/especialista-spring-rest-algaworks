@@ -23,9 +23,9 @@ public class UsuarioService {
     private PasswordEncoder passwordEncoder;
 
 
-    public Usuario buscarOuFalhar(Long id) {
-        return usuarioRepository.findById(id)
-            .orElseThrow(() -> new UsuarioNaoEncontradoException(id));
+    public Usuario buscarOuFalhar(Long usuarioId) {
+        return usuarioRepository.findById(usuarioId)
+            .orElseThrow(() -> new UsuarioNaoEncontradoException(usuarioId));
     }
 
     @Transactional
@@ -58,12 +58,12 @@ public class UsuarioService {
     }
 
     @Transactional
-    public void remover(Long id) {
+    public void remover(Long usuarioId) {
         try {
-            usuarioRepository.deleteById(id);
+            usuarioRepository.deleteById(usuarioId);
             usuarioRepository.flush();
         } catch (EmptyResultDataAccessException e) {
-            throw new UsuarioNaoEncontradoException(id);
+            throw new UsuarioNaoEncontradoException(usuarioId);
         }
     }
 

@@ -3,6 +3,7 @@ package com.github.danilogmoura.algafood.api.v1.controller;
 import com.github.danilogmoura.algafood.api.v1.assembler.PermissaoModelAssembler;
 import com.github.danilogmoura.algafood.api.v1.model.PermissaoModel;
 import com.github.danilogmoura.algafood.api.v1.openapi.controller.PermissoesControllerOpenApi;
+import com.github.danilogmoura.algafood.core.security.CheckSecurity;
 import com.github.danilogmoura.algafood.domain.repository.PermissaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -23,6 +24,7 @@ public class PermissoesController implements PermissoesControllerOpenApi {
     private PermissaoRepository permissaoRepository;
 
 
+    @CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public CollectionModel<PermissaoModel> listar() {
         return permissaoModelAssembler.toCollectionModel(permissaoRepository.findAll());

@@ -143,5 +143,38 @@ public @interface CheckSecurity {
 
         }
     }
-    
+
+    @interface UsuariosGruposPermissoes {
+
+        @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and @algaSecurity.usuarioId == #usuarioId")
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        @interface PodeAlterarPropriaSenha {
+
+        }
+
+        @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and ("
+            + "@algaSecurity.usuarioId == #usuarioId or "
+            + "hasAnyAuthority('EDITAR_USUARIOS_GRUPOS_PERMISSOES'))")
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        @interface PodeAlterarUsuario {
+
+        }
+
+        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and hasAnyAuthority('EDITAR_USUARIOS_GRUPOS_PERMISSOES')")
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        @interface PodeEditar {
+
+        }
+
+        @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and hasAnyAuthority('CONSULTAR_USUARIOS_GRUPOS_PERMISSOES')")
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        @interface PodeConsultar {
+
+        }
+    }
+
 }

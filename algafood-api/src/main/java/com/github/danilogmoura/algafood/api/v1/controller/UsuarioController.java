@@ -7,6 +7,7 @@ import com.github.danilogmoura.algafood.api.v1.model.input.SenhaInput;
 import com.github.danilogmoura.algafood.api.v1.model.input.UsuarioComSenhaInput;
 import com.github.danilogmoura.algafood.api.v1.model.input.UsuarioInput;
 import com.github.danilogmoura.algafood.api.v1.openapi.controller.UsuarioControllerOpenApi;
+import com.github.danilogmoura.algafood.core.security.CheckSecurity;
 import com.github.danilogmoura.algafood.domain.repository.UsuarioRepository;
 import com.github.danilogmoura.algafood.domain.service.UsuarioService;
 import javax.validation.Valid;
@@ -40,14 +41,16 @@ public class UsuarioController implements UsuarioControllerOpenApi {
     private UsuarioInputDisassembler usuarioInputDisassembler;
 
 
+    @CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public CollectionModel<UsuarioModel> listar() {
         return usuarioModelAssembler.toCollectionModel(usuarioRepository.findAll());
     }
 
-    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public UsuarioModel buscar(@PathVariable Long id) {
-        var usuario = usuarioService.buscarOuFalhar(id);
+    @CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
+    @GetMapping(path = "/{usuarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public UsuarioModel buscar(@PathVariable Long usuarioId) {
+        var usuario = usuarioService.buscarOuFalhar(usuarioId);
         return usuarioModelAssembler.toModel(usuario);
     }
 
@@ -58,13 +61,15 @@ public class UsuarioController implements UsuarioControllerOpenApi {
         return usuarioModelAssembler.toModel(usuarioService.salvar(usuario));
     }
 
-    @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public UsuarioModel atualizar(@PathVariable Long id, @RequestBody @Valid UsuarioInput usuarioInput) {
-        var usuarioAtual = usuarioService.buscarOuFalhar(id);
+    @CheckSecurity.UsuariosGruposPermissoes.PodeAlterarUsuario
+    @PutMapping(path = "/{usuarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public UsuarioModel atualizar(@PathVariable Long usuarioId, @RequestBody @Valid UsuarioInput usuarioInput) {
+        var usuarioAtual = usuarioService.buscarOuFalhar(usuarioId);
         usuarioInputDisassembler.copyToDomainObject(usuarioInput, usuarioAtual);
         return usuarioModelAssembler.toModel(usuarioService.salvar(usuarioAtual));
     }
 
+    @CheckSecurity.UsuariosGruposPermissoes.PodeAlterarPropriaSenha
     @PutMapping("/{usuarioId}/senha")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void atualizarSenha(@PathVariable Long usuarioId, @RequestBody @Valid SenhaInput senha) {
