@@ -3,6 +3,7 @@ package com.github.danilogmoura.algafood.api.v1.assembler;
 import com.github.danilogmoura.algafood.api.v1.AlgaLinks;
 import com.github.danilogmoura.algafood.api.v1.controller.RestauranteProdutoController;
 import com.github.danilogmoura.algafood.api.v1.model.ProdutoModel;
+import com.github.danilogmoura.algafood.core.security.AlgaSecurity;
 import com.github.danilogmoura.algafood.domain.model.Produto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class ProdutoModelAssembler extends RepresentationModelAssemblerSupport<P
     @Autowired
     private AlgaLinks algaLinks;
 
+    @Autowired
+    private AlgaSecurity algaSecurity;
+
     public ProdutoModelAssembler() {
         super(RestauranteProdutoController.class, ProdutoModel.class);
     }
@@ -30,9 +34,11 @@ public class ProdutoModelAssembler extends RepresentationModelAssemblerSupport<P
 
         modelMapper.map(produto, produtoModel);
 
-        produtoModel.add(algaLinks.linkToRestauranteProdutos(restauranteId, "produtos"));
+        if (algaSecurity.podeConsultarRestaurantes()) {
+            produtoModel.add(algaLinks.linkToProdutos(restauranteId, "produtos"));
 
-        produtoModel.add(algaLinks.linkToRestauranteProdutosFoto(produto.getId(), restauranteId, "foto"));
+            produtoModel.add(algaLinks.linkToFotoProduto(produto.getId(), restauranteId, "foto"));
+        }
 
         return produtoModel;
     }

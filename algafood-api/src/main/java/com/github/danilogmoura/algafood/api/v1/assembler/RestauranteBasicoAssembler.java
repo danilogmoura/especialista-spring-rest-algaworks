@@ -3,6 +3,7 @@ package com.github.danilogmoura.algafood.api.v1.assembler;
 import com.github.danilogmoura.algafood.api.v1.AlgaLinks;
 import com.github.danilogmoura.algafood.api.v1.controller.RestauranteController;
 import com.github.danilogmoura.algafood.api.v1.model.RestauranteBasicoModel;
+import com.github.danilogmoura.algafood.core.security.AlgaSecurity;
 import com.github.danilogmoura.algafood.domain.model.Restaurante;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,25 +21,40 @@ public class RestauranteBasicoAssembler extends
     @Autowired
     private AlgaLinks algaLinks;
 
+    @Autowired
+    private AlgaSecurity algaSecurity;
+
     public RestauranteBasicoAssembler() {
         super(RestauranteController.class, RestauranteBasicoModel.class);
     }
 
     @Override
     public RestauranteBasicoModel toModel(Restaurante restaurante) {
-        var restauranteModel = createModelWithId(restaurante.getId(), restaurante);
+        RestauranteBasicoModel restauranteModel = createModelWithId(
+            restaurante.getId(), restaurante);
 
         modelMapper.map(restaurante, restauranteModel);
 
-        restauranteModel.add(algaLinks.linkToRestaurantes("restaurantes"));
+        if (algaSecurity.podeConsultarRestaurantes()) {
+            restauranteModel.add(algaLinks.linkToRestaurantes("restaurantes"));
+        }
 
-        restauranteModel.getCozinha().add(algaLinks.linkToCozinha(restaurante.getCozinha().getId()));
+        if (algaSecurity.podeConsultarCozinhas()) {
+            restauranteModel.getCozinha().add(
+                algaLinks.linkToCozinha(restaurante.getCozinha().getId()));
+        }
 
         return restauranteModel;
     }
 
     @Override
     public CollectionModel<RestauranteBasicoModel> toCollectionModel(Iterable<? extends Restaurante> entities) {
-        return super.toCollectionModel(entities).add(algaLinks.linkToRestaurantes());
+        CollectionModel<RestauranteBasicoModel> collectionModel = super.toCollectionModel(entities);
+
+        if (algaSecurity.podeConsultarRestaurantes()) {
+            collectionModel.add(algaLinks.linkToRestaurantes());
+        }
+
+        return collectionModel;
     }
 }

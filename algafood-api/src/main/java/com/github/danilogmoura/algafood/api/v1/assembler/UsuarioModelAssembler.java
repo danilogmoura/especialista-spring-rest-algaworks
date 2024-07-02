@@ -3,6 +3,7 @@ package com.github.danilogmoura.algafood.api.v1.assembler;
 import com.github.danilogmoura.algafood.api.v1.AlgaLinks;
 import com.github.danilogmoura.algafood.api.v1.controller.UsuarioController;
 import com.github.danilogmoura.algafood.api.v1.model.UsuarioModel;
+import com.github.danilogmoura.algafood.core.security.AlgaSecurity;
 import com.github.danilogmoura.algafood.domain.model.Usuario;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class UsuarioModelAssembler extends RepresentationModelAssemblerSupport<U
     @Autowired
     private AlgaLinks algaLinks;
 
+    @Autowired
+    private AlgaSecurity algaSecurity;
+
     public UsuarioModelAssembler() {
         super(UsuarioController.class, UsuarioModel.class);
     }
@@ -29,9 +33,11 @@ public class UsuarioModelAssembler extends RepresentationModelAssemblerSupport<U
 
         modelMapper.map(usuario, usuarioModel);
 
-        usuarioModel.add(algaLinks.linkToUsuarios("usuarios"));
+        if (algaSecurity.podeConsultarUsuariosGruposPermissoes()) {
+            usuarioModel.add(algaLinks.linkToUsuarios("usuarios"));
 
-        usuarioModel.add(algaLinks.linkToUsuarioGrupos(usuario.getId(), "grupos-usuario"));
+            usuarioModel.add(algaLinks.linkToUsuarioGrupos(usuario.getId(), "grupos-usuario"));
+        }
 
         return usuarioModel;
     }

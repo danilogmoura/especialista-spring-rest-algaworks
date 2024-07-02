@@ -67,7 +67,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
         }
 
         return produtoModelAssembler.toCollectionModel(produtos)
-            .add(algaLinks.linkToRestauranteProdutos(restauranteId));
+            .add(algaLinks.linkToProdutos(restauranteId));
     }
 
     @CheckSecurity.Restaurantes.PodeConsultar

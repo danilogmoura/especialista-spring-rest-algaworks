@@ -87,11 +87,11 @@ public class AlgaLinks {
         return linkTo(methodOn(RestauranteController.class).buscar(restauranteId)).withRel(rel);
     }
 
-    public Link linkToRestauranteFormaPagamento(Long restauranteId) {
-        return linkToRestauranteFormaPagamento(restauranteId, IanaLinkRelations.SELF_VALUE);
+    public Link linkToRestauranteFormasPagamento(Long restauranteId) {
+        return linkToRestauranteFormasPagamento(restauranteId, IanaLinkRelations.SELF_VALUE);
     }
 
-    public Link linkToRestauranteFormaPagamento(Long restauranteId, String rel) {
+    public Link linkToRestauranteFormasPagamento(Long restauranteId, String rel) {
         return linkTo(methodOn(RestauranteFormaPagamentoController.class).listar(restauranteId)).withRel(rel);
     }
 
@@ -105,44 +105,44 @@ public class AlgaLinks {
         return linkTo(methodOn(RestauranteFormaPagamentoController.class).associar(restauranteId, null)).withRel(rel);
     }
 
-    public Link linkToRestauranteProduto(Long restauranteId, Long produtoId) {
-        return linkToRestauranteProduto(restauranteId, produtoId, IanaLinkRelations.SELF_VALUE);
+    public Link linkToProduto(Long restauranteId, Long produtoId) {
+        return linkToProduto(restauranteId, produtoId, IanaLinkRelations.SELF_VALUE);
     }
 
-    public Link linkToRestauranteProduto(Long restauranteId, Long produtoId, String rel) {
+    public Link linkToProduto(Long restauranteId, Long produtoId, String rel) {
         return linkTo(methodOn(RestauranteProdutoController.class).buscar(restauranteId, produtoId)).withRel(rel);
     }
 
-    public Link linkToRestauranteProdutos(Long restauranteId) {
-        return linkToRestauranteProdutos(restauranteId, IanaLinkRelations.SELF_VALUE);
+    public Link linkToProdutos(Long restauranteId) {
+        return linkToProdutos(restauranteId, IanaLinkRelations.SELF_VALUE);
     }
 
-    public Link linkToRestauranteProdutos(Long restauranteId, String rel) {
+    public Link linkToProdutos(Long restauranteId, String rel) {
         return linkTo(methodOn(RestauranteProdutoController.class).listar(restauranteId, null)).withRel(rel);
     }
 
-    public Link linkToRestauranteProdutosFoto(Long restauranteId, Long produtoId) {
-        return linkToRestauranteProdutosFoto(restauranteId, produtoId, IanaLinkRelations.SELF_VALUE);
+    public Link linkToFotoProduto(Long restauranteId, Long produtoId) {
+        return linkToFotoProduto(restauranteId, produtoId, IanaLinkRelations.SELF_VALUE);
     }
 
-    public Link linkToRestauranteProdutosFoto(Long restauranteId, Long produtoId, String rel) {
+    public Link linkToFotoProduto(Long restauranteId, Long produtoId, String rel) {
         return linkTo(methodOn(RestauranteProdutoFotoController.class).buscar(restauranteId, produtoId)).withRel(rel);
     }
 
-    public Link linkToResponsaveisRestaurante(Long restauranteId) {
-        return linkToResponsaveisRestaurante(restauranteId, IanaLinkRelations.SELF_VALUE);
+    public Link linkToRestauranteResponsaveis(Long restauranteId) {
+        return linkToRestauranteResponsaveis(restauranteId, IanaLinkRelations.SELF_VALUE);
     }
 
-    public Link linkToResponsaveisRestaurante(Long restauranteId, String rel) {
+    public Link linkToRestauranteResponsaveis(Long restauranteId, String rel) {
         return linkTo(methodOn(RestauranteUsuarioResponsavelController.class).listar(restauranteId)).withRel(rel);
     }
 
-    public Link linkToResponsaveisRestauranteAssociar(Long restauranteId, String rel) {
+    public Link linkToRestauranteResponsavelAssociacao(Long restauranteId, String rel) {
         return linkTo(methodOn(RestauranteUsuarioResponsavelController.class).associar(restauranteId, null)).withRel(
             rel);
     }
 
-    public Link linkToResponsaveisRestauranteDesassociar(Long restauranteId, Long usuarioId, String rel) {
+    public Link linkToRestauranteResponsavelDesassociacao(Long restauranteId, Long usuarioId, String rel) {
         return linkTo(
             methodOn(RestauranteUsuarioResponsavelController.class).desassociar(restauranteId, usuarioId)).withRel(rel);
     }
@@ -279,19 +279,19 @@ public class AlgaLinks {
         return linkTo(PermissoesController.class).withRel(rel);
     }
 
-    public Link linkToGrupoPermissaoAssociar(Long grupoId, String rel) {
+    public Link linkToGrupoPermissaoAssociacao(Long grupoId, String rel) {
         return linkTo(methodOn(GrupoPermissaoController.class).desassociar(grupoId, null)).withRel(rel);
     }
 
-    public Link linkToGrupoPermissaoDesassociar(Long grupoId, Long permissaoId, String rel) {
+    public Link linkToGrupoPermissaoDesassociacao(Long grupoId, Long permissaoId, String rel) {
         return linkTo(methodOn(GrupoPermissaoController.class).desassociar(grupoId, permissaoId)).withRel(rel);
     }
 
-    public Link linkToUsuarioGrupoAssociar(Long usuarioId, String rel) {
+    public Link linkToUsuarioGrupoAssociacao(Long usuarioId, String rel) {
         return linkTo(methodOn(UsuarioGrupoController.class).desassociar(usuarioId, null)).withRel(rel);
     }
 
-    public Link linkToUsuarioGrupoDesassociar(Long usuarioId, Long grupoId, String rel) {
+    public Link linkToUsuarioGrupoDesassociacao(Long usuarioId, Long grupoId, String rel) {
         return linkTo(methodOn(UsuarioGrupoController.class).desassociar(usuarioId, grupoId)).withRel(rel);
     }
 

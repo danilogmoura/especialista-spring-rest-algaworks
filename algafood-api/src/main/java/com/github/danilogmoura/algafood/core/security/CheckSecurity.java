@@ -10,52 +10,50 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 public @interface CheckSecurity {
 
-    @interface Cozinhas {
+    public @interface Cozinhas {
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and isAuthenticated()")
+        @PreAuthorize("hasAuthority('SCOPE_WRITE') and hasAuthority('EDITAR_COZINHAS')")
         @Retention(RUNTIME)
         @Target(METHOD)
-        @interface PodeConsultar {
+        public @interface PodeEditar {
 
         }
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and hasAnyAuthority('EDITAR_COZINHAS')")
+        @PreAuthorize("@algaSecurity.podeConsultarCozinhas()")
         @Retention(RUNTIME)
         @Target(METHOD)
-        @interface PodeEditar {
-
-        }
-    }
-
-    @interface Restaurantes {
-
-        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and isAuthenticated()")
-        @Retention(RUNTIME)
-        @Target(METHOD)
-        @interface PodeConsultar {
-
-        }
-
-        @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and hasAnyAuthority('EDITAR_RESTAURANTES')")
-        @Retention(RUNTIME)
-        @Target(METHOD)
-        @interface PodeGerenciarCadastro {
-
-        }
-
-        @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and "
-            + "(hasAnyAuthority('EDITAR_RESTAURANTES') or"
-            + "@algaSecurity.gerenciaRestaurante(#restauranteId))")
-        @Retention(RUNTIME)
-        @Target(METHOD)
-        @interface PodeGerenciarFuncionamento {
+        public @interface PodeConsultar {
 
         }
 
     }
 
-    @interface Pedidos {
+    public @interface Restaurantes {
 
+        @PreAuthorize("@algaSecurity.podeGerenciarCadastroRestaurantes()")
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        public @interface PodeGerenciarCadastro {
+
+        }
+
+        @PreAuthorize("@algaSecurity.podeGerenciarFuncionamentoRestaurantes(#restauranteId)")
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        public @interface PodeGerenciarFuncionamento {
+
+        }
+
+        @PreAuthorize("@algaSecurity.podeConsultarRestaurantes()")
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        public @interface PodeConsultar {
+
+        }
+
+    }
+
+    public @interface Pedidos {
 
         @PreAuthorize("hasAuthority('SCOPE_READ') and isAuthenticated()")
         @PostAuthorize("hasAuthority('CONSULTAR_PEDIDOS') or "
@@ -67,9 +65,7 @@ public @interface CheckSecurity {
 
         }
 
-        @PreAuthorize("hasAuthority('SCOPE_READ') and (hasAuthority('CONSULTAR_PEDIDOS') or "
-            + "@algaSecurity.usuarioAutenticadoIgual(#filtro.clienteId) or"
-            + "@algaSecurity.gerenciaRestaurante(#filtro.restauranteId))")
+        @PreAuthorize("@algaSecurity.podePesquisarPedidos(#filtro.clienteId, #filtro.restauranteId)")
         @Retention(RUNTIME)
         @Target(METHOD)
         public @interface PodePesquisar {
@@ -89,100 +85,107 @@ public @interface CheckSecurity {
         public @interface PodeGerenciar {
 
         }
+
     }
 
-    @interface Cidades {
+    public @interface FormasPagamento {
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and isAuthenticated()")
+        @PreAuthorize("hasAuthority('SCOPE_WRITE') and hasAuthority('EDITAR_FORMAS_PAGAMENTO')")
         @Retention(RUNTIME)
         @Target(METHOD)
-        @interface PodeConsultar {
+        public @interface PodeEditar {
 
         }
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and hasAnyAuthority('EDITAR_CIDADES')")
+        @PreAuthorize("@algaSecurity.podeConsultarFormasPagamento()")
         @Retention(RUNTIME)
         @Target(METHOD)
-        @interface PodeEditar {
+        public @interface PodeConsultar {
 
         }
+
     }
 
-    @interface Estados {
+    public @interface Cidades {
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and isAuthenticated()")
+        @PreAuthorize("hasAuthority('SCOPE_WRITE') and hasAuthority('EDITAR_CIDADES')")
         @Retention(RUNTIME)
         @Target(METHOD)
-        @interface PodeConsultar {
+        public @interface PodeEditar {
 
         }
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and hasAnyAuthority('EDITAR_ESTADOS')")
+        @PreAuthorize("@algaSecurity.podeConsultarCidades()")
         @Retention(RUNTIME)
         @Target(METHOD)
-        @interface PodeEditar {
+        public @interface PodeConsultar {
 
         }
+
     }
 
-    @interface FormasPagamento {
+    public @interface Estados {
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and isAuthenticated()")
+        @PreAuthorize("hasAuthority('SCOPE_WRITE') and hasAuthority('EDITAR_ESTADOS')")
         @Retention(RUNTIME)
         @Target(METHOD)
-        @interface PodeConsultar {
+        public @interface PodeEditar {
 
         }
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and hasAnyAuthority('EDITAR_FORMAS_PAGAMENTO')")
+        @PreAuthorize("@algaSecurity.podeConsultarEstados()")
         @Retention(RUNTIME)
         @Target(METHOD)
-        @interface PodeEditar {
+        public @interface PodeConsultar {
 
         }
+
     }
 
-    @interface UsuariosGruposPermissoes {
+    public @interface UsuariosGruposPermissoes {
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and @algaSecurity.usuarioAutenticadoIgual(#usuarioId)")
+        @PreAuthorize("hasAuthority('SCOPE_WRITE') and "
+            + "@algaSecurity.usuarioAutenticadoIgual(#usuarioId)")
         @Retention(RUNTIME)
         @Target(METHOD)
-        @interface PodeAlterarPropriaSenha {
+        public @interface PodeAlterarPropriaSenha {
 
         }
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and ("
-            + "@algaSecurity.usuarioAutenticadoIgual(#usuarioId) or "
-            + "hasAnyAuthority('EDITAR_USUARIOS_GRUPOS_PERMISSOES'))")
+        @PreAuthorize("hasAuthority('SCOPE_WRITE') and (hasAuthority('EDITAR_USUARIOS_GRUPOS_PERMISSOES') or "
+            + "@algaSecurity.usuarioAutenticadoIgual(#usuarioId))")
         @Retention(RUNTIME)
         @Target(METHOD)
-        @interface PodeAlterarUsuario {
+        public @interface PodeAlterarUsuario {
 
         }
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and hasAnyAuthority('EDITAR_USUARIOS_GRUPOS_PERMISSOES')")
+        @PreAuthorize("@algaSecurity.podeEditarUsuariosGruposPermissoes()")
         @Retention(RUNTIME)
         @Target(METHOD)
-        @interface PodeEditar {
+        public @interface PodeEditar {
 
         }
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and hasAnyAuthority('CONSULTAR_USUARIOS_GRUPOS_PERMISSOES')")
+
+        @PreAuthorize("@algaSecurity.podeConsultarUsuariosGruposPermissoes()")
         @Retention(RUNTIME)
         @Target(METHOD)
-        @interface PodeConsultar {
+        public @interface PodeConsultar {
 
         }
+
     }
 
-    @interface Estatisticas {
+    public @interface Estatisticas {
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and hasAnyAuthority('GERAR_RELATORIOS')")
+        @PreAuthorize("@algaSecurity.podeConsultarEstatisticas()")
         @Retention(RUNTIME)
         @Target(METHOD)
-        @interface PodeConsultar {
+        public @interface PodeConsultar {
 
         }
+
     }
 
 }

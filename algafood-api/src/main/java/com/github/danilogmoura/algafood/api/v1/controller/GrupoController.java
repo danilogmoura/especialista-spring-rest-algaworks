@@ -1,7 +1,7 @@
 package com.github.danilogmoura.algafood.api.v1.controller;
 
 import com.github.danilogmoura.algafood.api.v1.assembler.GrupoInputDisassembler;
-import com.github.danilogmoura.algafood.api.v1.assembler.GrupoModeAssembler;
+import com.github.danilogmoura.algafood.api.v1.assembler.GrupoModelAssembler;
 import com.github.danilogmoura.algafood.api.v1.model.GrupoModel;
 import com.github.danilogmoura.algafood.api.v1.model.input.GrupoInput;
 import com.github.danilogmoura.algafood.api.v1.openapi.controller.GrupoControllerOpenApi;
@@ -33,7 +33,7 @@ public class GrupoController implements GrupoControllerOpenApi {
     private GrupoService grupoService;
 
     @Autowired
-    private GrupoModeAssembler grupoModeAssembler;
+    private GrupoModelAssembler grupoModeAssembler;
 
     @Autowired
     private GrupoInputDisassembler grupoInputDisassembler;

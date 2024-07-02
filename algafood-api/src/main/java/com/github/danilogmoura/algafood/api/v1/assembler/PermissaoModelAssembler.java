@@ -3,6 +3,7 @@ package com.github.danilogmoura.algafood.api.v1.assembler;
 import com.github.danilogmoura.algafood.api.v1.AlgaLinks;
 import com.github.danilogmoura.algafood.api.v1.controller.PermissoesController;
 import com.github.danilogmoura.algafood.api.v1.model.PermissaoModel;
+import com.github.danilogmoura.algafood.core.security.AlgaSecurity;
 import com.github.danilogmoura.algafood.domain.model.Permissao;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class PermissaoModelAssembler extends RepresentationModelAssemblerSupport
     @Autowired
     private AlgaLinks algaLinks;
 
+    @Autowired
+    private AlgaSecurity algaSecurity;
+
     public PermissaoModelAssembler() {
         super(PermissoesController.class, PermissaoModel.class);
     }
@@ -30,6 +34,12 @@ public class PermissaoModelAssembler extends RepresentationModelAssemblerSupport
 
     @Override
     public CollectionModel<PermissaoModel> toCollectionModel(Iterable<? extends Permissao> entities) {
-        return super.toCollectionModel(entities).add(algaLinks.linkToPermissoes());
+        CollectionModel<PermissaoModel> collectionModel = super.toCollectionModel(entities);
+
+        if (algaSecurity.podeConsultarUsuariosGruposPermissoes()) {
+            collectionModel.add(algaLinks.linkToPermissoes());
+        }
+
+        return collectionModel;
     }
 }
