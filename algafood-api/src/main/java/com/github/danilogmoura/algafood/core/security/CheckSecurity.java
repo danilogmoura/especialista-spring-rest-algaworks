@@ -65,6 +65,16 @@ public @interface CheckSecurity {
         @interface PodeBuscar {
 
         }
+
+        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and isAuthenticated() and ("
+            + "hasAnyAuthority('CONSULTAR_PEDIDOS') or"
+            + "@algaSecurity.gerenciaRestaurante(#filtro.restauranteId)) or "
+            + "@algaSecurity.usuarioId == #filtro.clienteId")
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        @interface PodePesquisar {
+
+        }
     }
 
 }

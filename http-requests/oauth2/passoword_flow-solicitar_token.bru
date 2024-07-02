@@ -16,7 +16,12 @@ auth:basic {
 }
 
 body:form-urlencoded {
-  username: joao.ger@email.com
+  username: jose.aux@email.com
   password: 123
   grant_type: password
+}
+
+script:post-response {
+  let body = res.getBody();
+  bru.setVar("ACCESS_TOKEN", body.access_token);
 }

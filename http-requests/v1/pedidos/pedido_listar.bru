@@ -5,23 +5,27 @@ meta {
 }
 
 get {
-  url: {{BASE_URL}}/v1/pedidos?sort=restaurante.nome,desc&size=20&page=0
+  url: {{BASE_URL}}/v1/pedidos?sort=restaurante.nome,desc&size=20&page=0&restauranteId=1
   body: none
-  auth: none
+  auth: bearer
 }
 
 params:query {
   sort: restaurante.nome,desc
   size: 20
   page: 0
+  restauranteId: 1
+  ~clienteId: 6
   ~sort: cliente.nome,desc
   ~sort: taxaFrete,desc
-  ~restauranteId: 1
   ~dataCriacaoFim: 2019-11-01T10:00:00
   ~dataCriacaoInicio: 2019-10-10T10:00:00
-  ~clienteId: 1
 }
 
 headers {
   ~Accept: application/xml
+}
+
+auth:bearer {
+  token: {{ACCESS_TOKEN}}
 }
