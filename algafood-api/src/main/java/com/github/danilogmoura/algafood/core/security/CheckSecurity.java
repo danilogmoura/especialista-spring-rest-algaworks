@@ -76,8 +76,7 @@ public @interface CheckSecurity {
 
         }
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and isAuthenticated() and ("
-            + "hasAnyAuthority('GERENCIAR_PEDIDOS') or "
+        @PreAuthorize("hasAuthority('SCOPE_WRITE') and (hasAuthority('GERENCIAR_PEDIDOS') or "
             + "@algaSecurity.gerenciaRestauranteDoPedido(#codigoPedido))")
         @Retention(RUNTIME)
         @Target(METHOD)
@@ -89,6 +88,41 @@ public @interface CheckSecurity {
         @Retention(RUNTIME)
         @Target(METHOD)
         @interface PodeCriar {
+
+        }
+    }
+
+    @interface Cidades {
+
+        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and isAuthenticated()")
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        @interface PodeConsultar {
+
+        }
+
+        @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and hasAnyAuthority('EDITAR_CIDADES')")
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        @interface PodeEditar {
+
+        }
+    }
+
+
+    @interface Estados {
+
+        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and isAuthenticated()")
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        @interface PodeConsultar {
+
+        }
+
+        @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and hasAnyAuthority('EDITAR_ESTADOS')")
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        @interface PodeEditar {
 
         }
     }

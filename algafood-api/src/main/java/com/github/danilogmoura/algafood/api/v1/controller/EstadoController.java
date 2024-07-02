@@ -5,6 +5,7 @@ import com.github.danilogmoura.algafood.api.v1.assembler.EstadoModelAssembler;
 import com.github.danilogmoura.algafood.api.v1.model.EstadoModel;
 import com.github.danilogmoura.algafood.api.v1.model.input.EstadoInput;
 import com.github.danilogmoura.algafood.api.v1.openapi.controller.EstadoControllerOpenApi;
+import com.github.danilogmoura.algafood.core.security.CheckSecurity;
 import com.github.danilogmoura.algafood.domain.repository.EstadoRepository;
 import com.github.danilogmoura.algafood.domain.service.EstadoService;
 import javax.validation.Valid;
@@ -38,16 +39,19 @@ public class EstadoController implements EstadoControllerOpenApi {
     @Autowired
     private EstadoInputDisassembler estadoInputDisassembler;
 
+    @CheckSecurity.Estados.PodeConsultar
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public CollectionModel<EstadoModel> listar() {
         return estadoModelAssembler.toCollectionModel(estadoRepository.findAll());
     }
 
+    @CheckSecurity.Estados.PodeConsultar
     @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public EstadoModel buscar(@PathVariable Long id) {
         return estadoModelAssembler.toModel(estadoService.buscarOuFalhar(id));
     }
 
+    @CheckSecurity.Estados.PodeEditar
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public EstadoModel adicionar(@RequestBody @Valid EstadoInput estadoInput) {
@@ -55,6 +59,7 @@ public class EstadoController implements EstadoControllerOpenApi {
         return estadoModelAssembler.toModel(estadoService.salvar(estado));
     }
 
+    @CheckSecurity.Estados.PodeEditar
     @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public EstadoModel atualizar(@PathVariable Long id, @RequestBody @Valid EstadoInput estadoInput) {
         var estadoAtual = estadoService.buscarOuFalhar(id);
@@ -62,6 +67,7 @@ public class EstadoController implements EstadoControllerOpenApi {
         return estadoModelAssembler.toModel(estadoService.salvar(estadoAtual));
     }
 
+    @CheckSecurity.Estados.PodeEditar
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable Long id) {
