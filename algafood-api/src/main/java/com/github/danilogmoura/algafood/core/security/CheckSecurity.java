@@ -56,38 +56,37 @@ public @interface CheckSecurity {
 
     @interface Pedidos {
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and isAuthenticated()")
-        @PostAuthorize("hasAnyAuthority('CONSULTAR_PEDIDOS') or "
+
+        @PreAuthorize("hasAuthority('SCOPE_READ') and isAuthenticated()")
+        @PostAuthorize("hasAuthority('CONSULTAR_PEDIDOS') or "
             + "@algaSecurity.usuarioAutenticadoIgual(returnObject.cliente.id) or "
             + "@algaSecurity.gerenciaRestaurante(returnObject.restaurante.id)")
         @Retention(RUNTIME)
         @Target(METHOD)
-        @interface PodeBuscar {
+        public @interface PodeBuscar {
 
         }
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and isAuthenticated() and ("
-            + "hasAnyAuthority('CONSULTAR_PEDIDOS') or "
-            + "@algaSecurity.gerenciaRestaurante(#filtro.restauranteId)) or "
-            + "@algaSecurity.usuarioAutenticadoIgual(#filtro.clienteId)")
+        @PreAuthorize("hasAuthority('SCOPE_READ') and (hasAuthority('CONSULTAR_PEDIDOS') or "
+            + "@algaSecurity.usuarioAutenticadoIgual(#filtro.clienteId) or"
+            + "@algaSecurity.gerenciaRestaurante(#filtro.restauranteId))")
         @Retention(RUNTIME)
         @Target(METHOD)
-        @interface PodePesquisar {
+        public @interface PodePesquisar {
 
         }
 
-        @PreAuthorize("hasAuthority('SCOPE_WRITE') and (hasAuthority('GERENCIAR_PEDIDOS') or "
-            + "@algaSecurity.gerenciaRestauranteDoPedido(#codigoPedido))")
+        @PreAuthorize("hasAuthority('SCOPE_WRITE') and isAuthenticated()")
         @Retention(RUNTIME)
         @Target(METHOD)
-        @interface PodeGerenciar {
+        public @interface PodeCriar {
 
         }
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and isAuthenticated()")
+        @PreAuthorize("@algaSecurity.podeGerenciarPedidos(#codigoPedido)")
         @Retention(RUNTIME)
         @Target(METHOD)
-        @interface PodeCriar {
+        public @interface PodeGerenciar {
 
         }
     }
