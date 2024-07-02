@@ -10,6 +10,7 @@ import com.github.danilogmoura.algafood.api.v1.openapi.controller.PedidoControll
 import com.github.danilogmoura.algafood.core.data.PageWrapper;
 import com.github.danilogmoura.algafood.core.data.PageableTranslator;
 import com.github.danilogmoura.algafood.core.security.AlgaSecurity;
+import com.github.danilogmoura.algafood.core.security.CheckSecurity;
 import com.github.danilogmoura.algafood.domain.filter.PedidoFilter;
 import com.github.danilogmoura.algafood.domain.model.Pedido;
 import com.github.danilogmoura.algafood.domain.model.Usuario;
@@ -74,9 +75,10 @@ public class PedidoController implements PedidoControllerOpenApi {
         return pagedResourcesAssembler.toModel(pedidosPage, pedidoResumoModelAssembler);
     }
 
-    @GetMapping(path = "/{codigo}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public PedidoModel buscar(@PathVariable String codigo) {
-        var pedido = pedidoService.buscarOuFalhar(codigo);
+    @CheckSecurity.Pedidos.PodeBuscar
+    @GetMapping(path = "/{codigoPedido}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public PedidoModel buscar(@PathVariable String codigoPedido) {
+        var pedido = pedidoService.buscarOuFalhar(codigoPedido);
         return pedidoModelAssembler.toModel(pedido);
     }
 
