@@ -109,7 +109,6 @@ public @interface CheckSecurity {
         }
     }
 
-
     @interface Estados {
 
         @PreAuthorize("hasAnyAuthority('SCOPE_READ') and isAuthenticated()")
@@ -170,6 +169,16 @@ public @interface CheckSecurity {
         }
 
         @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and hasAnyAuthority('CONSULTAR_USUARIOS_GRUPOS_PERMISSOES')")
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        @interface PodeConsultar {
+
+        }
+    }
+
+    @interface Estatisticas {
+
+        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and hasAnyAuthority('EDITAR_USUARIOS_GRUPOS_PERMISSOES')")
         @Retention(RUNTIME)
         @Target(METHOD)
         @interface PodeConsultar {

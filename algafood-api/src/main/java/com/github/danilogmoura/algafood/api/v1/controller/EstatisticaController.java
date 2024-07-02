@@ -2,6 +2,7 @@ package com.github.danilogmoura.algafood.api.v1.controller;
 
 import com.github.danilogmoura.algafood.api.v1.AlgaLinks;
 import com.github.danilogmoura.algafood.api.v1.openapi.controller.EstatisticaControllerOpenApi;
+import com.github.danilogmoura.algafood.core.security.CheckSecurity;
 import com.github.danilogmoura.algafood.domain.filter.VendaDiariaFilter;
 import com.github.danilogmoura.algafood.domain.model.dto.VendaDiaria;
 import com.github.danilogmoura.algafood.domain.service.VendaQueryService;
@@ -30,8 +31,10 @@ public class EstatisticaController implements EstatisticaControllerOpenApi {
     @Autowired
     private AlgaLinks algaLinks;
 
+    @CheckSecurity.Estatisticas.PodeConsultar
+    @Override
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public EstatisticasEntryPointModel listar() {
+    public EstatisticasEntryPointModel estatisticas() {
         var estatisticasEntryPointModel = new EstatisticasEntryPointModel();
 
         estatisticasEntryPointModel.add(algaLinks.linkToEstatisticasVendasDiarias("vendas-diarias"));
@@ -39,12 +42,16 @@ public class EstatisticaController implements EstatisticaControllerOpenApi {
         return estatisticasEntryPointModel;
     }
 
+    @CheckSecurity.Estatisticas.PodeConsultar
+    @Override
     @GetMapping(value = "/vendas-diarias", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<VendaDiaria> consultarVendasDiarias(VendaDiariaFilter filtro,
         @RequestParam(required = false, defaultValue = "+00:00") String timeOffset) {
         return vendaQueryService.consultarVendasDIarias(filtro, timeOffset);
     }
 
+    @CheckSecurity.Estatisticas.PodeConsultar
+    @Override
     @GetMapping(value = "/vendas-diarias", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<byte[]> consultarVendasDiariasPdf(VendaDiariaFilter filtro,
         @RequestParam(required = false, defaultValue = "+00:00") String timeOffset) {

@@ -16,7 +16,7 @@ public interface EstatisticaControllerOpenApi {
 
 
     @ApiOperation(value = "Estatísticas", hidden = true)
-    EstatisticasEntryPointModel listar();
+    EstatisticasEntryPointModel estatisticas();
 
     @ApiOperation("Consulta estatísticas de vendas diárias")
     @ApiImplicitParams({
