@@ -178,7 +178,7 @@ public @interface CheckSecurity {
 
     @interface Estatisticas {
 
-        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and hasAnyAuthority('EDITAR_USUARIOS_GRUPOS_PERMISSOES')")
+        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and hasAnyAuthority('GERAR_RELATORIOS')")
         @Retention(RUNTIME)
         @Target(METHOD)
         @interface PodeConsultar {

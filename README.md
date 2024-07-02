@@ -96,6 +96,10 @@
 
 - [**22.27. Decidindo qual fluxo OAuth2 usar**](https://app.algaworks.com/aulas/2254/decidindo-qual-fluxo-oauth2-usar)
 
+
+- [**23.37. Cadastrando clientes OAuth2 no banco de dados e testando a emissão de tokens**](https://app.algaworks.com/aulas/2291/cadastrando-clientes-oauth2-no-banco-de-dados-e-testando-a-emissao-de-tokens?pagina=0)
+
+
 ### DOCUMENTAÇÕES
 
 - [Tutorial definitivo: Tudo o que você precisa para começar bem com JPA](https://blog.algaworks.com/tutorial-jpa/)

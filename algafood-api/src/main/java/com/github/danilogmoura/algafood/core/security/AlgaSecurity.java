@@ -2,6 +2,7 @@ package com.github.danilogmoura.algafood.core.security;
 
 import com.github.danilogmoura.algafood.domain.repository.PedidoRepository;
 import com.github.danilogmoura.algafood.domain.repository.RestauranteRepository;
+import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AlgaSecurity {
+
+    private final static Random RANDOM = new Random();
 
     @Autowired
     private RestauranteRepository restauranteRepository;
@@ -24,7 +27,14 @@ public class AlgaSecurity {
     public Long getUsuarioId() {
         Jwt jwt = (Jwt) getAuthentication().getPrincipal();
 
-        return jwt.getClaim("usuario_id");
+        Long usuarioId = jwt.getClaim("usuario_id");
+
+        if (usuarioId == null) {
+            long randomLong = RANDOM.nextLong();
+            usuarioId = randomLong < 0 ? randomLong : -randomLong;
+        }
+
+        return usuarioId;
     }
 
     public boolean gerenciaRestaurante(Long restauranteId) {
