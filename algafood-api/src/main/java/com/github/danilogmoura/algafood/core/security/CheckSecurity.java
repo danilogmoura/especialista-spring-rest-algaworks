@@ -127,4 +127,21 @@ public @interface CheckSecurity {
         }
     }
 
+    @interface FormasPagamento {
+
+        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and isAuthenticated()")
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        @interface PodeConsultar {
+
+        }
+
+        @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and hasAnyAuthority('EDITAR_FORMAS_PAGAMENTO')")
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        @interface PodeEditar {
+
+        }
+    }
+    
 }

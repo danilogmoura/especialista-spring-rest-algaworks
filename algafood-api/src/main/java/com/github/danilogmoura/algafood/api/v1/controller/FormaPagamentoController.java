@@ -5,6 +5,7 @@ import com.github.danilogmoura.algafood.api.v1.assembler.FormaPagamentoModelAsse
 import com.github.danilogmoura.algafood.api.v1.model.FormaPagamentoModel;
 import com.github.danilogmoura.algafood.api.v1.model.input.FormaPagamentoInput;
 import com.github.danilogmoura.algafood.api.v1.openapi.controller.FormaPagamentoControllerOpenApi;
+import com.github.danilogmoura.algafood.core.security.CheckSecurity;
 import com.github.danilogmoura.algafood.domain.repository.FormaPagamentoRepository;
 import com.github.danilogmoura.algafood.domain.service.FormaPagamentoService;
 import java.util.concurrent.TimeUnit;
@@ -43,6 +44,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
     @Autowired
     private FormaPagamentoInputDisassembler formaPagamentoInputDisassembler;
 
+    @CheckSecurity.FormasPagamento.PodeConsultar
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CollectionModel<FormaPagamentoModel>> listar(ServletWebRequest request) {
         ShallowEtagHeaderFilter.disableContentCaching(request.getRequest());
@@ -67,6 +69,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
             .body(formasPagamentoModel);
     }
 
+    @CheckSecurity.FormasPagamento.PodeConsultar
     @GetMapping(path = "/{formaPagamentoId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FormaPagamentoModel> buscar(@PathVariable Long formaPagamentoId, ServletWebRequest request) {
         ShallowEtagHeaderFilter.disableContentCaching(request.getRequest());
@@ -92,6 +95,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
             .body(formaPagamentoModel);
     }
 
+    @CheckSecurity.FormasPagamento.PodeEditar
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public FormaPagamentoModel adicionar(@RequestBody @Valid FormaPagamentoInput formaPagamentoInput) {
@@ -99,6 +103,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
         return formaPagamentoModelAssembler.toModel(formaPagamentoService.salvar(formaPagamento));
     }
 
+    @CheckSecurity.FormasPagamento.PodeEditar
     @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public FormaPagamentoModel atualizar(@PathVariable Long id,
         @RequestBody @Valid FormaPagamentoInput formaPagamentoInput) {
@@ -107,6 +112,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
         return formaPagamentoModelAssembler.toModel(formaPagamentoService.salvar(formaPagamentoAtual));
     }
 
+    @CheckSecurity.FormasPagamento.PodeEditar
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletar(@PathVariable Long id) {
