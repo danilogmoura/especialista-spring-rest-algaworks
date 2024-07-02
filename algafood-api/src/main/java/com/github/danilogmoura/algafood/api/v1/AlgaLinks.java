@@ -60,11 +60,11 @@ public class AlgaLinks {
     }
 
     public Link linkToRestauranteAbertura(Long restauranteId, String rel) {
-        return linkTo(methodOn(RestauranteController.class).abertura(restauranteId)).withRel(rel);
+        return linkTo(methodOn(RestauranteController.class).abrir(restauranteId)).withRel(rel);
     }
 
     public Link linkToRestauranteFechamento(Long restauranteId, String rel) {
-        return linkTo(methodOn(RestauranteController.class).fechamento(restauranteId)).withRel(rel);
+        return linkTo(methodOn(RestauranteController.class).fechar(restauranteId)).withRel(rel);
     }
 
     public Link linkToRestaurantes() {

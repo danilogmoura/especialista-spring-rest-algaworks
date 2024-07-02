@@ -7,7 +7,11 @@ meta {
 put {
   url: {{BASE_URL}}/v1/restaurantes/1/abertura
   body: json
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo1LCJ1c2VyX25hbWUiOiJtYW5vZWwubG9qYUBlbWFpbC5jb20iLCJzY29wZSI6WyJXUklURSIsIlJFQUQiXSwiZXhwIjoxNzE5OTAzOTEzLCJqdGkiOiJlYzRiYjRmZC0zNzdhLTQ3YzYtOGQ5OC01Njk4ZGZkZTAyNTQiLCJub21lX2NvbXBsZXRvIjoiTWFub2VsIExpbWEiLCJjbGllbnRfaWQiOiJhbGdhZm9vZC13ZWIifQ.K2cjJ-aaMcbYR5kBuEJhMGCXvb4GEm6W37P8xpLTssgA0UcfvEvtoP6AMYR74TMt02CvH-2o3qUs1uuQntxZjsNv_tJ-UUnAPmbeG4h0la8qwbrEMydLTnfryASpoeboemLpwKhHQBiFn0259tYXUlavG6b5q34p79XI-FG_MQhWWFK3aQNLmLUEW8wM2Zbiy2KwKI3zl7Tt6YIWIMwwpqw4QQh46aNzSCAa9AX0A5Hlj4ojJ0qNYygf1W1hecm2kvL86sNXil4J_u_0oWvXh4-YKtlYNnyTZbzpFqWjPkba50AAIbVyMBhHL-btCcGDRY3NJ5pdqzWIukkxqack5A
 }
 
 body:json {

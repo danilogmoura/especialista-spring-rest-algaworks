@@ -7,7 +7,7 @@ meta {
 get {
   url: {{BASE_URL}}/v1/restaurantes
   body: none
-  auth: none
+  auth: bearer
 }
 
 params:query {
@@ -16,4 +16,8 @@ params:query {
 
 headers {
   ~Accept: application/xml
+}
+
+auth:bearer {
+  token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvX2lkIjo1LCJ1c2VyX25hbWUiOiJtYW5vZWwubG9qYUBlbWFpbC5jb20iLCJzY29wZSI6WyJXUklURSIsIlJFQUQiXSwiZXhwIjoxNzE5OTAyMTc2LCJqdGkiOiIyZWNkODUwYS1lYjM2LTRhZmYtYTIwNC01NGZjOTY3MDhhYzEiLCJub21lX2NvbXBsZXRvIjoiTWFub2VsIExpbWEiLCJjbGllbnRfaWQiOiJhbGdhZm9vZC13ZWIifQ.cy-ADlh2XBfCUqv3d-dJSYtf41TE0KLS8QNkJsasj0XjLbFmpz6EqEU3j0GW9lGrr9s2MR5URDNztKZ2g4FFtlmaEuCHEpLfrpojnb3YxQZWpItBB9Kr1MLNNVHAsG__YPhcISI_9HbHU_xTvJrQvIhlrXoWkL_Cb9kq9V7DeuFcMXB_-KBaz62dMUoRNkuk42LHRzsdQbJbTyjHs-RT4OJcyN5jQGiTXicK4c4_-N-sobrO3AXOAWGR4HB97B-nHiZpLzjavaIaU5dMHJGGr7vUU45N2U3V8_pUUh9a5AqdW5DQh9mbXlFkkySmyW2c0TxlDynR5I_UJwXcM4w5kQ
 }

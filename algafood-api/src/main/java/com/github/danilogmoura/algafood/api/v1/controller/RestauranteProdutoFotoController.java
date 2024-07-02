@@ -49,7 +49,7 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
     private FotoStorageService fotoStorageService;
 
 
-    @CheckSecurity.Restaurantes.PodeConsultar
+    @CheckSecurity.Restaurantes.PodeGerenciarFuncionamento
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
     public FotoProdutoModel buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
         var fotoProduto = catalogoFotoProdutoService.buscarOuFalhar(restauranteId, produtoId);
@@ -96,7 +96,7 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
         }
     }
 
-    @CheckSecurity.Restaurantes.PodeEditar
+    @CheckSecurity.Restaurantes.PodeGerenciarFuncionamento
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public FotoProdutoModel atualizarFoto(@PathVariable Long restauranteId, @PathVariable Long produtoId,
         @Valid FotoProdutoInput fotoProdutoInput,
@@ -114,7 +114,7 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
         return fotoProdutoAssembler.toModel(fotoProdutoSalva);
     }
 
-    @CheckSecurity.Restaurantes.PodeEditar
+    @CheckSecurity.Restaurantes.PodeGerenciarFuncionamento
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping
     public void remover(@PathVariable Long restauranteId, @PathVariable Long produtoId) {

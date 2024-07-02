@@ -101,7 +101,7 @@ public interface RestauranteControllerOpenApi {
         @ApiResponse(code = 204, message = "Restaurante aberto com sucesso"),
         @ApiResponse(code = 404, message = "Restaurante não encontrado", response = Problem.class)
     })
-    ResponseEntity<Void> abertura(
+    ResponseEntity<Void> abrir(
         @ApiParam(value = "ID de um restaurante", example = "1", required = true) Long restauranteId);
 
     @ApiOperation("Fecha um restaurante por ID")
@@ -109,7 +109,7 @@ public interface RestauranteControllerOpenApi {
         @ApiResponse(code = 204, message = "Restaurante fechado com sucesso"),
         @ApiResponse(code = 404, message = "Restaurante não encontrado", response = Problem.class)
     })
-    ResponseEntity<Void> fechamento(
+    ResponseEntity<Void> fechar(
         @ApiParam(value = "ID de um restaurante", example = "1", required = true) Long restauranteId);
 
 }
