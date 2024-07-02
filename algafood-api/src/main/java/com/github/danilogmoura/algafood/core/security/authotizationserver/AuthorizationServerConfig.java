@@ -1,11 +1,10 @@
-package com.github.danilogmoura.algafood.auth.core;
+package com.github.danilogmoura.algafood.core.security.authotizationserver;
 
 import java.util.Arrays;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -46,6 +45,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+//		security.checkTokenAccess("isAuthenticated()");
         security.checkTokenAccess("permitAll()")
             .tokenKeyAccess("permitAll()")
             .allowFormAuthenticationForClients();
@@ -78,7 +78,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         var jwtAccessTokenConverter = new JwtAccessTokenConverter();
 
-        var jksResource = new ClassPathResource(jwtKeyStoreProperties.getPath());
+        var jksResource = jwtKeyStoreProperties.getJskLocation();
         var keyStorePass = jwtKeyStoreProperties.getPassword();
         var keyPairAlias = jwtKeyStoreProperties.getKeypairAlias();
 

@@ -5,15 +5,15 @@ meta {
 }
 
 get {
-  url: {{BASE_URL}}/v1/pedidos?sort=restaurante.nome,desc&size=20&page=0
+  url: {{BASE_URL}}/v1/pedidos
   body: none
   auth: bearer
 }
 
 params:query {
-  sort: restaurante.nome,desc
-  size: 20
-  page: 0
+  ~sort: restaurante.nome,desc
+  ~size: 20
+  ~page: 0
   ~restauranteId: 1
   ~clienteId: 6
   ~sort: cliente.nome,desc

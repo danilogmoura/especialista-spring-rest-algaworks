@@ -7,7 +7,7 @@ meta {
 get {
   url: {{BASE_URL}}/v1/cidades
   body: none
-  auth: basic
+  auth: bearer
 }
 
 headers {
@@ -15,7 +15,6 @@ headers {
   ~Accept: application/vnd.algafood.v1+json
 }
 
-auth:basic {
-  username: danilo
-  password: 123
+auth:bearer {
+  token: {{ACCESS_TOKEN}}
 }

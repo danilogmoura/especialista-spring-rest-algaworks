@@ -96,6 +96,20 @@
 
 - [**22.27. Decidindo qual fluxo OAuth2 usar**](https://app.algaworks.com/aulas/2254/decidindo-qual-fluxo-oauth2-usar)
 
+```
+- PKCE - Plain
+Code Verifier:  9djqash1NKdmqalLN
+Code Challenge: 9djqash1NKdmqalLN
+
+localhost:8081/oauth/authorize?response_type=code&client_id=foodanalytics&redirect_uri=http://localhost:8082&code_challenge=9djqash1NKdmqalLN&code_challenge_method=plain
+
+- PKCE - SHA-256
+Code Verifier:   fAySfEj74uQNOxzuEqMUHk1kYyTYoDYZ39nQDipZakw
+Code Challenge:  base64url(sha256("fAySfEj74uQNOxzuEqMUHk1kYyTYoDYZ39nQDipZakw"))
+                 hxJEjAxtLwpUGzYvgSRLZu0-GTNKSF6BRiVgAIJM8N8
+
+localhost:8081/oauth/authorize?response_type=code&client_id=foodanalytics&redirect_uri=http://localhost:8082&code_challenge=hxJEjAxtLwpUGzYvgSRLZu0-GTNKSF6BRiVgAIJM8N8&code_challenge_method=s256
+```
 
 - [**23.37. Cadastrando clientes OAuth2 no banco de dados e testando a emissão de tokens**](https://app.algaworks.com/aulas/2291/cadastrando-clientes-oauth2-no-banco-de-dados-e-testando-a-emissao-de-tokens?pagina=0)
 
@@ -169,3 +183,6 @@
 
 
 - [**Ferramenta online para debugging de JWT**](https://jwt.io/)
+
+
+- [**Resolvendo Problemas no cors**](https://app.algaworks.com/forum/topicos/85485/erro-401-nao-consigo-gerar-o-token-usando-o-js-client-com-authorization-code)

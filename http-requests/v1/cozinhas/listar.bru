@@ -5,14 +5,14 @@ meta {
 }
 
 get {
-  url: {{BASE_URL}}/v1/cozinhas?size=1&page=2
+  url: {{BASE_URL}}/v1/cozinhas
   body: none
   auth: bearer
 }
 
 params:query {
-  size: 1
-  page: 2
+  ~size: 1
+  ~page: 2
   ~sort: nome,id
   ~sort: nome,desc
   ~sort: id

@@ -1,9 +1,11 @@
-package com.github.danilogmoura.algafood.auth.core;
+package com.github.danilogmoura.algafood.core.security.authotizationserver;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
@@ -14,8 +16,8 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties("algafood.jwt.keystore")
 public class JwtKeyStoreProperties {
 
-    @NotBlank
-    private String path;
+    @NotNull
+    private Resource jskLocation;
 
     @NotBlank
     private String password;

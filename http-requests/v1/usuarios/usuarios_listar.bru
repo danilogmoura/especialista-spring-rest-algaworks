@@ -7,9 +7,13 @@ meta {
 get {
   url: {{BASE_URL}}/v1/usuarios
   body: none
-  auth: none
+  auth: bearer
 }
 
 headers {
   ~Accept: application/xml
+}
+
+auth:bearer {
+  token: {{ACCESS_TOKEN}}
 }

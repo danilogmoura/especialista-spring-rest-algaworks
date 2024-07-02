@@ -5,12 +5,16 @@ meta {
 }
 
 get {
-  url: {{BASE_URL}}/v1/usuarios/1
+  url: {{BASE_URL}}/v1/usuarios/6
   body: none
-  auth: none
+  auth: bearer
 }
 
 headers {
   ~Content-Type: application/xml
   ~Accept: application/xml
+}
+
+auth:bearer {
+  token: {{ACCESS_TOKEN}}
 }

@@ -5,15 +5,20 @@ meta {
 }
 
 post {
-  url: {{AUTH_URL}}/oauth/token
+  url: {{BASE_URL}}/oauth/token
   body: formUrlEncoded
   auth: none
 }
 
 body:form-urlencoded {
   grant_type: authorization_code
-  code: eyqP32
+  code: dVMerh
   redirect_uri: http://localhost:8082
   code_verifier: fAySfEj74uQNOxzuEqMUHk1kYyTYoDYZ39nQDipZakw
   client_id: foodanalytics
+}
+
+script:post-response {
+  let body = res.getBody();
+  bru.setVar("ACCESS_TOKEN", body.access_token);
 }

@@ -1,6 +1,6 @@
-package com.github.danilogmoura.algafood.auth.core;
+package com.github.danilogmoura.algafood.core.security.authotizationserver;
 
-import com.github.danilogmoura.algafood.auth.domain.Usuario;
+import com.github.danilogmoura.algafood.domain.model.Usuario;
 import java.util.Collection;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
