@@ -6,6 +6,7 @@ import com.github.danilogmoura.algafood.api.v1.assembler.ProdutoModelAssembler;
 import com.github.danilogmoura.algafood.api.v1.model.ProdutoModel;
 import com.github.danilogmoura.algafood.api.v1.model.input.ProdutoInput;
 import com.github.danilogmoura.algafood.api.v1.openapi.controller.RestauranteProdutoControllerOpenApi;
+import com.github.danilogmoura.algafood.core.security.CheckSecurity;
 import com.github.danilogmoura.algafood.domain.model.Produto;
 import com.github.danilogmoura.algafood.domain.repository.ProdutoRepository;
 import com.github.danilogmoura.algafood.domain.service.ProdutoService;
@@ -50,6 +51,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
     private AlgaLinks algaLinks;
 
 
+    @CheckSecurity.Restaurantes.PodeConsultar
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public CollectionModel<ProdutoModel> listar(
         @PathVariable Long restauranteId,
@@ -68,12 +70,14 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
             .add(algaLinks.linkToRestauranteProdutos(restauranteId));
     }
 
+    @CheckSecurity.Restaurantes.PodeConsultar
     @GetMapping(path = "/{produtoId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ProdutoModel buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
         var produto = produtoService.buscarOuFalhar(restauranteId, produtoId);
         return produtoModelAssembler.toModel(produto);
     }
 
+    @CheckSecurity.Restaurantes.PodeEditar
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ProdutoModel adicionar(@PathVariable Long restauranteId, @RequestBody @Valid ProdutoInput produtoInput) {
@@ -86,6 +90,7 @@ public class RestauranteProdutoController implements RestauranteProdutoControlle
         return produtoModelAssembler.toModel(produto);
     }
 
+    @CheckSecurity.Restaurantes.PodeEditar
     @PutMapping(path = "/{produtoId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ProdutoModel atualizar(@PathVariable Long restauranteId, @PathVariable Long produtoId,
         @RequestBody @Valid ProdutoInput produtoInput) {

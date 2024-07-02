@@ -4,6 +4,7 @@ import com.github.danilogmoura.algafood.api.v1.assembler.FotoProdutoAssembler;
 import com.github.danilogmoura.algafood.api.v1.model.FotoProdutoModel;
 import com.github.danilogmoura.algafood.api.v1.model.input.FotoProdutoInput;
 import com.github.danilogmoura.algafood.api.v1.openapi.controller.RestauranteProdutoFotoControllerOpenApi;
+import com.github.danilogmoura.algafood.core.security.CheckSecurity;
 import com.github.danilogmoura.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.github.danilogmoura.algafood.domain.model.FotoProduto;
 import com.github.danilogmoura.algafood.domain.service.CatalogoFotoProdutoService;
@@ -48,12 +49,14 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
     private FotoStorageService fotoStorageService;
 
 
+    @CheckSecurity.Restaurantes.PodeConsultar
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
     public FotoProdutoModel buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
         var fotoProduto = catalogoFotoProdutoService.buscarOuFalhar(restauranteId, produtoId);
         return fotoProdutoAssembler.toModel(fotoProduto);
     }
 
+    // As fotos dos produtos ficarão públicas (não precisa de autorização para acessá-las)
     @GetMapping(produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
     public ResponseEntity<?> servir(@PathVariable Long restauranteId,
         @PathVariable Long produtoId, @RequestHeader(name = "accept") String acceptHeader)
@@ -93,6 +96,7 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
         }
     }
 
+    @CheckSecurity.Restaurantes.PodeEditar
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public FotoProdutoModel atualizarFoto(@PathVariable Long restauranteId, @PathVariable Long produtoId,
         @Valid FotoProdutoInput fotoProdutoInput,
@@ -110,6 +114,7 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
         return fotoProdutoAssembler.toModel(fotoProdutoSalva);
     }
 
+    @CheckSecurity.Restaurantes.PodeEditar
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping
     public void remover(@PathVariable Long restauranteId, @PathVariable Long produtoId) {

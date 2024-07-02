@@ -1,28 +1,47 @@
 package com.github.danilogmoura.algafood.core.security;
 
-import java.lang.annotation.ElementType;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 public @interface CheckSecurity {
 
-    public @interface Cozinhas {
+    @interface Cozinhas {
 
         @PreAuthorize("hasAnyAuthority('SCOPE_READ') and isAuthenticated()")
-        @Retention(RetentionPolicy.RUNTIME)
-        @Target(ElementType.METHOD)
-        public @interface PodeConsultar {
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        @interface PodeConsultar {
 
         }
 
         @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and hasAnyAuthority('EDITAR_COZINHAS')")
-        @Retention(RetentionPolicy.RUNTIME)
-        @Target(ElementType.METHOD)
-        public @interface PodeEditar {
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        @interface PodeEditar {
 
         }
+    }
+
+    @interface Restaurantes {
+
+        @PreAuthorize("hasAnyAuthority('SCOPE_READ') and isAuthenticated()")
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        @interface PodeConsultar {
+
+        }
+
+        @PreAuthorize("hasAnyAuthority('SCOPE_WRITE') and hasAnyAuthority('EDITAR_RESTAURANTES')")
+        @Retention(RUNTIME)
+        @Target(METHOD)
+        @interface PodeEditar {
+
+        }
+
     }
 
 }
