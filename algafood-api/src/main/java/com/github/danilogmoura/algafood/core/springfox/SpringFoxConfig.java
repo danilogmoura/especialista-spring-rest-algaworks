@@ -26,10 +26,6 @@ import com.github.danilogmoura.algafood.api.v1.openapi.model.PermissoesModelOpen
 import com.github.danilogmoura.algafood.api.v1.openapi.model.ProdutosModelOpenApi;
 import com.github.danilogmoura.algafood.api.v1.openapi.model.RestaurantesBasicoModelOpenApi;
 import com.github.danilogmoura.algafood.api.v1.openapi.model.UsuariosModelOpenApi;
-import com.github.danilogmoura.algafood.api.v2.model.CidadeModelV2;
-import com.github.danilogmoura.algafood.api.v2.model.CozinhaModelV2;
-import com.github.danilogmoura.algafood.api.v2.openapi.model.CidadesModelV2OpenApi;
-import com.github.danilogmoura.algafood.api.v2.openapi.model.CozinhasModelV2OpenApi;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URI;
@@ -128,38 +124,6 @@ public class SpringFoxConfig {
                 new Tag("Estatísticas", "Estatísticas da AlgaFood"),
                 new Tag("Permissões", "Gerencia as permissões")
             );
-    }
-
-    @Bean
-    public Docket apiDocketV2() {
-        var typeResolver = new TypeResolver();
-
-        return new Docket(DocumentationType.OAS_30)
-            .groupName("V2")
-            .select()
-            .apis(RequestHandlerSelectors.basePackage("com.algaworks.algafood.api"))
-            .paths(PathSelectors.ant("/v2/**"))
-            .build()
-            .useDefaultResponseMessages(false)
-            .globalResponses(HttpMethod.GET, globalGetResponseMessages())
-            .globalResponses(HttpMethod.POST, globalPostPutResponseMessages())
-            .globalResponses(HttpMethod.PUT, globalPostPutResponseMessages())
-            .globalResponses(HttpMethod.DELETE, globalDeleteResponseMessages())
-            .additionalModels(typeResolver.resolve(Problem.class))
-            .ignoredParameterTypes(ServletWebRequest.class,
-                URL.class, URI.class, URLStreamHandler.class, Resource.class,
-                File.class, InputStream.class)
-            .directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
-            .directModelSubstitute(Links.class, LinksModelOpenApi.class)
-            .alternateTypeRules(AlternateTypeRules.newRule(typeResolver
-                .resolve(PagedModel.class, CozinhaModelV2.class), CozinhasModelV2OpenApi.class))
-            .alternateTypeRules(AlternateTypeRules.newRule(typeResolver
-                .resolve(CollectionModel.class, CidadeModelV2.class), CidadesModelV2OpenApi.class))
-
-            .apiInfo(apiInfoV2())
-
-            .tags(new Tag("Cidades", "Gerencia as cidades"),
-                new Tag("Cozinhas", "Gerencia as cozinhas"));
     }
 
     private List<Response> globalGetResponseMessages() {

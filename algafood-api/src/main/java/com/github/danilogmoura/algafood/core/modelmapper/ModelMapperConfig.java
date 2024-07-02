@@ -2,8 +2,6 @@ package com.github.danilogmoura.algafood.core.modelmapper;
 
 import com.github.danilogmoura.algafood.api.v1.model.EnderecoModel;
 import com.github.danilogmoura.algafood.api.v1.model.input.ItemPedidoInput;
-import com.github.danilogmoura.algafood.api.v2.model.input.CidadeInputV2;
-import com.github.danilogmoura.algafood.domain.model.Cidade;
 import com.github.danilogmoura.algafood.domain.model.Endereco;
 import com.github.danilogmoura.algafood.domain.model.ItemPedido;
 import org.modelmapper.ModelMapper;
@@ -17,9 +15,6 @@ public class ModelMapperConfig {
     public ModelMapper modelMapper() {
         var modelMapper = new ModelMapper();
 
-//        modelMapper.createTypeMap(Restaurante.class, RestauranteModel.class)
-//            .addMapping(Restaurante::getTaxaFrete, RestauranteModel::setPrecoFrete);
-//
         var enderecoToEnderecoModelTypeMap = modelMapper.createTypeMap(
             Endereco.class, EnderecoModel.class);
 
@@ -29,9 +24,6 @@ public class ModelMapperConfig {
 
         modelMapper.createTypeMap(ItemPedidoInput.class, ItemPedido.class)
             .addMappings(mapper -> mapper.skip(ItemPedido::setId));
-
-        modelMapper.createTypeMap(CidadeInputV2.class, Cidade.class)
-            .addMappings(mapper -> mapper.skip(Cidade::setId));
 
         return modelMapper;
     }
