@@ -1,13 +1,13 @@
 package com.github.danilogmoura.algafood.auth.core;
 
 import java.util.Arrays;
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -27,9 +27,6 @@ import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFacto
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -38,54 +35,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private JwtKeyStoreProperties jwtKeyStoreProperties;
 
+    @Autowired
+    private DataSource dataSource;
+
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients
-            .inMemory()
-            .withClient("algafood-web")
-            .secret(passwordEncoder.encode("web123"))
-            .authorizedGrantTypes("password", "refresh_token")
-            .scopes("WRITE", "READ")
-            .accessTokenValiditySeconds(6 * 60 * 60)// 6 horas
-            .refreshTokenValiditySeconds(60 * 24 * 60 * 60) // 60 dias
-
-            .and()
-            .withClient("foodanalytics")
-            .secret(passwordEncoder.encode(""))
-            .authorizedGrantTypes("authorization_code")
-            .scopes("WRITE", "READ")
-            .redirectUris("http://localhost:8082")
-
-            /*
-             * PKCE - Plain
-             * Code Verifier:  9djqash1NKdmqalLN
-             * Code Challenge: 9djqash1NKdmqalLN
-             *
-             * localhost:8081/oauth/authorize?response_type=code&client_id=foodanalytics&redirect_uri=http://localhost:8082&code_challenge=9djqash1NKdmqalLN&code_challenge_method=plain
-             *
-             * PKCE - SHA-256
-             * Code Verifier:   fAySfEj74uQNOxzuEqMUHk1kYyTYoDYZ39nQDipZakw
-             * Code Challenge:  base64url(sha256("fAySfEj74uQNOxzuEqMUHk1kYyTYoDYZ39nQDipZakw"))
-             *                  hxJEjAxtLwpUGzYvgSRLZu0-GTNKSF6BRiVgAIJM8N8
-             *
-             * localhost:8081/oauth/authorize?response_type=code&client_id=foodanalytics&redirect_uri=http://localhost:8082&code_challenge=hxJEjAxtLwpUGzYvgSRLZu0-GTNKSF6BRiVgAIJM8N8&code_challenge_method=s256
-             */
-
-            .and()
-            .withClient("webadmin")
-            .authorizedGrantTypes("implicit")
-            .scopes("WRITE", "READ")
-            .redirectUris("http://aplicacao-cliente")
-
-            .and()
-            .withClient("faturamento")
-            .secret(passwordEncoder.encode("faturamento123"))
-            .authorizedGrantTypes("client_credentials")
-            .scopes("WRITE", "READ")
-
-            .and()
-            .withClient("checktoken")
-            .secret(passwordEncoder.encode("check123"));
+        clients.jdbc(dataSource);
     }
 
     @Override
