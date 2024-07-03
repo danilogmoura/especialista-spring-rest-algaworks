@@ -19,7 +19,7 @@ public class NotificacaoClientePedidoCanceladoListener {
 
         var mensagem = Mensagem.builder()
             .assunto(pedido.getRestaurante().getNome() + " - Pedido cancelado")
-            .corpo("pedido-cancelado.ftl")
+            .corpo("emails/pedido-cancelado.ftl")
             .variavel("pedido", pedido)
             .destinatario(pedido.getCliente().getEmail())
             .build();

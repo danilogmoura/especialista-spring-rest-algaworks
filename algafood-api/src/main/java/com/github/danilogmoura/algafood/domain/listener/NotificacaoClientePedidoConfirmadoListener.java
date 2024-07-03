@@ -19,7 +19,7 @@ public class NotificacaoClientePedidoConfirmadoListener {
 
         var mensagem = Mensagem.builder()
             .assunto(pedido.getRestaurante().getNome() + " - Pedido confirmado")
-            .corpo("pedido-confirmado.ftl")
+            .corpo("emails/pedido-confirmado.ftl")
             .variavel("pedido", pedido)
             .destinatario(pedido.getCliente().getEmail())
             .build();
