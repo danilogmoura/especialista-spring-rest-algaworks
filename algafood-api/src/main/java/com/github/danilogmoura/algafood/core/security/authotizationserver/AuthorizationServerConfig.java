@@ -1,5 +1,12 @@
 package com.github.danilogmoura.algafood.core.security.authotizationserver;
 
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.KeyUse;
+import com.nimbusds.jose.jwk.RSAKey;
+import com.nimbusds.jose.jwk.RSAKey.Builder;
+import java.security.KeyPair;
+import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +52,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-//		security.checkTokenAccess("isAuthenticated()");
         security.checkTokenAccess("permitAll()")
             .tokenKeyAccess("permitAll()")
             .allowFormAuthenticationForClients();
@@ -75,17 +81,29 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     }
 
     @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        var jwtAccessTokenConverter = new JwtAccessTokenConverter();
+    public JWKSet jwkSet() {
+        RSAKey.Builder builder = new Builder((RSAPublicKey) keyPair().getPublic())
+            .keyUse(KeyUse.SIGNATURE)
+            .algorithm(JWSAlgorithm.RS256)
+            .keyID("algafood-key-id");
 
+        return new JWKSet(builder.build());
+    }
+
+    private KeyPair keyPair() {
         var jksResource = jwtKeyStoreProperties.getJskLocation();
         var keyStorePass = jwtKeyStoreProperties.getPassword();
         var keyPairAlias = jwtKeyStoreProperties.getKeypairAlias();
 
         var keyStoreKeyFactory = new KeyStoreKeyFactory(jksResource, keyStorePass.toCharArray());
-        var keyPair = keyStoreKeyFactory.getKeyPair(keyPairAlias);
+        return keyStoreKeyFactory.getKeyPair(keyPairAlias);
+    }
 
-        jwtAccessTokenConverter.setKeyPair(keyPair);
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        var jwtAccessTokenConverter = new JwtAccessTokenConverter();
+
+        jwtAccessTokenConverter.setKeyPair(keyPair());
 
         return jwtAccessTokenConverter;
     }

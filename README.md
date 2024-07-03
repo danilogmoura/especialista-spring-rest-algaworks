@@ -186,3 +186,6 @@ localhost:8081/oauth/authorize?response_type=code&client_id=foodanalytics&redire
 
 
 - [**Resolvendo Problemas no cors**](https://app.algaworks.com/forum/topicos/85485/erro-401-nao-consigo-gerar-o-token-usando-o-js-client-com-authorization-code)
+
+
+- [**RFC-7517 - JSON Web Key (JWK)**](https://tools.ietf.org/html/rfc7517)
