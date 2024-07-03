@@ -32,6 +32,7 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLStreamHandler;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import org.springframework.context.annotation.Bean;
@@ -55,10 +56,14 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseBuilder;
 import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.HttpAuthenticationScheme;
 import springfox.documentation.service.Response;
+import springfox.documentation.service.SecurityReference;
 import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.json.JacksonModuleRegistrar;
 import springfox.documentation.spring.web.plugins.Docket;
 
@@ -77,6 +82,9 @@ public class SpringFoxConfig {
             .paths(PathSelectors.ant("/v1/**"))
             .paths(PathSelectors.any())
             .build()
+            .securityContexts(Collections.singletonList(securityContext()))
+            .securitySchemes(List.of(authenticationScheme()))
+            .securityContexts(List.of(securityContext()))
             .useDefaultResponseMessages(false)
             .globalResponses(HttpMethod.GET, globalGetResponseMessages())
             .globalResponses(HttpMethod.POST, globalPostPutResponseMessages())
@@ -185,10 +193,8 @@ public class SpringFoxConfig {
 
     public ApiInfo apiInfoV1() {
         return new ApiInfoBuilder()
-            .title("Algafood API (Drepreciada)")
-            .description("API aberta para clientes e restaurantes.<br>"
-                + "<strong>Essa versão da API etá depreciada e deixará de existir a partir de 01/01/2005. "
-                + "Use a versão mais atual da API.</strong>")
+            .title("Algafood API")
+            .description("API aberta para clientes e restaurantes.<br>")
             .version("1.0")
             .contact(new Contact("Algaworks", "https://www.algaworks.com", "contato@algaworks.com"))
             .build();
@@ -212,6 +218,22 @@ public class SpringFoxConfig {
         return r -> r.model(m -> m.name("Problema")
             .referenceModel(ref -> ref.key(k -> k.qualifiedModelName(
                 q -> q.name("Problema").namespace("com.github.danilogmoura.algafood.api.exceptionhandler")))));
+    }
+
+    private SecurityContext securityContext() {
+        return SecurityContext.builder()
+            .securityReferences(securityReference()).build();
+    }
+
+    private List<SecurityReference> securityReference() {
+        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+        authorizationScopes[0] = authorizationScope;
+        return List.of(new SecurityReference("Authorization", authorizationScopes));
+    }
+
+    private HttpAuthenticationScheme authenticationScheme() {
+        return HttpAuthenticationScheme.JWT_BEARER_BUILDER.name("Authorization").build();
     }
 
 }
