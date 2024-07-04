@@ -115,6 +115,8 @@ localhost:8081/oauth/authorize?response_type=code&client_id=foodanalytics&redire
 
 - [**24.20. Configurando o Spring Session Data Redis**](https://app.algaworks.com/aulas/3647/configurando-o-spring-session-data-redis)
 
+- [**24.21. Resolvendo problemas com storage de Authorization Codes**](https://app.algaworks.com/aulas/3648/resolvendo-problemas-com-storage-de-authorization-codes)
+
 
 ### DOCUMENTAÇÕES
 
