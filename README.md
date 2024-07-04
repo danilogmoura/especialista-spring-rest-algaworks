@@ -113,6 +113,8 @@ localhost:8081/oauth/authorize?response_type=code&client_id=foodanalytics&redire
 
 - [**23.37. Cadastrando clientes OAuth2 no banco de dados e testando a emissão de tokens**](https://app.algaworks.com/aulas/2291/cadastrando-clientes-oauth2-no-banco-de-dados-e-testando-a-emissao-de-tokens?pagina=0)
 
+- [**24.20. Configurando o Spring Session Data Redis**](https://app.algaworks.com/aulas/3647/configurando-o-spring-session-data-redis)
+
 
 ### DOCUMENTAÇÕES
 
