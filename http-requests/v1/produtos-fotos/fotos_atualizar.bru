@@ -1,18 +1,22 @@
 meta {
   name: fotos_atualizar
   type: http
-  seq: 2
+  seq: 1
 }
 
 put {
   url: {{BASE_URL}}/v1/restaurantes/1/produtos/1/foto
   body: multipartForm
-  auth: none
+  auth: bearer
 }
 
 headers {
   Accept: application/json
   ~Content-Type: multipart/form-data
+}
+
+auth:bearer {
+  token: {{ACCESS_TOKEN}}
 }
 
 body:json {

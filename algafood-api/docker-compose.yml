@@ -1,0 +1,59 @@
+name: algafood
+
+services:
+    mysql:
+        image: mysql:9.0
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+        volumes:
+            - db_data:/var/lib/mysql
+        networks:
+            - backend-network
+
+    redis:
+        image: redis:7.2
+        volumes:
+            - redis_data:/data
+        networks:
+            - backend-network
+
+    api:
+        image: algafood-api
+        command: [ "/wait-for-it.sh", "mysql:3306", "-t", "30", "--", "java", "-jar", "api.jar" ]
+        environment:
+            DB_HOST: mysql
+            SPRING_SESSION_STORE_TYPE: redis
+            SPRING_REDIS_HOST: redis
+            SPRING_PROFILES_ACTIVE: development
+            # Storage
+            ALGAFOOD_STORAGE_TIPO=local:
+            ALGAFOOD_STORAGE_LOCAL_DIRETORIO-FOTOS: /app/storage/catalogo
+        volumes:
+            - api_data:/app/storage/catalogo
+        networks:
+            - backend-network
+        depends_on:
+            - mysql
+            - redis
+
+    nginx:
+        image: nginx:1.26.0
+        ports:
+            - "80:80"
+        volumes:
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+        networks:
+            - backend-network
+        depends_on:
+            - api
+            - mysql
+            - redis
+
+networks:
+    backend-network:
+        driver: bridge
+
+volumes:
+    db_data:
+    api_data:
+    redis_data:
